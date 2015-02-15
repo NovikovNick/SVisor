@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns="http://www.springframework.org/schema/security"
+
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-3.1.xsd
+
+    http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+	<http pattern="/javax.faces.resource/**" security="none" />
+
+	<http auto-config="true" use-expressions="true"
+		access-denied-page="/pages/anonymous/error.xhtml">
+
+		<intercept-url pattern="/pages/anonymous/**" access="permitAll()" />
+
+		<intercept-url pattern="/pages/admin/**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/pages/student/**"
+			access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" />
+		<intercept-url pattern="/pages/teacher/**"
+			access="hasAnyRole('ROLE_TEACHER', 'ROLE_ADMIN')" />
+
+		<intercept-url pattern="/pages/welcome*" access="isAuthenticated()" />
+
+		<intercept-url pattern="/**" access="hasRole('ROLE_ADMIN')" />
+
+
+		<form-login login-page="/pages/anonymous/login.xhtml"
+			login-processing-url="/j_spring_security_check"
+			authentication-failure-url="/pages/login.xhtml?error=1" />
+
+	</http>
+
+
+
+	<authentication-manager alias="authenticationManager">
+		
+		<authentication-provider >
+			<password-encoder hash="plaintext" />
+			<jdbc-user-service data-source-ref="dataSource"
+				users-by-username-query="SELECT login, password, TRUE FROM teacher WHERE login = ?"
+				authorities-by-username-query="SELECT login,'ROLE_TEACHER' FROM teacher WHERE login = ?" />
+		</authentication-provider>
+		
+		<authentication-provider >
+			<password-encoder hash="plaintext" />
+			<jdbc-user-service data-source-ref="dataSource"
+				users-by-username-query="SELECT login, password, TRUE FROM student WHERE login = ?"
+				authorities-by-username-query="SELECT login,'ROLE_USER' FROM student WHERE login = ?" />
+		</authentication-provider>
+		
+		<authentication-provider>
+			<password-encoder hash="plaintext" />
+			<user-service>
+				<user name="admin" password="admin" authorities="ROLE_ADMIN" />
+				<user name="user" password="user" authorities="ROLE_USER" />
+				<user name="teacher" password="teacher" authorities="ROLE_TEACHER" />
+			</user-service>
+		</authentication-provider>
+	</authentication-manager>
+
+</beans:beans>

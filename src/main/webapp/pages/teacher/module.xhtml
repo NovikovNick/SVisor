@@ -1,0 +1,130 @@
+<ui:composition template="/WEB-INF/templates/mainLayout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:svisor="http://java.sun.com/jsf/composite/svisor">
+
+	<ui:define name="title">#{msg.page_mqa_title}</ui:define>
+
+	<ui:define name="body">
+	
+	<h:form>
+		<div style="width:40%;float:left;">
+			<svisor:box leftHead="#{msg.page_mqa_module_header}"  height="300" width="400">
+			
+				<h:dataTable id="module_table" value="#{mqa.module.allModules}" var="m">
+					<h:column>
+						<f:facet name="header">#{msg.page_mqa_module_title}</f:facet>
+						<h:inputTextarea cols="28" row="4" value="#{m.title}" />
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">#{msg.page_mqa_module_date}</f:facet>
+						#{m.date}
+					</h:column>
+
+
+					<h:column>
+						<f:facet name="header">#{msg.all_table_column_control}</f:facet>
+						
+						<h:commandLink action="#{mqa.module.delete(m)}" >
+							<span class="ico del"/>
+						</h:commandLink>
+						
+						<h:commandLink action="#{mqa.module.update(m)}">
+							<span class="ico edit"/>
+						</h:commandLink>
+						
+						<h:commandLink action="#{mqa.setActiveModule(m)}">
+							<span class="ico view"/>
+						</h:commandLink>
+					</h:column>
+
+				</h:dataTable>
+				<p>
+					<h:commandButton value="#{msg.page_mqa_module_add}" action="#{mqa.addModule()}" />
+				</p>
+				</svisor:box>
+		</div>
+	</h:form>
+	
+	
+	
+	
+	
+	
+		<div style="width:60%;float:right;">
+			<svisor:box leftHead="#{msg.page_mqa_question_header}" height="#{(mqa.activeModule.tmpQ().size() * 160) + 120}" width="540">
+			<h:form rendered="#{mqa.active()}">	
+				<table style="width:100%;">
+				<ui:repeat var="q" value="#{mqa.activeModule.tmpQ()}">
+					<tr>
+						<td rowspan="#{q.tmpA().size() + 1}">
+							<h:inputTextarea cols="31" rows="#{(q.tmpA().size() * 2) }" value="#{q.content}" />
+							
+							<br/>
+							<h:selectOneMenu value="#{q.difficult}" >
+								<f:selectItems
+									value="#{mqa.questionDifficults}"
+									var="d"
+									itemValue="#{d}"
+									itemLabel="#{d}"/>
+							</h:selectOneMenu>
+						</td>
+						
+						
+						
+						<td rowspan="#{q.tmpA().size() + 1}">	
+							<h:commandLink action="#{mqa.delete(q)}">
+								<span class="ico del" />
+							</h:commandLink>
+							<h:commandLink action="#{mqa.question.update(q)}">
+								<span class="ico edit" />
+							</h:commandLink>
+							<h:commandLink action="#{mqa.addAnswer(q)}">
+								<span class="ico list-add" />
+							</h:commandLink>
+						</td>
+					</tr>
+						<ui:repeat var="a" value="#{q.tmpA()}">
+						<tr>
+							<td>
+								<h:inputTextarea cols="20" row="1" value="#{a.content}" />
+							</td>
+							
+							<td>
+								<div class="selectRadioHolder">
+								<h:selectOneRadio  layout="pageDirection"  value="#{a.correct}">
+									<f:selectItem itemLabel="#{msg.page_mqa_answer_correct_true}" itemValue="true"/>
+									<f:selectItem itemLabel="#{msg.page_mqa_answer_correct_false}" itemValue="false"/>
+								</h:selectOneRadio>
+								</div>
+							</td>
+							<td>
+								<h:commandLink action="#{mqa.delete(a)}">
+									<span class="ico del" />
+								</h:commandLink>
+								
+								<h:commandLink action="#{mqa.answer.update(a)}">
+									<span class="ico edit" />
+								</h:commandLink>
+							</td>
+						</tr>
+						
+						</ui:repeat>
+						
+				</ui:repeat>
+				</table>
+			<p>
+				<h:commandButton value="#{msg.page_mqa_question_add}" action="#{mqa.addQuestion()}" />
+			</p>		
+			</h:form>
+				
+			</svisor:box>
+		</div>
+	
+		
+	</ui:define>
+
+</ui:composition>

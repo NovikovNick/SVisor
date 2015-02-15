@@ -1,0 +1,63 @@
+<ui:composition template="/WEB-INF/templates/mainLayout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:svisor="http://java.sun.com/jsf/composite/svisor">
+
+	<ui:define name="title">#{msg.page_admin_speciality_title}</ui:define>
+
+	<ui:define name="body">
+	<h:form>
+		<svisor:box leftHead="#{msg.page_admin_speciality_header}"  height="300" width="800">
+			
+				<h:dataTable id="academicDegree_table" value="#{specialityBean.allSpeciality}" var="spec">
+					
+					<h:column>
+						<f:facet name="header">#{msg.page_admin_speciality_table_column_id}</f:facet>
+						#{spec.id}
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">#{msg.page_admin_speciality_table_column_title}</f:facet>
+						<h:inputTextarea cols="50" row="1" value="#{spec.title}" />
+					</h:column>
+
+
+					<h:column>
+						<f:facet name="header">#{msg.all_table_column_control}</f:facet>
+						<h:commandLink action="#{specialityBean.delete(spec)}" >
+							<span class="ico del">#{msg.all_table_column_delete}</span>
+						</h:commandLink>
+						<h:commandLink action="#{specialityBean.update(spec)}">
+							<span class="ico edit">#{msg.all_table_column_update}</span>
+						</h:commandLink>
+					</h:column>
+
+				</h:dataTable>
+				</svisor:box>
+				
+				<svisor:box leftHead="#{msg.page_admin_speciality_add_header}" height="200" width="400">
+
+				<p>
+					<label >#{msg.page_admin_speciality_add_id}</label>
+					<h:inputText id="idSpec" value="#{specialityBean.id}" />
+					<h:message for="idSpec" id="idSpecError" />
+				</p>
+				
+				<p>
+					<label >#{msg.page_admin_speciality_add_title}</label>
+					<h:inputText id="titleSpec" value="#{specialityBean.title}" />
+					<h:message for="titleSpec" id="titleSpecError" />
+				</p>
+				
+				<p>
+					<h:commandButton value="#{msg.page_admin_speciality_add_submit}" action="#{specialityBean.add()}" />
+				</p>
+			</svisor:box>
+			</h:form>
+		
+
+	</ui:define>
+
+</ui:composition>

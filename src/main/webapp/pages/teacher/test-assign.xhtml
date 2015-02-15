@@ -1,0 +1,118 @@
+<ui:composition template="/WEB-INF/templates/mainLayout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:svisor="http://java.sun.com/jsf/composite/svisor">
+
+	<ui:define name="title">#{msg.page_teacher_test_assign_title}</ui:define>
+
+	<ui:define name="body">
+		<div style="width:50%;float:left;">
+			<svisor:box leftHead="#{msg.page_teacher_test_assign_header}"  height="600" width="480">
+				<h:form>
+				<ui:repeat value="#{assignBean.allTestAssigns}" var="assign">
+			
+					<p>
+						<h:outputFormat value="#{msg.page_teacher_test_assign}" >
+						 	<f:param value="#{assign.test.title}" />
+						 	<f:param value="#{assign.date_start}" />
+						 	<f:param value="#{assign.date_end}" />
+						 	<f:param value="#{assign.attempts}" />
+						 	<f:param value="#{assign.completion_time}" />
+						 	<f:param value="#{assign.passing_score}" />
+						 	<f:param value="#{assign.author.surname}" />						 	
+						</h:outputFormat>
+					</p>
+					<div class="list">
+						<ul>		
+						<ui:repeat value="#{assign.tmpG()}" var="g">
+							<li>#{g.title}</li>
+						</ui:repeat>
+						</ul>
+					</div>
+					
+					<p>
+						<h:commandLink title="#{msg.all_table_column_delete}" action="#{assignBean.delete(assign)}" >
+							<span class="ico del"/>
+						</h:commandLink>
+					</p>
+					
+					<hr/>
+				</ui:repeat>
+				
+				
+				
+				
+				<ui:repeat >
+					<p>
+						#{assign.title}, #{assign.description}
+					</p>
+					
+				</ui:repeat>
+				
+				</h:form>
+			</svisor:box>
+		</div>
+	
+		<div style="width:50%;float:right;">
+			<svisor:box leftHead="#{msg.page_teacher_test_assign_add_header}"  height="600" width="400">
+				<h:form>
+				<p>
+					<label>#{msg.page_teacher_test_assign_add_title}</label>
+					<h:inputText value="#{assignBean.title}"/>
+				</p>
+				<p>
+					<label>#{msg.page_teacher_test_assign_add_description}</label>
+					<h:inputText value="#{assignBean.description}"/>
+				</p>
+				<p>
+					<label>#{msg.page_teacher_test_assign_add_passing_score}</label>
+					<h:inputText value="#{assignBean.passing_score}"/>
+				</p>
+				<p>
+					<label>#{msg.page_teacher_test_assign_add_completion_time}</label>
+					<h:inputText value="#{assignBean.completion_time}"/>
+				</p>
+				<p>
+					<label>#{msg.page_teacher_test_assign_add_attempts}</label>
+					<h:inputText value="#{assignBean.attempts}"/>
+				</p>
+				<p>
+					<label>#{msg.page_teacher_test_assign_add_author}</label>
+					<h:selectOneMenu value="#{assignBean.author}" >
+						<f:selectItems
+							value="#{teacherBean.allTeacher}"
+							var="t"
+							itemValue="#{t}"
+							itemLabel="#{t.fstName} #{t.sndName} #{t.surname}"/>
+					</h:selectOneMenu>
+				</p>
+				<p>
+					<label>#{msg.page_teacher_test_assign_add_test}</label>
+					<h:selectOneMenu value="#{assignBean.test}" >
+						<f:selectItems
+							value="#{testBean.allTests}"
+							var="t"
+							itemValue="#{t}"
+							itemLabel="#{t.title}"/>
+					</h:selectOneMenu>
+				</p>
+				<p>#{msg.page_teacher_test_assign_add_groups}</p>
+				<div class="selectHolder">
+					<h:selectManyCheckbox layout="pageDirection" value="#{assignBean.groups}">
+						<f:selectItems 
+							value="#{groupBean.allGroups}"
+							var="group"
+							itemValue="#{group}"
+							itemLabel="#{group.title}" />
+					</h:selectManyCheckbox>
+				</div>
+				<p>
+					<h:commandButton value="#{msg.page_teacher_test_assign_add}" action="#{assignBean.add()}" />
+				</p>
+				</h:form>
+			</svisor:box>
+		</div>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,67 @@
+<ui:composition template="/WEB-INF/templates/mainLayout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:svisor="http://java.sun.com/jsf/composite/svisor">
+
+	<ui:define name="title">#{msg.page_admin_discipline_title}</ui:define>
+
+	<ui:define name="body">
+	<h:form>
+		<svisor:box leftHead="#{msg.page_admin_discipline_header}"  height="300" width="800">
+			
+				<h:dataTable id="disciplien_table" value="#{disciplineBean.findAllDisciplines()}" var="discipline">
+
+					<h:column>
+						<f:facet name="header">#{msg.page_admin_discipline_table_column_id}</f:facet>
+						#{discipline.id}
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">#{msg.page_admin_discipline_table_column_title}</f:facet>
+						<h:inputTextarea cols="80" row="1" value="#{discipline.title}" />
+					</h:column>
+
+
+					<h:column>
+						<f:facet name="header">#{msg.all_table_column_control}</f:facet>
+						
+						<h:commandLink action="#{disciplineBean.delete(discipline)}" >
+							<span class="ico del">
+								#{msg.all_table_column_delete}
+							</span>
+						</h:commandLink>
+						
+						<h:commandLink action="#{disciplineBean.update(discipline)}">
+							<span class="ico edit">
+								#{msg.all_table_column_update}
+							</span>
+						</h:commandLink>
+					</h:column>
+
+				</h:dataTable>
+				</svisor:box>
+				
+				<svisor:box leftHead="#{msg.page_admin_discipline_add_header}" height="300" width="400">
+
+				<p>
+					<label style="float:none;">#{msg.page_admin_discipline_add_title}</label>
+				</p>
+				<p>
+				
+					<h:inputTextarea cols="51" rows="8" id="title" value="#{disciplineBean.title}" validator="#{disciplineBean.validInputText}">
+						<f:ajax event="keyup" render="titleError" />
+					</h:inputTextarea>
+					<h:message for="title" id="titleError" />
+				</p>
+				<p>
+					<h:commandButton value="#{msg.page_admin_discipline_add_submit}" action="#{disciplineBean.add()}" />
+				</p>
+			</svisor:box>
+			</h:form>
+		
+
+	</ui:define>
+
+</ui:composition>

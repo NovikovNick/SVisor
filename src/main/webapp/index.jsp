@@ -1,0 +1,1 @@
+<% response.sendRedirect("faces/pages/welcome.xhtml"); %>

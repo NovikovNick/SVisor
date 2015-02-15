@@ -1,0 +1,116 @@
+<ui:composition template="/WEB-INF/templates/mainLayout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:svisor="http://java.sun.com/jsf/composite/svisor">
+
+	<ui:define name="title">#{msg.page_teacher_test_title}</ui:define>
+	<ui:define name="body">
+	
+	
+	
+		<div style="width:40%;float:left;">
+		<svisor:box leftHead="#{msg.page_teacher_test_list}">
+		<h:form id="tests">
+			<h:dataTable var="t" value="#{testBean.allTests}">
+			
+				<h:column>
+					<f:facet name="header">#{msg.page_teacher_test_column_title}</f:facet>
+					<h:inputTextarea cols="20" row="1" value="#{t.title}" />					
+				</h:column>
+				
+				<h:column>
+						<f:facet name="header">#{msg.all_table_column_control}</f:facet>
+						
+						<h:commandLink title="#{msg.all_table_column_delete}" action="#{testBean.delete(t)}" >
+							<span class="ico del"/>
+						</h:commandLink>
+						
+						<h:commandLink title="#{msg.all_table_column_update}" action="#{testBean.update(t)}">
+							<span class="ico edit"/>
+						</h:commandLink>
+						
+						<h:commandLink title="#{msg.all_table_column_choose}" action="#{testBean.setActiveTest(t)}">
+							<span class="ico view"/>
+						</h:commandLink>
+					</h:column>
+			</h:dataTable>
+			<p>
+				<h:commandButton value="#{msg.page_teacher_test_add_test}" action="#{testBean.addTest()}" />
+			</p>
+			
+			
+			
+				
+				
+		</h:form>
+		</svisor:box>
+		</div>
+		
+		
+		
+		<div style="width:60%;float:left;">
+		<svisor:box leftHead="#{msg.page_teacher_test_question_header}" 
+		height="#{testBean.activeTest.tmpQ().size() * 22 + 500}">
+		
+		<h:form id="module" rendered="#{testBean.active()}">
+			
+			<p>
+				<h:outputFormat value="#{msg.page_teacher_test_question}" >
+				 	<f:param value="#{testBean.activeTest.title}" />
+				</h:outputFormat>
+			</p>
+			
+			<div class="list">
+				<ul>		
+				<ui:repeat 
+					value="#{testBean.activeTest.tmpQ()}"
+					var="q" varStatus="status">
+					<li>
+						#{status.index + 1}.
+						
+						<span title="#{q.content}" class="list-item">#{q.content}</span>
+						
+						<h:commandLink title="#{msg.all_table_column_delete}" action="#{testBean.deleteQuestion(q)}">
+							<span class="ico list-del"></span>
+						</h:commandLink>
+					</li>
+				</ui:repeat>
+				</ul>
+			</div>
+			
+				
+			<p>
+				<label>#{msg.page_teacher_test_question_module}</label>
+				<h:selectOneMenu id="key" value="#{testBean.module}" valueChangeListener="#{testBean.change}">
+					<f:selectItems 
+						var="k" value="#{testBean.allModules}"
+						itemLabel="#{k.title}" itemValue="#{k}"/>
+					<f:ajax execute="@form" render="@form"/>
+				</h:selectOneMenu>
+			</p>
+			<div class="selectHolder">
+				<h:selectManyCheckbox layout="pageDirection" id="value"  value="#{testBean.questions}">
+					
+					<f:selectItems 
+						var="v" value="#{testBean.moduleQuestions}"
+						itemLabel="#{v.content}" itemValue="#{v}"/>
+						
+				</h:selectManyCheckbox>
+			</div>	
+				
+			<p>
+				<h:commandButton value="#{msg.page_teacher_test_question_add}" action="#{testBean.addQuestion()}" />
+			</p>
+			
+		</h:form>
+		
+		</svisor:box>
+		
+		</div>
+		
+		
+		
+	</ui:define>
+</ui:composition>

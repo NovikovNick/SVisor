@@ -1,0 +1,37 @@
+<ui:composition template="/WEB-INF/templates/mainLayout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:svisor="http://java.sun.com/jsf/composite/svisor">
+
+	<ui:define name="title">#{msg.page_authentication_title}</ui:define>
+	<ui:define name="header"> </ui:define>
+
+	<ui:define name="body">
+
+		<svisor:box leftHead="#{msg.page_authentication_header}" height="220" width="400">
+			<h:form  prependId="false">
+				<p>
+					<label for="j_username">#{msg.page_authentication_login}</label>
+					<h:inputText id="j_username" name="j_username" value="#{auth.username}" required="true"/>
+				</p>
+				<p>
+					<label for="j_password">#{msg.page_authentication_password}</label>
+					<h:inputSecret id="j_password" name="j_password" value="#{auth.password}"  required="true"/>
+				</p>
+				
+				<p>
+					<h:commandLink immediate="true" value="#{msg.page_authentication_registr}" action="registration"/>
+				</p>
+					
+				<p>
+					<h:commandButton value="#{msg.page_authentication_submit}" action="#{auth.login}"/>
+				</p>
+			</h:form>
+		</svisor:box>
+	
+	</ui:define>
+
+</ui:composition>
+

@@ -1,0 +1,21 @@
+<ui:composition template="/WEB-INF/templates/mainLayout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:svisor="http://java.sun.com/jsf/composite/svisor">
+
+	<ui:define name="title">
+		<ui:insert name="title" />
+	</ui:define>
+
+	<ui:define name="body">
+
+		<div class="leftTemplate">
+			<ui:insert name="left" />
+		</div>
+		<div class="rightTemplate">
+			<ui:insert name="right" />
+		</div>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,68 @@
+<ui:composition template="/WEB-INF/templates/mainLayout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:svisor="http://java.sun.com/jsf/composite/svisor">
+
+	<ui:define name="title">#{msg.page_admin_academicdegree_title}</ui:define>
+
+	<ui:define name="body">
+	<h:form>
+		<svisor:box leftHead="#{msg.page_admin_academicdegree_header}"  height="300" width="800">
+			
+				<h:dataTable id="academicDegree_table" value="#{academicDegreeBean.allDegree}" var="degree">
+
+					<h:column>
+						<f:facet name="header">#{msg.page_admin_academicdegree_table_column_id}</f:facet>
+						#{degree.id}
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">#{msg.page_admin_academicdegree_table_column_full}</f:facet>
+						<h:inputTextarea cols="50" row="1" value="#{degree.fullDegree}" />
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">#{msg.page_admin_academicdegree_table_column_reduc}</f:facet>
+						<h:inputTextarea cols="6" row="1" value="#{degree.reducDegree}" />
+					</h:column>
+
+
+					<h:column>
+						<f:facet name="header">#{msg.all_table_column_control}</f:facet>
+						<h:commandLink action="#{academicDegreeBean.delete(degree)}" >
+							<span class="ico del">#{msg.all_table_column_delete}</span>
+						</h:commandLink>
+						<h:commandLink action="#{academicDegreeBean.update(degree)}">
+							<span class="ico edit">#{msg.all_table_column_update}</span>
+						</h:commandLink>
+					</h:column>
+
+				</h:dataTable>
+				</svisor:box>
+				
+				<svisor:box leftHead="#{msg.page_admin_academicdegree_add_header}" height="200" width="400">
+
+				<p>
+					<label >#{msg.page_admin_academicdegree_add_full}</label>
+					<h:inputText id="fullDegree" value="#{academicDegreeBean.fullDegree}" />
+					<h:message for="fullDegree" id="fullDegreeError" />
+				</p>
+				
+				<p>
+					<label >#{msg.page_admin_academicdegree_add_reduce}</label>
+					<h:inputText id="reducDegree" value="#{academicDegreeBean.reducDegree}" />
+					<h:message for="reducDegree" id="reducDegreeError" />
+				</p>
+				
+				<p>
+					<h:commandButton value="#{msg.page_admin_academicdegree_add_submit}" action="#{academicDegreeBean.add()}" />
+				</p>
+			</svisor:box>
+			</h:form>
+		
+
+	</ui:define>
+
+</ui:composition>

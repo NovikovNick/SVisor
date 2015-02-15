@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+    http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd"
+	version="2.1">
+
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>logout</from-outcome>
+			<to-view-id>/pages/anonymous/login.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		 <navigation-case>
+	        <from-outcome>registration</from-outcome>
+	        <to-view-id>/pages/anonymous/registration.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>	
+	</navigation-rule>
+	
+	<navigation-rule>
+	    <from-view-id>/pages/anonymous/login.xhtml</from-view-id>
+	    <navigation-case>
+	        <from-outcome>login</from-outcome>
+	        <if>#{navigator.admin}</if>
+	        <to-view-id>/pages/admin/main.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	    <navigation-case>
+	        <from-outcome>login</from-outcome>
+	        <if>#{navigator.teacher}</if>
+	        <to-view-id>/pages/teacher/main.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	    <navigation-case>
+	        <from-outcome>login</from-outcome>
+	        <if>#{navigator.student}</if>
+	        <to-view-id>/pages/student/main.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	</navigation-rule>
+
+<!-- 	ADMIN -->
+	<navigation-rule>
+	    <navigation-case>
+	        <from-outcome>back</from-outcome>
+	        <to-view-id>/pages/welcome.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	    <navigation-case>
+	        <from-outcome>main</from-outcome>
+	        <to-view-id>/pages/admin/main.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	    <navigation-case>
+	        <from-outcome>title</from-outcome>
+	        <to-view-id>/pages/admin/academicTitle.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	    <navigation-case>
+	        <from-outcome>degree</from-outcome>
+	        <to-view-id>/pages/admin/academicDegree.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	    <navigation-case>
+	        <from-outcome>discipline</from-outcome>
+	        <to-view-id>/pages/admin/discipline.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	    <navigation-case>
+	        <from-outcome>speciality</from-outcome>
+	        <to-view-id>/pages/admin/speciality.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	    <navigation-case>
+	        <from-outcome>teacher</from-outcome>
+	        <to-view-id>/pages/admin/teacher.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	    <navigation-case>
+	        <from-outcome>group</from-outcome>
+	        <to-view-id>/pages/admin/group.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	</navigation-rule>
+	
+<!-- 	TEACHER -->
+	<navigation-rule>
+	    <navigation-case>
+	        <from-outcome>module</from-outcome>
+			<to-view-id>/pages/teacher/module.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	     <navigation-case>
+	        <from-outcome>test</from-outcome>
+			<to-view-id>/pages/teacher/test.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	     <navigation-case>
+	        <from-outcome>testassign</from-outcome>
+			<to-view-id>/pages/teacher/test-assign.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	     <navigation-case>
+	        <from-outcome>result</from-outcome>
+			<to-view-id>/pages/teacher/result.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	</navigation-rule>
+	
+<!-- 	STUDENT -->
+	<navigation-rule>
+	    <navigation-case>
+	        <from-outcome>student_test</from-outcome>
+			<to-view-id>/pages/student/test.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	</navigation-rule>
+
+	<application>
+		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+
+		<message-bundle>messages</message-bundle>
+		<resource-bundle>
+			<base-name>messages</base-name>
+			<var>msg</var>
+		</resource-bundle>
+		<locale-config>
+			<default-locale>ru</default-locale>
+		</locale-config>
+	</application>
+</faces-config>

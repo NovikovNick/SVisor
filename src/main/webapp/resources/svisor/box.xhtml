@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:svisor="http://java.sun.com/jsf/composite/svisor">
+	
+	<composite:interface>
+		<composite:attribute name="leftHead" />
+		<composite:attribute name="rightHead" />
+		<composite:attribute name="leftFoot" />
+		<composite:attribute name="rightFoot" />
+		
+		<composite:attribute name="width" default="400"/>
+		<composite:attribute name="height" default="460"/>
+		
+		
+	</composite:interface>
+	
+	<composite:implementation>
+		<!-- Box -->
+		<div class="box" style="height:#{cc.attrs.height}px; width:#{cc.attrs.width}px;">
+			<div class="box-head">
+				<svisor:shell left="#{cc.attrs.leftHead}" rigth="#{cc.attrs.leftHead}"/>
+			</div>
+			<div class="box-content" style="height:#{cc.attrs.height - 60}px;">
+					<composite:insertChildren />
+			</div>
+			<div class="box-foot"> 
+				<svisor:shell left="#{cc.attrs.leftFoot}" rigth="#{cc.attrs.rightFoot}"/>
+			</div>
+		</div>
+		<!-- End Box -->
+	</composite:implementation>
+</html>

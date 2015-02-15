@@ -1,0 +1,90 @@
+<ui:composition template="/WEB-INF/templates/mainLayout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:svisor="http://java.sun.com/jsf/composite/svisor">
+
+	<ui:define name="title">#{msg.page_admin_group_title}</ui:define>
+
+	<ui:define name="body">
+	<h:form>
+		<svisor:box leftHead="#{msg.page_admin_group_header}"  height="300" width="800">
+			
+				<h:dataTable id="group_table" value="#{groupBean.allGroups}" var="g">
+
+					<h:column>
+						<f:facet name="header">#{msg.page_admin_group_table_column_id}</f:facet>
+						#{g.id}
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">#{msg.page_admin_group_table_column_title}</f:facet>
+						<h:inputTextarea cols="4" row="1" value="#{g.title}" />
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">#{msg.page_admin_group_table_column_course}</f:facet>
+						<h:inputTextarea cols="4" row="1" value="#{g.course}" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">#{msg.page_admin_group_table_column_speciality}</f:facet>
+						<h:selectOneMenu value="#{g.speciality}">
+							<f:selectItems 
+								value="#{specialityBean.allSpeciality}"
+								var="speciality"
+								itemValue="#{speciality}"
+								itemLabel="#{speciality.title}" />
+						</h:selectOneMenu>
+					</h:column>
+
+
+					<h:column>
+						<f:facet name="header">#{msg.all_table_column_control}</f:facet>
+						<h:commandLink action="#{groupBean.delete(g)}" >
+							<span class="ico del">#{msg.all_table_column_delete}</span>
+						</h:commandLink>
+						<h:commandLink action="#{groupBean.update(g)}">
+							<span class="ico edit">#{msg.all_table_column_update}</span>
+						</h:commandLink>
+					</h:column>
+
+				</h:dataTable>
+				</svisor:box>
+				
+				<svisor:box leftHead="#{msg.page_admin_group_add_header}" height="300" width="400">
+
+				<p>
+					<label >#{msg.page_admin_group_add_title}</label>
+					<h:inputText id="titleGroup" value="#{groupBean.title}" />
+					<h:message for="titleGroup" id="titleGroupError" />
+				</p>
+				
+				<p>
+					<label >#{msg.page_admin_group_add_course}</label>
+					<h:inputText id="courseGroup" value="#{groupBean.course}" />
+					<h:message for="courseGroup" id="courseGroupError" />
+				</p>
+				
+				<p>
+					<label >#{msg.page_admin_group_add_speciality}</label>
+					<h:selectOneMenu value="#{groupBean.speciality}" >
+						<f:selectItems 
+							value="#{specialityBean.allSpeciality}"
+							var="speciality"
+							itemValue="#{speciality}"
+							itemLabel="#{speciality.title}" />
+					</h:selectOneMenu>
+				</p>
+				
+				<p>
+					<h:commandButton value="#{msg.page_admin_group_add_submit}" action="#{groupBean.add()}" />
+				</p>
+			</svisor:box>
+			</h:form>
+		
+
+	</ui:define>
+
+</ui:composition>

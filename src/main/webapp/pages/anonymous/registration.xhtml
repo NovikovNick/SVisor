@@ -1,0 +1,61 @@
+<ui:composition template="/WEB-INF/templates/mainLayout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:svisor="http://java.sun.com/jsf/composite/svisor">
+
+	<ui:define name="title">#{msg.page_registration_title}</ui:define>
+
+	<ui:define name="body">
+	<h:form>
+		<svisor:box leftHead="#{msg.page_registration_header}"  height="420" width="400">
+			<p>
+				<label>#{msg.page_registration_id}</label>
+				<h:inputText id="studentId" value="#{studentBean.id}" required="true"/>
+				<h:message for="studentId" id="studentIdError" />
+			</p>
+			<p>
+				<label>#{msg.page_registration_fstname}</label>
+				<h:inputText id="studentFstName" value="#{studentBean.fstName}" required="true"/>
+				<h:message for="studentFstName" id="studentFstNameError" />
+			</p>
+			<p>
+				<label>#{msg.page_registration_sndname}</label>
+				<h:inputText id="studentSndName" value="#{studentBean.sndName}"/>
+				<h:message for="studentSndName" id="studentSndNameError" />
+			</p>
+			<p>
+				<label>#{msg.page_registration_surname}</label>
+				<h:inputText  id="studentSurname" value="#{studentBean.surname}" required="true"/>
+				<h:message for="studentSurname" id="studentSurnameError" />
+			</p>
+			
+			<p>
+				<label>#{msg.page_registration_login}</label>
+				<h:inputText id="studentLogin" value="#{studentBean.login}" required="true"/>
+				<h:message for="studentLogin" id="studentLoginError" />
+			</p>
+			<p>
+				<label>#{msg.page_registration_password}</label>
+				<h:inputText id="studentPassword" value="#{studentBean.password}" required="true"/>
+				<h:message for="studentPassword" id="studentPasswordError" />
+			</p>
+			
+			<p>
+				<label>#{msg.page_registration_group}</label>
+				<h:selectOneMenu value="#{studentBean.group}">
+					<f:selectItems 
+						value="#{groupBean.allGroups}"
+						var="g"
+						itemValue="#{g}"
+						itemLabel="#{g.title}" />
+				</h:selectOneMenu>
+			</p>
+			<p>
+				<h:commandButton immediate="false" value="#{msg.page_registration_submit}" action="#{studentBean.add()}" />
+			</p>
+		</svisor:box>
+	</h:form>
+	</ui:define>
+</ui:composition>

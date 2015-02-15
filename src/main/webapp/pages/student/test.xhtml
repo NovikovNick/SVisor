@@ -1,0 +1,66 @@
+<ui:composition template="/WEB-INF/templates/mainLayout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:svisor="http://java.sun.com/jsf/composite/svisor">
+
+	<ui:define name="title">...</ui:define>
+
+	<ui:define name="body">
+
+		<h:form rendered="#{!student.isActiveAssign()}">
+			<svisor:box leftHead="#{msg.page_teacher_test_assign_header}" height="400" width="400">
+				<ui:repeat value="#{student.assignes}" var="assign" varStatus="status">
+					
+					<p>
+						<h:outputFormat value="#{msg.page_student_test_assign}" >
+						 	<f:param value="#{assign.test.title}" />
+						 	<f:param value="#{assign.date_start}" />
+						 	<f:param value="#{assign.date_end}" />
+						 	<f:param value="#{assign.attempts}" />
+						 	<f:param value="#{assign.completion_time}" />
+						 	<f:param value="#{assign.passing_score}" />
+						 	<f:param value="#{assign.author.surname}" />						 	
+						</h:outputFormat>
+					</p>
+					<p>
+						<h:commandButton value="#{msg.page_student_test_start}" action="#{student.start(assign)}"/>
+					</p>
+					<hr/>	
+				</ui:repeat>
+				
+			</svisor:box>
+		</h:form>
+
+		<h:form rendered="#{student.isActiveAssign()}">
+			<svisor:box leftHead="..." height="400" width="800">
+				<p>
+				<table class="test">
+					<tr>
+						<td rowspan="#{student.currentQuestion.tmpA().size()+1}">
+							#{student.currentQuestion.content}
+						</td>
+							<td class="answer">
+								<h:commandButton 
+									value="#{student.currentQuestion.tmpA().get(0).content}"
+									action="#{student.next(student.currentQuestion.tmpA().get(0))}"/>
+							</td>
+					</tr>
+					<ui:repeat var="answer" value="#{student.currentQuestion.tmpA()}" offset="1">
+						<tr>
+							<td class="answer">
+								<h:commandButton
+									value="#{answer.content}"
+									action="#{student.next(answer)}"/>
+							</td>
+						</tr>
+					</ui:repeat>
+					
+					
+				</table>
+				</p>
+			</svisor:box>
+		</h:form>
+	</ui:define>
+</ui:composition>
