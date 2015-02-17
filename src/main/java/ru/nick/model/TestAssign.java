@@ -22,7 +22,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Entity
 @Table(name = "testassign")
 @NamedQuery(name = "TestAssign.getAll", query = "SELECT tA from TestAssign tA")
-public class TestAssign  extends AbstractPersistable<Long>{
+public class TestAssign  extends AbstractPersistable<Long>  implements Identifiable{
 
 	private static final long serialVersionUID = 1L;
 	

@@ -8,7 +8,7 @@ import javax.faces.convert.FacesConverter;
 import ru.nick.model.Test;
 
 @FacesConverter(forClass = Test.class)
-public class TestConverter implements Converter {
+public class TestConverter extends AbstractEntityByIdConverter {
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
@@ -16,17 +16,5 @@ public class TestConverter implements Converter {
 		t.setId(new Long(value));
 		return t;
 	}
-
-	@Override
-	public String getAsString(FacesContext context, UIComponent component, Object value) {
-		String r = "";
-		if (value instanceof Test) {
-			Test t = (Test) value;
-			r = t.getId() + "";
-		} else if (value instanceof String) {
-			r = (String) value;
-		}
-		return r;
-	}
-
+	
 }

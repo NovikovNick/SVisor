@@ -8,7 +8,7 @@ import javax.faces.convert.FacesConverter;
 import ru.nick.model.Discipline;
 
 @FacesConverter(forClass = Discipline.class)
-public class DisciplineConverter implements Converter {
+public class DisciplineConverter extends AbstractEntityByIdConverter {
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
@@ -16,17 +16,4 @@ public class DisciplineConverter implements Converter {
 		discipline.setId(new Long(value));
 		return discipline;
 	}
-
-	@Override
-	public String getAsString(FacesContext context, UIComponent component, Object value) {
-		String r = "";
-		if (value instanceof Discipline) {
-			Discipline discipline = (Discipline) value;
-			r = discipline.getId() + "";
-		} else if (value instanceof String) {
-			r = (String) value;
-		}
-		return r;
-	}
-
 }

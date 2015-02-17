@@ -18,7 +18,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Entity
 @Table(name = "groups")
 @NamedQuery(name = "Group.getAll", query = "SELECT g FROM Group g")
-public class Group extends AbstractPersistable<Long>{
+public class Group extends AbstractPersistable<Long> implements Identifiable{
 
 	private static final long serialVersionUID = 1L;
 	

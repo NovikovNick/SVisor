@@ -8,25 +8,13 @@ import javax.faces.convert.FacesConverter;
 import ru.nick.model.Group;
 
 @FacesConverter(forClass = Group.class)
-public class GroupConverter implements Converter {
+public class GroupConverter extends AbstractEntityByIdConverter {
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		Group group = new Group();
 		group.setId(new Long(value));
 		return group;
-	}
-
-	@Override
-	public String getAsString(FacesContext context, UIComponent component, Object value) {
-		String r = "";
-		if (value instanceof Group) {
-			Group group = (Group) value;
-			r = group.getId() + "";
-		} else if (value instanceof String) {
-			r = (String) value;
-		}
-		return r;
 	}
 
 }

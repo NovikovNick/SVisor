@@ -17,7 +17,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 query = "SELECT a FROM Answer a "
 		+ "JOIN a.ownerQuestion q "
 		+ "WHERE q.id = :idQuestion ")
-public class Answer extends AbstractPersistable<Long>{
+public class Answer extends AbstractPersistable<Long> implements Identifiable{
 	
 	private static final long serialVersionUID = 1L;
 

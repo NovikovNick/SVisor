@@ -15,11 +15,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import org.springframework.data.jpa.domain.AbstractPersistable;
+
 @Entity
 @Table(name = "teacher")
 @NamedQuery(name = "Teacher.getAll", query = "SELECT t from Teacher t")
-public class Teacher{
+public class Teacher implements Identifiable{
 	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	private Long id;

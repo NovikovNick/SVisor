@@ -16,7 +16,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Entity
 @Table(name = "discipline")
 @NamedQuery(name = "Discipline.getAll", query = "SELECT d FROM Discipline d")
-public class Discipline extends AbstractPersistable<Long>{
+public class Discipline extends AbstractPersistable<Long> implements Identifiable{
 
 	private static final long serialVersionUID = 1L;
 

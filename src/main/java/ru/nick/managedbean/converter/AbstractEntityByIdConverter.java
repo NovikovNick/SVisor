@@ -4,19 +4,25 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
-public class AbstractEntityByIdConverter<T> implements Converter {
+import ru.nick.model.Group;
+import ru.nick.model.Identifiable;
+
+public abstract class AbstractEntityByIdConverter implements Converter {
 
 	@Override
-	public Object getAsObject(FacesContext context, UIComponent component, String value) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public abstract Object getAsObject(FacesContext context, UIComponent component, String value);
 
 	@Override
 	public String getAsString(FacesContext context, UIComponent component,
 			Object value) {
-		// TODO Auto-generated method stub
-		return null;
+		String r = "";
+		if (value instanceof Identifiable) {
+			Identifiable entity = (Identifiable) value;
+			r = entity.getId() + "";
+		} else if (value instanceof String) {
+			r = (String) value;
+		}
+		return r;
 	}
 
 }

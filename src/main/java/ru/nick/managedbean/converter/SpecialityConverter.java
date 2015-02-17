@@ -8,7 +8,7 @@ import javax.faces.convert.FacesConverter;
 import ru.nick.model.Speciality;
 
 @FacesConverter(forClass = Speciality.class)
-public class SpecialityConverter implements Converter {
+public class SpecialityConverter extends AbstractEntityByIdConverter {
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
@@ -16,17 +16,4 @@ public class SpecialityConverter implements Converter {
 		spec.setId(new Long(value));
 		return spec;
 	}
-
-	@Override
-	public String getAsString(FacesContext context, UIComponent component, Object value) {
-		String r = "";
-		if (value instanceof Speciality) {
-			Speciality spec = (Speciality) value;
-			r = spec.getId() + "";
-		} else if (value instanceof String) {
-			r = (String) value;
-		}
-		return r;
-	}
-
 }

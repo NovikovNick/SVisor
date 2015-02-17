@@ -30,7 +30,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 query = "SELECT q FROM Question q "
 		+ "JOIN q.ownerModule m "
 		+ "WHERE m.id = ?1 ")
-public class Question extends AbstractPersistable<Long>{
+public class Question extends AbstractPersistable<Long> implements Identifiable{
 
 	
 	private static final long serialVersionUID = 1L;

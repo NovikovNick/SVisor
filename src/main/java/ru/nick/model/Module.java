@@ -23,7 +23,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Entity
 @Table(name = "module")
 @NamedQuery(name = "Module.getAll", query = "SELECT m FROM Module m")
-public class Module extends AbstractPersistable<Long>{
+public class Module extends AbstractPersistable<Long> implements Identifiable{
 
 	private static final long serialVersionUID = 1L;
 

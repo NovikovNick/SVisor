@@ -13,7 +13,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Entity
 @Table(name = "academicDegree")
 @NamedQuery(name = "AcademicDegree.getAll", query = "SELECT ad FROM AcademicDegree ad")
-public class AcademicDegree extends AbstractPersistable<Long>{
+public class AcademicDegree extends AbstractPersistable<Long> implements Identifiable{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -35,5 +35,6 @@ public class AcademicDegree extends AbstractPersistable<Long>{
 	
 	public String getReducDegree() {		return reducDegree;	}
 	public void setReducDegree(String reducDegree) {		this.reducDegree = reducDegree;	}
+	
 	
 }

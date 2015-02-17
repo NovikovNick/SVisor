@@ -15,7 +15,7 @@ import javax.persistence.Table;
 	@NamedQuery(name = "Student.getByLoginPassword", 
 	query = "SELECT s from Student s WHERE s.login = ?1 AND s.password = ?2")
 })
-public class Student {
+public class Student implements Identifiable{
 
 	@Id
 	private Long id;

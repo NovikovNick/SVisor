@@ -14,19 +14,20 @@ import ru.nick.model.AcademicDegree;
 
 @Component("academicDegreeBean")
 @Scope("request")
-public class AcademicDegreeBean {
+public class AcademicDegreeBean extends AbstarctManagedBean<AcademicDegree> {
 
 	@Inject
 	@Named("academicDegreeDao")
-	SimpleCrudDao<AcademicDegree> dao;
+	private SimpleCrudDao<AcademicDegree> dao;
 
 	private String fullDegree;
 	private String reducDegree;
 	
 	//If I don't use cache, I use lasy load, because JSF invoke this 4 times
 	private List<AcademicDegree> allDegree;
+	@Override 
 	@PostConstruct
-	private void refresh() {allDegree = dao.findAll();}
+	protected void refresh() {allDegree = dao.findAll();}
 	
 	//************* Getters/Setters ********************//
 	//*************       START     ********************//
@@ -35,8 +36,11 @@ public class AcademicDegreeBean {
 
 	public String getReducDegree() {return reducDegree;}
 	public void setReducDegree(String reducDegree) {this.reducDegree = reducDegree;}
+	
+	@Override
+	protected SimpleCrudDao<AcademicDegree> getDao() {return dao;}
 	//*************        END      ********************//
-
+	
 	
 	
 	// ************* User's CRUD methods ****************//
@@ -55,19 +59,6 @@ public class AcademicDegreeBean {
 		return allDegree;
 	}
 
-	/** Update */
-	public String update(AcademicDegree academicDegree) {
-		dao.update(academicDegree);
-		refresh();
-		return null;
-	}
-
-	/** Delete */
-	public String delete(AcademicDegree academicDegree) {
-		dao.delete(academicDegree);
-		refresh();
-		return null;
-	}
 	//*************        END      ********************//
 
 	
@@ -78,6 +69,6 @@ public class AcademicDegreeBean {
 		setFullDegree("");
 		setReducDegree("");
 	}
-	
+
 	//*************        END      ********************//
 }

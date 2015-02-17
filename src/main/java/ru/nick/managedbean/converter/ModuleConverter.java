@@ -8,7 +8,7 @@ import javax.faces.convert.FacesConverter;
 import ru.nick.model.Module;
 
 @FacesConverter(forClass = Module.class)
-public class ModuleConverter implements Converter {
+public class ModuleConverter extends AbstractEntityByIdConverter {
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
@@ -16,17 +16,4 @@ public class ModuleConverter implements Converter {
 		module.setId(new Long(value));
 		return module;
 	}
-
-	@Override
-	public String getAsString(FacesContext context, UIComponent component, Object value) {
-		String r = "";
-		if (value instanceof Module) {
-			Module module = (Module) value;
-			r = module.getId() + "";
-		} else if (value instanceof String) {
-			r = (String) value;
-		}
-		return r;
-	}
-
 }
