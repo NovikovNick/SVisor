@@ -1,7 +1,12 @@
 package ru.nick.dao;
 
 import java.util.List;
-
+/**
+ * ЕЩВЩ!!!
+ * @author NovikovNick
+ *
+ * @param <T>
+ */
 public interface SimpleCrudDao<T> {
 
 	public T getById(long id);

@@ -4,38 +4,102 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import ru.nick.dao.SimpleCrudDao;
-import ru.nick.model.AcademicDegree;
+import javax.annotation.PostConstruct;
 
+import ru.nick.dao.SimpleCrudDao;
+
+/**
+ * <p>
+ * Скелетная реализация JSF-bean'а.
+ * <p>
+ * {@link #refresh()} - инициализация или обновление данных.
+ * 
+ * <p>
+ * В методах {@link #getDao()}, {@link #getGenericClass()} -
+ * реализован шаблон Template Method.
+ * 
+ * <p>
+ * CRUD-операции сущности T представлены методами: {@link #add()},
+ * {@link #findAll()}, {@link #update(T)}, {@link #delete(T)}.
+ *
+ * <p>
+ * {@link #clearForm()} обнуляет состояние бина.
+ * 
+ * <hr>
+ * 
+ * <p>
+ * This class provides a skeletal implementation of the JSF-bean.
+ * 
+ * <p>
+ * Template Method: {@link #getDao()}, {@link #refresh()},
+ * {@link #getGenericClass()}
+ * 
+ * <p>
+ * CRUD-operation: {@link #add()}, {@link #findAll()}, {@link #update(T)},
+ * {@link #delete(T)}.
+ * 
+ * <p>
+ * {@link #clearForm()} - reset state of the bean.
+ * 
+ * @author NovikovNick
+ */
 public abstract class AbstarctManagedBean<T> {
 
-	private final String EMPTY_FORM_FIELD = "empty";
+	private final String EMPTY_FORM_FIELD = "";
+	
+	/**
+	 * Cacheble data of all existing current Entity
+	 */
+	protected List<T> all;
+
+	/**
+	 * <p>
+	 * is Template method.
+	 * 
+	 * @return DAO typed {@link SimpleCrudDao} generic by current Entity
+	 */
+	protected abstract SimpleCrudDao<T> getDao();
+
+	/**
+	 * <p>
+	 * Use to initial data or refresh data after change Database state operations
+	 */
+	@PostConstruct
+	protected void refresh(){
+		all = findAll();
+	}
+
+	/**
+	 * <p>
+	 * is Template method.
+	 * @return current generic entity class
+	 */
+	protected abstract Class<T> getGenericClass();
+
 	
 	
 	/** Create */
 	public void add() {
-		T instatnce = null;
+		T instance = null;
 
 		try {
-			instatnce = getGenericClass().newInstance();
+			instance = getGenericClass().newInstance();
 			for (Field field : getFormFields()) {
-				Field instField = instatnce.getClass().getDeclaredField(field.getName());
+				Field instField = instance.getClass().getDeclaredField(
+						field.getName());
 				instField.setAccessible(true);
 				field.setAccessible(true);
-				instField.set(instatnce, field.get(this));
+				instField.set(instance, field.get(this));
 			}
 		} catch (InstantiationException | IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NoSuchFieldException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		getDao().add(instatnce);
+
+		getDao().add(instance);
 		clearForm();
 		refresh();
 	}
@@ -44,29 +108,37 @@ public abstract class AbstarctManagedBean<T> {
 	public List<T> findAll() {
 		return getDao().findAll();
 	}
+
 	/** Update */
 	public String update(T entity) {
 		getDao().update(entity);
 		refresh();
 		return null;
 	}
+
 	/** Delete */
 	public String delete(T entity) {
 		getDao().delete(entity);
 		refresh();
 		return null;
 	}
-	// ************* END ********************//
+
+	/**
+	 * 
+	 * @return cache of entity {@link #all}
+	 */
+	public List<T> getAll() {
+		return all;
+	}
 	
-	protected abstract SimpleCrudDao<T> getDao();
-	
-	protected abstract void refresh();
-	
-	protected abstract Class<T> getGenericClass();
-	
+	/**
+	 * Reset every field, who was marked by {@link FormField}
+	 * 
+	 * @return
+	 */
 	protected void clearForm() {
-		
-		for ( Field field : getFormFields()) {
+
+		for (Field field : getFormFields()) {
 			field.setAccessible(true);
 			try {
 				field.set(this, EMPTY_FORM_FIELD);
@@ -74,8 +146,7 @@ public abstract class AbstarctManagedBean<T> {
 				e.printStackTrace();
 			}
 		}
-		
-		
+
 	}
 
 	private List<Field> getFormFields() {
@@ -85,10 +156,10 @@ public abstract class AbstarctManagedBean<T> {
 			Field field = fields[i];
 			if (field.isAnnotationPresent(FormField.class)) {
 				res.add(field);
-			};
-		};
+			}
+		}
 		return res;
 	}
-	
 
+	
 }
