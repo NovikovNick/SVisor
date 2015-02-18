@@ -20,7 +20,9 @@ public class AcademicDegreeBean extends AbstarctManagedBean<AcademicDegree> {
 	@Named("academicDegreeDao")
 	private SimpleCrudDao<AcademicDegree> dao;
 
+	@FormField
 	private String fullDegree;
+	@FormField
 	private String reducDegree;
 	
 	//If I don't use cache, I use lasy load, because JSF invoke this 4 times
@@ -28,7 +30,10 @@ public class AcademicDegreeBean extends AbstarctManagedBean<AcademicDegree> {
 	@Override 
 	@PostConstruct
 	protected void refresh() {allDegree = dao.findAll();}
-	
+	@Override
+	protected Class<AcademicDegree> getGenericClass() {
+		return AcademicDegree.class;
+	}
 	//************* Getters/Setters ********************//
 	//*************       START     ********************//
 	public String getFullDegree() {return fullDegree;}
@@ -45,30 +50,16 @@ public class AcademicDegreeBean extends AbstarctManagedBean<AcademicDegree> {
 	
 	// ************* User's CRUD methods ****************//
 	// ************* START ********************//
-	/** Create */
-	public void add() {
-		AcademicDegree academicDegree = new AcademicDegree();
-		academicDegree.setFullDegree(getFullDegree());
-		academicDegree.setReducDegree(getReducDegree());
-		dao.add(academicDegree);
-		clearForm();
-		refresh();
-	}
+	
 	/** Read */
 	public List<AcademicDegree> getAllDegree() {
 		return allDegree;
 	}
 
+	
+
 	//*************        END      ********************//
 
 	
-	
-	// *********** User's JSF-form methods **************//
-	// ************* START ********************//
-	private void clearForm() {
-		setFullDegree("");
-		setReducDegree("");
-	}
 
-	//*************        END      ********************//
 }
