@@ -6,40 +6,34 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import ru.nick.bo.SimpleCrudBusinessObject;
 import ru.nick.dao.SimpleCrudDao;
 
 /**
  * <p>
  * Скелетная реализация JSF-bean'а.
  * <p>
- * {@link #refresh()} - инициализация или обновление данных.
- * 
- * <p>
- * В методах {@link #getDao()}, {@link #getGenericClass()} -
- * реализован шаблон Template Method.
- * 
- * <p>
  * CRUD-операции сущности T представлены методами: {@link #add()},
- * {@link #findAll()}, {@link #update(T)}, {@link #delete(T)}.
- *
+ * {@link #findAll()}, {@link #update(T)}, {@link #delete(T)}. 
+ * Каждый из методов представляет собой pattern Template Method c 
+ * переопределяемыми методами {@link #getBo()}, {@link #getGenericClass()}
  * <p>
  * {@link #clearForm()} обнуляет состояние бина.
+ * <p>
+ * {@link #refresh()} - инициализация или обновление данных.
  * 
  * <hr>
  * 
  * <p>
  * This class provides a skeletal implementation of the JSF-bean.
- * 
- * <p>
- * Template Method: {@link #getDao()}, {@link #refresh()},
- * {@link #getGenericClass()}
- * 
  * <p>
  * CRUD-operation: {@link #add()}, {@link #findAll()}, {@link #update(T)},
- * {@link #delete(T)}.
- * 
+ * {@link #delete(T)}. Each method is a pattern Template Method with overrides
+ *  a method {@link #getBo()}, {@link #getGenericClass()}.
  * <p>
  * {@link #clearForm()} - reset state of the bean.
+ * <p>
+ * {@link #refresh()} - init or refresh data.
  * 
  * @author NovikovNick
  */
@@ -54,11 +48,11 @@ public abstract class AbstarctManagedBean<T> {
 
 	/**
 	 * <p>
-	 * is Template method.
+	 * It is part of pattern "Template method" represented CRUD-operations
 	 * 
-	 * @return DAO typed {@link SimpleCrudDao} generic by current Entity
+	 * @return BO typed {@link SimpleCrudBusinessObject} generic by current Entity
 	 */
-	protected abstract SimpleCrudDao<T> getDao();
+	protected abstract SimpleCrudBusinessObject<T> getBo();
 
 	/**
 	 * <p>
@@ -71,7 +65,7 @@ public abstract class AbstarctManagedBean<T> {
 
 	/**
 	 * <p>
-	 * is Template method.
+	 * It is part of pattern "Template method" represented CRUD-operations
 	 * @return current generic entity class
 	 */
 	protected abstract Class<T> getGenericClass();
@@ -80,45 +74,46 @@ public abstract class AbstarctManagedBean<T> {
 	
 	/** Create */
 	public void add() {
-		T instance = null;
+		T entity = null;
 
 		try {
-			instance = getGenericClass().newInstance();
-			for (Field field : getFormFields()) {
-				Field instField = instance.getClass().getDeclaredField(
-						field.getName());
-				instField.setAccessible(true);
-				field.setAccessible(true);
-				instField.set(instance, field.get(this));
+			entity = getGenericClass().newInstance();
+			for (Field managedBeanField : getFormFields()) {
+				Field entityField = entity.getClass().getDeclaredField(managedBeanField.getName());
+				entityField.setAccessible(true);
+				managedBeanField.setAccessible(true);
+				entityField.set(entity, managedBeanField.get(this));
 			}
-		} catch (InstantiationException | IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (NoSuchFieldException e) {
-			e.printStackTrace();
-		} catch (SecurityException e) {
+		} catch (InstantiationException | IllegalAccessException
+				| NoSuchFieldException | SecurityException e) {
 			e.printStackTrace();
 		}
 
-		getDao().add(instance);
+		getBo().add(entity);
 		clearForm();
 		refresh();
 	}
 
 	/** Read */
 	public List<T> findAll() {
-		return getDao().findAll();
+		return getBo().findAll();
+	}
+	
+	/** Read */
+	public T findById(long id) {
+		return getBo().getById(id);
 	}
 
 	/** Update */
 	public String update(T entity) {
-		getDao().update(entity);
+		getBo().update(entity);
 		refresh();
 		return null;
 	}
 
 	/** Delete */
 	public String delete(T entity) {
-		getDao().delete(entity);
+		getBo().delete(entity);
 		refresh();
 		return null;
 	}
@@ -132,8 +127,7 @@ public abstract class AbstarctManagedBean<T> {
 	}
 	
 	/**
-	 * Reset every field, who was marked by {@link FormField}
-	 * 
+	 * Reset every field, who was marked by {@link FormField} 
 	 * @return
 	 */
 	protected void clearForm() {

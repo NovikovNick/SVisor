@@ -6,14 +6,16 @@ import javax.inject.Named;
 
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.transaction.annotation.Transactional;
 
-import ru.nick.dao.SimpleCrudDao;
 import ru.nick.model.Discipline;
 
 @Named("disciplineDao")
-@Transactional
-public class DisciplineDaoImpl  extends AbstractCrudDao<Discipline> implements SimpleCrudDao<Discipline> {
+public class DisciplineDaoImpl  extends AbstractCrudDao<Discipline>{
+
+	@Override
+	protected Class<Discipline> getGenericClass() {
+		return Discipline.class;
+	}
 
 	@Override
 	@Cacheable("discipline")
@@ -24,26 +26,17 @@ public class DisciplineDaoImpl  extends AbstractCrudDao<Discipline> implements S
 	@Override
 	@CacheEvict(value = "discipline", allEntries = true)
 	public void delete(Discipline detached) {
-		remove(find(Discipline.class, detached.getId()));		
+		super.delete(detached);		
 	}
 
 	@Override
 	@CacheEvict(value = "discipline", allEntries = true)
 	public void add(Discipline discipline) {
-		persist(discipline);
+		super.add(discipline);
 	}
 
 	@Override
-	@CacheEvict(value = "discipline", allEntries = true)
-	public Discipline update(Discipline detached) {
-		Discipline discipline = find(Discipline.class, detached.getId());
-		discipline.setTitle(detached.getTitle());
-		return merge(discipline);
+	protected String[] getUpdatableField() {
+		return new String[]{"Title"};
 	}
-
-	@Override
-	public Discipline getById(long id) {
-		return find(Discipline.class, id);
-	}
-
 }

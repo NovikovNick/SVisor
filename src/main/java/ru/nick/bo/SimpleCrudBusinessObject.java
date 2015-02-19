@@ -1,15 +1,13 @@
-package ru.nick.dao;
+package ru.nick.bo;
 
 import java.util.List;
-
-import ru.nick.model.Identifiable;
 /**
  * ЕЩВЩ!!!
  * @author NovikovNick
  *
  * @param <T>
  */
-public interface SimpleCrudDao<T extends Identifiable> {
+public interface SimpleCrudBusinessObject<T> {
 
 	public T getById(long id);
 	
@@ -20,4 +18,5 @@ public interface SimpleCrudDao<T extends Identifiable> {
 	public void add(T entity);
 
 	public T update(T entity);
+	
 }

@@ -1,14 +1,13 @@
 package ru.nick.dao.impl;
 
-import javax.inject.Named;
+import java.util.List;
 
-import org.springframework.transaction.annotation.Transactional;
+import javax.inject.Named;
 
 import ru.nick.dao.EntityDao;
 import ru.nick.model.Student;
 
-@Named("studentEntityDao")
-@Transactional
+@Named("studentDao")
 public class StudentEntityDaoImpl extends AbstractCrudDao<Student> implements EntityDao<Student> {
 
 	@Override
@@ -18,4 +17,19 @@ public class StudentEntityDaoImpl extends AbstractCrudDao<Student> implements En
 		
 	}
 
+	@Override
+	public List<Student> findAll() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	protected Class<Student> getGenericClass() {
+		return Student.class;
+	}
+
+	@Override
+	protected String[] getUpdatableField() {
+		return new String[]{"FstName", "SndName", "Surname", "Group", "Login", "Password"};
+	}
+	
 }
