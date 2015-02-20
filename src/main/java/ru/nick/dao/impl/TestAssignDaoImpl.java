@@ -9,7 +9,7 @@ import ru.nick.dao.SimpleCrudDao;
 import ru.nick.model.Group;
 import ru.nick.model.TestAssign;
 
-@Named("assignDao")
+@Named("testAssignDao")
 public class TestAssignDaoImpl extends AbstractCrudDao<TestAssign>{
 
 	@Inject

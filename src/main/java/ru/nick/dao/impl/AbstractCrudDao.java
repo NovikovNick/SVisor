@@ -2,6 +2,7 @@ package ru.nick.dao.impl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -25,11 +26,13 @@ public abstract class AbstractCrudDao<T extends Identifiable> implements SimpleC
 
 	/**
 	 * <p>
-	 * It is part of pattern "Template method" represented CRUD-operations
-	 * 
+	 * This is... 
 	 * @return current generic entity class
 	 */
-	protected abstract Class<T> getGenericClass();
+	@SuppressWarnings("unchecked")
+	protected Class<T> getGenericClass(){
+		return (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+	}
 	
 	protected abstract String[] getUpdatableField();
 	

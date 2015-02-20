@@ -9,6 +9,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
@@ -20,32 +23,20 @@ query = "SELECT a FROM Answer a "
 public class Answer extends AbstractPersistable<Long> implements Identifiable{
 	
 	private static final long serialVersionUID = 1L;
-
+	@Getter @Setter
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
-	
+	@Getter @Setter
 	@JoinColumn(name = "content")
 	private String content;
-
+	@Getter @Setter
 	@ManyToOne
 	@JoinColumn(name = "id_question")
 	private Question ownerQuestion;
-
+	@Getter @Setter
 	@JoinColumn(name = "correct")
 	private boolean correct;
 	
-	public Long getId() {return id;}
-	public void setId(Long id) {this.id = id;}
-	
-	public String getContent() {return content;}
-	public void setContent(String content) {this.content = content;}
-	
-	public Question getOwnerQuestion() {return ownerQuestion;}
-	public void setOwnerQuestion(Question ownerQuestion) {this.ownerQuestion = ownerQuestion;}
-	
-	public boolean isCorrect() {return correct;}
-	public void setCorrect(boolean correct) {this.correct = correct;}
-
 }
 

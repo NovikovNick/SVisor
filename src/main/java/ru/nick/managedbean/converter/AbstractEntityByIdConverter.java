@@ -4,7 +4,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
-import ru.nick.model.Group;
 import ru.nick.model.Identifiable;
 
 public abstract class AbstractEntityByIdConverter implements Converter {

@@ -22,64 +22,57 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
 @Table(name = "question")
-@NamedQuery(name = "Question.getByModuleId", 
-query = "SELECT q FROM Question q "
-		+ "JOIN q.ownerModule m "
-		+ "WHERE m.id = ?1 ")
-public class Question extends AbstractPersistable<Long> implements Identifiable{
+@NamedQuery(name = "Question.getByModuleId", query = "SELECT q FROM Question q "
+		+ "JOIN q.ownerModule m " + "WHERE m.id = ?1 ")
+public class Question extends AbstractPersistable<Long> implements Identifiable {
 
-	
 	private static final long serialVersionUID = 1L;
 
+	@Getter
+	@Setter
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	@Getter
+	@Setter
 	@Column
 	private String content;
 
+	@Getter
+	@Setter
 	@Enumerated(EnumType.STRING)
 	private Difficult difficult;
-	public enum Difficult {EASY, MEDIUM, HARD}
-	
+
+	@Getter
+	@Setter
 	@ManyToOne
 	@JoinColumn(name = "id_module")
 	private Module ownerModule;
-	
-	@ManyToMany(mappedBy = "questions")
-    private	Set<Test> tests;//Need?
-	
-	
-	
-	
 
-	@OneToMany(cascade = CascadeType.REMOVE ,mappedBy = "ownerQuestion", fetch=FetchType.EAGER)
+	@Getter
+	@Setter
+	@ManyToMany(mappedBy = "questions")
+	private Set<Test> tests;// Need?
+
+	@Getter
+	@Setter
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "ownerQuestion", fetch = FetchType.EAGER)
 	Set<Answer> answers;
 
-	public Long getId() {return id;	}
-	public void setId(Long id) {this.id = id;}
+	public enum Difficult {
+		EASY, MEDIUM, HARD
+	}
 
-	public String getContent() {return content;	}
-	public void setContent(String content) {this.content = content;}
-
-	public Difficult getDifficult() {return difficult;}
-	public void setDifficult(Difficult difficult) {this.difficult = difficult;}
-
-	public Module getOwnerModule() {return ownerModule;	}
-	public void setOwnerModule(Module ownerModule) {this.ownerModule = ownerModule;	}
-	
-	public Set<Answer> getAnswers() {return answers;}
-	public void setAnswers(Set<Answer> answers) {this.answers = answers;}
-	
-	public Set<Test> getTests() {return tests;}
-	public void setTests(Set<Test> tests) {this.tests = tests;}
-	
-	//BO?
-	public List<Answer> tmpA(){
+	// BO?
+	public List<Answer> tmpA() {
 		if (answers == null) {
 			return new ArrayList<Answer>();
 		}
@@ -93,6 +86,5 @@ public class Question extends AbstractPersistable<Long> implements Identifiable{
 		});
 		return res;
 	}
-	
-	
+
 }

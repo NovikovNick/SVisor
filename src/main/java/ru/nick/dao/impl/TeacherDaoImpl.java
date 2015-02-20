@@ -66,11 +66,6 @@ public class TeacherDaoImpl  extends AbstractCrudDao<Teacher> implements EntityD
 	}
 
 	@Override
-	protected Class<Teacher> getGenericClass() {
-		return Teacher.class;
-	}
-
-	@Override
 	protected String[] getUpdatableField() {
 		throw new UnsupportedOperationException();
 	}

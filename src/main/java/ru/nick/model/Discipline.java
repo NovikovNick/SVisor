@@ -11,6 +11,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
@@ -20,24 +23,16 @@ public class Discipline extends AbstractPersistable<Long> implements Identifiabl
 
 	private static final long serialVersionUID = 1L;
 
+	@Getter @Setter
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
-	
+	@Getter @Setter
 	@ManyToMany(mappedBy = "disciplines")//, cascade = CascadeType.MERGE
     private	Set<Teacher> teachers;
-	
+	@Getter @Setter
 	@Column
 	private String title;
-	
-	public Long getId() {return id;}
-	public void setId(long id) {this.id = id;}
-	
-	public String getTitle() {return title;}
-	public void setTitle(String title) {this.title = title;}
-
-	public Set<Teacher> getTeachers() {return teachers;}
-	public void setTeachers(Set<Teacher> teachers) {this.teachers = teachers;}
 	
 	
 }

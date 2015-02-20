@@ -15,46 +15,52 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "teacher")
 @NamedQuery(name = "Teacher.getAll", query = "SELECT t from Teacher t")
-@Data
+@EqualsAndHashCode(exclude = {
+		"fstName", "sndName", "login", "password", "degree",
+		"title", "disciplines", "groups", "inn", "pensionInsurance"})
+@ToString(exclude="id")
 public class Teacher implements Identifiable{
 	
 
 	@Id
-	private Long id;
-	private String fstName;
-	private String sndName;
-	private String surname;
-	private String login;
-	private String password;
+	private @Setter @Getter Long id;
+	private @Setter @Getter String fstName;
+	private @Setter @Getter String sndName;
+	private @Setter @Getter String surname;
+	private @Setter @Getter String login;
+	private @Setter @Getter String password;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_academicDegree")
-	private AcademicDegree degree;
+	private @Setter @Getter AcademicDegree degree;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_academicTitle")
-	private AcademicTitle title;
+	private @Setter @Getter AcademicTitle title;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name="teacher_discipline",
 			joinColumns = @JoinColumn(name="id_teacher", referencedColumnName="id"),
 	        inverseJoinColumns = @JoinColumn(name="id_discipline", referencedColumnName="id"))
-	private Set<Discipline> disciplines;
+	private @Setter @Getter Set<Discipline> disciplines;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name="teacher_groups",
 			joinColumns = @JoinColumn(name="id_teacher", referencedColumnName="id"),
 	        inverseJoinColumns = @JoinColumn(name="id_group", referencedColumnName="id"))
-	private Set<Group> groups;
+	private @Setter @Getter Set<Group> groups;
 	
 	
-	private BigInteger inn;//12 цифр
-	private BigInteger pensionInsurance;//? цифр
+	private @Setter @Getter BigInteger inn;//12 цифр
+	private @Setter @Getter BigInteger pensionInsurance;//? цифр
 	
 		
 	

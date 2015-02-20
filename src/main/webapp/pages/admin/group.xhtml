@@ -11,7 +11,7 @@
 	<h:form>
 		<svisor:box leftHead="#{msg.page_admin_group_header}"  height="300" width="800">
 			
-				<h:dataTable id="group_table" value="#{groupBean.allGroups}" var="g">
+				<h:dataTable id="group_table" value="#{groupBean.all}" var="g">
 
 					<h:column>
 						<f:facet name="header">#{msg.page_admin_group_table_column_id}</f:facet>
@@ -32,7 +32,7 @@
 						<f:facet name="header">#{msg.page_admin_group_table_column_speciality}</f:facet>
 						<h:selectOneMenu value="#{g.speciality}">
 							<f:selectItems 
-								value="#{specialityBean.allSpeciality}"
+								value="#{specialityBean.all}"
 								var="speciality"
 								itemValue="#{speciality}"
 								itemLabel="#{speciality.title}" />
@@ -71,7 +71,7 @@
 					<label >#{msg.page_admin_group_add_speciality}</label>
 					<h:selectOneMenu value="#{groupBean.speciality}" >
 						<f:selectItems 
-							value="#{specialityBean.allSpeciality}"
+							value="#{specialityBean.all}"
 							var="speciality"
 							itemValue="#{speciality}"
 							itemLabel="#{speciality.title}" />

@@ -96,7 +96,7 @@ public class ModuleQuestionAnswerBean {
 		
 		this.answer.setContent("Новый ответ");
 		this.answer.setCorrect(false);		
-		this.answer.add(question);
+		//this.answer.add(question);TODO:!!!
 		
 		activeModule = module.update(activeModule);
 	}

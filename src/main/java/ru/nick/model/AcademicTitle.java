@@ -8,6 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 
@@ -17,25 +20,16 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 public class AcademicTitle  extends AbstractPersistable<Long> implements Identifiable{
 	
 	private static final long serialVersionUID = 1L;
-	
+	@Getter @Setter
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
+	@Getter @Setter
 	@Column
 	private String fullTitle;
+	@Getter @Setter
 	@Column
 	private String reducTitle;
-	
-	public Long getId() {		return id;	}
-	public void setId(long id) {		this.id = id;	}
-	
-	public String getFullTitle() {		return fullTitle;	}
-	public void setFullTitle(String fullTitle) {		this.fullTitle = fullTitle;	}
-	
-	public String getReducTitle() {		return reducTitle;	}
-	public void setReducTitle(String reducTitle) {		this.reducTitle = reducTitle;	}
-	
-	
 	
 	
 }

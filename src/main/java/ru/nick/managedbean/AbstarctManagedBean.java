@@ -1,13 +1,17 @@
 package ru.nick.managedbean;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 
 import ru.nick.bo.SimpleCrudBusinessObject;
-import ru.nick.dao.SimpleCrudDao;
+import ru.nick.util.Messages;
 
 /**
  * <p>
@@ -16,12 +20,13 @@ import ru.nick.dao.SimpleCrudDao;
  * CRUD-операции сущности T представлены методами: {@link #add()},
  * {@link #findAll()}, {@link #update(T)}, {@link #delete(T)}. 
  * Каждый из методов представляет собой pattern Template Method c 
- * переопределяемыми методами {@link #getBo()}, {@link #getGenericClass()}
+ * переопределяемыми методами {@link #getBo()}
  * <p>
  * {@link #clearForm()} обнуляет состояние бина.
  * <p>
  * {@link #refresh()} - инициализация или обновление данных.
- * 
+ * <p>
+ * {@link #getGenericClass()}
  * <hr>
  * 
  * <p>
@@ -59,19 +64,25 @@ public abstract class AbstarctManagedBean<T> {
 	 * Use to initial data or refresh data after change Database state operations
 	 */
 	@PostConstruct
-	protected void refresh(){
-		all = findAll();
+	protected void refresh(){//TODO:It is not correct to use exception in app logic...
+		try {
+			all = findAll();
+		} catch (UnsupportedOperationException e) {
+			
+		}
+		
 	}
 
 	/**
 	 * <p>
-	 * It is part of pattern "Template method" represented CRUD-operations
+	 * This is... 
 	 * @return current generic entity class
 	 */
-	protected abstract Class<T> getGenericClass();
+	@SuppressWarnings("unchecked")
+	protected Class<T> getGenericClass(){
+		return (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+	}
 
-	
-	
 	/** Create */
 	public void add() {
 		T entity = null;
@@ -85,7 +96,7 @@ public abstract class AbstarctManagedBean<T> {
 				entityField.set(entity, managedBeanField.get(this));
 			}
 		} catch (InstantiationException | IllegalAccessException
-				| NoSuchFieldException | SecurityException e) {
+				 | SecurityException | IllegalArgumentException | NoSuchFieldException e) {
 			e.printStackTrace();
 		}
 
@@ -155,5 +166,19 @@ public abstract class AbstarctManagedBean<T> {
 		return res;
 	}
 
-	
+	public void validInputText(FacesContext context, UIComponent component, Object value) {
+
+		String input = (String) value;
+
+		if (input == "") {
+			Messages.throwsValidateException("validation_empty", null);
+		}
+		if (input.length() < 2) {
+			Messages.throwsValidateException("validation_length_small", null);
+		}
+		if (input.length() > 100) {
+			Messages.throwsValidateException("validation_length_large", null);
+		}
+
+	}
 }

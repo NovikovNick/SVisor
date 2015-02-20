@@ -1,17 +1,22 @@
 package ru.nick.aop;
 
+import java.util.Formatter;
+
 import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.hibernate.search.bridge.String2FieldBridgeAdaptor;
 
 @Aspect
 public class LoggingAspect {
 
 	private Logger LOG = Logger.getLogger(getClass());
+	
+	private int counter = 0;
+	private StringBuilder last = new StringBuilder();
 
-	//@Before("execution(* ru.nick.dao.*.*(..))") public void logDao(JoinPoint jp) {	print(jp);	}
+	@Before("execution(* ru.nick.bo.impl.*.*(..))") public void logBoImpl(JoinPoint jp) {	print(jp);	}
 	@Before("execution(* ru.nick.dao.impl.*.*(..))") public void logDaoImpl(JoinPoint jp) {	print(jp);	}
 	@Before("execution(* ru.nick.managedbean.*.*(..))") public void logBean(JoinPoint jp) {	print(jp);	}
 	@Before("execution(* ru.nick.managedbean.converter.*.*(..))") public void logBeanConverter(JoinPoint jp) {	print(jp);	}
@@ -25,18 +30,48 @@ public class LoggingAspect {
 	 * @param jp
 	 */
 	private void print(JoinPoint jp) {
-		//System.out.println("Sys.out-> " + jp.toShortString());
-		System.out.println("SVisor: " + jp.getSignature());
-
+		StringBuilder res = new StringBuilder();
+		putName(jp, res);
+		putArgs(jp, res);
+		print(res);
+	}
+	/**
+	 * @param jp
+	 * @param res
+	 */
+	private void putName(JoinPoint jp, StringBuilder res) {
+		Formatter f = new Formatter();
+		res.append(f.format(
+					"%20s %40s",
+					jp.getTarget().getClass().getSimpleName(),
+					jp.getSignature().toShortString()).toString());
+		f.close();
+	}
+	/**
+	 * @param res
+	 */
+	private void print(StringBuilder res) {
+		if (res.toString().equals(last.toString())) {
+			counter++;
+		}else {
+			System.out.print("[" + counter + "] \n" + res.toString());
+			counter = 0;
+			last = res;
+		}
+	}	
+	/**
+	 * @param jp
+	 * @param res
+	 */
+	private void putArgs(JoinPoint jp, StringBuilder res) {
 		Object[] obj = jp.getArgs();
 		if (obj.length > 0) {
-			System.out.println("    args:");
+			res.append("\n                                         args:");
 			for (int i = 0; i < obj.length; i++) {
-				System.out.println("        :" + obj[i]);
+				res.append("\n                                             " + obj[i]);
 			}
 		}
-		
-
 	}
 
+	
 }

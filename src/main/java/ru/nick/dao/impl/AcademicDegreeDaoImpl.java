@@ -15,11 +15,6 @@ public class AcademicDegreeDaoImpl extends AbstractCrudDao<AcademicDegree>{
 	}
 
 	@Override
-	protected Class<AcademicDegree> getGenericClass() {
-		return AcademicDegree.class;
-	}
-
-	@Override
 	protected String[] getUpdatableField() {
 		return new String[]{"FullDegree", "ReducDegree"};
 	}

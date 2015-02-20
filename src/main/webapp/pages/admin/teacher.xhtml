@@ -10,7 +10,7 @@
 	<ui:define name="left">
 	<h:form >
 		<svisor:box leftHead="#{msg.page_admin_teacher_header}"  height="1100" width="500">
-			<ui:repeat var="t" value="#{teacherBean.allTeacher}">
+			<ui:repeat var="t" value="#{teacherBean.all}">
 					
 						<p> #{t.degree.reducDegree}, #{t.title.reducTitle} #{t.fstName} #{t.sndName} #{t.surname}(#{t.id})</p>
 						<p>#{t.login}/#{t.password}</p>						
@@ -33,7 +33,7 @@
 								<li>
 									<h:selectOneMenu value="#{teacherBean.discToAdd}">
 										<f:selectItem itemLabel="#{msg.page_admin_teacher_add_discipline}" itemValue="#{null}" noSelectionOption="true" />
-										<f:selectItems value="#{disciplineBean.findAllDisciplines()}"
+										<f:selectItems value="#{disciplineBean.all}"
 											var="disc"
 											itemValue="#{disc}"
 											itemLabel="#{disc.title}" />
@@ -59,7 +59,7 @@
 								<li>
 									<h:selectOneMenu value="#{teacherBean.groupToAdd}">
 										<f:selectItem itemLabel="#{msg.page_admin_teacher_add_group}" itemValue="#{null}" noSelectionOption="true" />
-									<f:selectItems value="#{groupBean.allGroups}" var="group"
+									<f:selectItems value="#{groupBean.all}" var="group"
 										itemValue="#{group}" itemLabel="#{group.title}" />
 								</h:selectOneMenu>
 									<h:commandLink action="#{teacherBean.addGroup(t)}">
@@ -143,7 +143,7 @@
 					<label>#{msg.page_admin_teacher_add_title}</label>
 					<h:selectOneMenu value="#{teacherBean.title}">
 						<f:selectItems 
-							value="#{academicTitleBean.allTitle}"
+							value="#{academicTitleBean.all}"
 							var="title"
 							itemValue="#{title}"
 							itemLabel="#{title.reducTitle}"/>
@@ -155,7 +155,7 @@
 					
 					<h:selectManyCheckbox layout="pageDirection" value="#{teacherBean.disciplines}">
 						<f:selectItems 
-							value="#{disciplineBean.findAllDisciplines()}"
+							value="#{disciplineBean.all}"
 							var="disc"
 							itemValue="#{disc}"
 							itemLabel="#{disc.title}"/>
@@ -167,7 +167,7 @@
 					
 					<h:selectManyCheckbox layout="pageDirection" value="#{teacherBean.groups}">
 						<f:selectItems 
-							value="#{groupBean.allGroups}"
+							value="#{groupBean.all}"
 							var="group"
 							itemValue="#{group}"
 							itemLabel="#{group.title}" />

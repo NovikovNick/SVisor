@@ -9,6 +9,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
@@ -20,50 +23,14 @@ public class Result  extends AbstractPersistable<Long>  implements Identifiable{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
-	private int attempt;
-	private int result;
+	private @Getter @Setter Long id;
+	private @Getter @Setter int attempt;
+	private @Getter @Setter int result;
 	@ManyToOne
 	@JoinColumn(name = "id_student")
-	private Student student;
+	private @Getter @Setter Student student;
 	@ManyToOne
 	@JoinColumn(name = "id_test")
-	private Test test;
-	
-	
-	
-	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public int getAttempt() {
-		return attempt;
-	}
-	public void setAttempt(int attempt) {
-		this.attempt = attempt;
-	}
-	public int getResult() {
-		return result;
-	}
-	public void setResult(int result) {
-		this.result = result;
-	}
-	public Student getStudent() {
-		return student;
-	}
-	public void setStudent(Student student) {
-		this.student = student;
-	}
-	public Test getTest() {
-		return test;
-	}
-	public void setTest(Test test) {
-		this.test = test;
-	}
-	
-	
+	private @Getter @Setter Test test;
 	
 }

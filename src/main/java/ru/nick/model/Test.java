@@ -19,41 +19,33 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 
 @Entity
 @Table(name = "test")
 @NamedQuery(name = "Test.getAll", query = "SELECT t FROM Test t")
-public class Test  extends AbstractPersistable<Long>  implements Identifiable{
+public class Test extends AbstractPersistable<Long>  implements Identifiable{
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
+	private @Getter @Setter Long id;
 	@Column
-	private String title;
+	private @Getter @Setter String title;
 	@Column(name = "_date")
-	private Date date;
+	private @Getter @Setter Date date;
 	
-	@ManyToMany(fetch=FetchType.EAGER)//на другом конце нету аннотаций
+	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name="test_question",
 		joinColumns = @JoinColumn(name="id_test", referencedColumnName="id"),
 	    inverseJoinColumns = @JoinColumn(name="id_question", referencedColumnName="id"))
-	Set<Question> questions;
+	private @Getter @Setter Set<Question> questions;
 	
-	public Long getId() {return id;}
-	public void setId(Long id) {this.id = id;}
-	
-	public String getTitle() {return title;}
-	public void setTitle(String title) {this.title = title;}
-	
-	public Date getDate() {return date;}	
-	public void setDate(Date date) {this.date = date;}
-	
-	public Set<Question> getQuestions() {return questions;}
-	public void setQuestions(Set<Question> questions) {this.questions = questions;}
 	
 	public List<Question> tmpQ() {
 		if (questions == null) {

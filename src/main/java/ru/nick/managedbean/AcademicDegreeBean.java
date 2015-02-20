@@ -3,6 +3,7 @@ package ru.nick.managedbean;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,23 +18,16 @@ import ru.nick.model.AcademicDegree;
 public class AcademicDegreeBean extends AbstarctManagedBean<AcademicDegree> {
 
 	@Inject
-	@Named("academicDegreeBO")
+	@Named("academicDegreeBo")
+	@Getter(AccessLevel.PROTECTED)
 	private SimpleCrudBusinessObject<AcademicDegree> bo;
 
 	@FormField
-	private @Getter @Setter String fullDegree;
+	@Getter	@Setter
+	private String fullDegree;
 
 	@FormField
-	private @Getter @Setter String reducDegree;
-
-	@Override
-	protected Class<AcademicDegree> getGenericClass() {
-		return AcademicDegree.class;
-	}
-
-	@Override
-	protected SimpleCrudBusinessObject<AcademicDegree> getBo() {
-		return bo;
-	}
+	@Getter	@Setter
+	private String reducDegree;
 
 }

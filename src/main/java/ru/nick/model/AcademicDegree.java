@@ -20,15 +20,15 @@ public class AcademicDegree extends AbstractPersistable<Long> implements Identif
 
 
 	private static final long serialVersionUID = 1L;
-
+	@Getter @Setter
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private @Getter @Setter Long id;
-	
+	private Long id;
+	@Getter @Setter
 	@Column
-	private @Getter @Setter String fullDegree;
-	
+	private String fullDegree;
+	@Getter @Setter
 	@Column
-	private @Getter @Setter String reducDegree;
+	private String reducDegree;
 	
 }

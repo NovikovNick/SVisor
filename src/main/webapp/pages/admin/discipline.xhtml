@@ -11,7 +11,7 @@
 	<h:form>
 		<svisor:box leftHead="#{msg.page_admin_discipline_header}"  height="300" width="800">
 			
-				<h:dataTable id="disciplien_table" value="#{disciplineBean.findAllDisciplines()}" var="discipline">
+				<h:dataTable id="disciplien_table" value="#{disciplineBean.all}" var="discipline">
 
 					<h:column>
 						<f:facet name="header">#{msg.page_admin_discipline_table_column_id}</f:facet>

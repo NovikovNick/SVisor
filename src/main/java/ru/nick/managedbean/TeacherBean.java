@@ -137,7 +137,7 @@ public class TeacherBean {
 	}
 	
 	/** Read */
-	public List<Teacher> getAllTeacher() {
+	public List<Teacher> getAll() {
 		if (allTeacher == null) {
 			refreshTeacher();
 		}

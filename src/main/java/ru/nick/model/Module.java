@@ -18,6 +18,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
@@ -27,28 +30,21 @@ public class Module extends AbstractPersistable<Long> implements Identifiable{
 
 	private static final long serialVersionUID = 1L;
 
+	@Getter @Setter
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
+	@Getter @Setter
 	@Column
 	private String title;
+	@Getter @Setter
 	@Column(name = "_date")
 	private Date date;
-	
+	@Getter @Setter
 	@OneToMany(cascade = CascadeType.REMOVE ,mappedBy = "ownerModule", fetch=FetchType.EAGER)
 	Set<Question> questions;
 	
-	public Long getId() {return id;}
-	public void setId(Long id) {this.id = id;}
 	
-	public String getTitle() {return title;}
-	public void setTitle(String title) {this.title = title;}
-	
-	public Date getDate() {return date;}	
-	public void setDate(Date date) {this.date = date;}
-	
-	public Set<Question> getQuestions() {return questions;}
-	public void setQuestions(Set<Question> questions) {this.questions = questions;}
 	
 	public List<Question> tmpQ() {
 		if (questions == null) {

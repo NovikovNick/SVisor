@@ -13,6 +13,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
@@ -21,39 +24,25 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 public class Group extends AbstractPersistable<Long> implements Identifiable{
 
 	private static final long serialVersionUID = 1L;
-	
+	@Getter @Setter
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
+	@Getter @Setter
 	@Column
 	private String title;
+	@Getter @Setter
 	@Column
 	private int course;
+	@Getter @Setter
 	@ManyToOne
 	@JoinColumn(name = "id_speciality")
 	private Speciality speciality;
-	
+	@Getter @Setter
 	@ManyToMany(mappedBy = "groups")
     private	Set<Teacher> teachers;
-	
+	@Getter @Setter
 	@ManyToMany(mappedBy = "groups")
     private	Set<TestAssign> testAssign;
 	
-	public Long getId() {return id;}
-	public void setId(Long id) {this.id = id;}
-	
-	public String getTitle() {return title;}
-	public void setTitle(String title) {this.title = title;}
-	
-	public int getCourse() {return course;}
-	public void setCourse(int course) {this.course = course;}
-	
-	public Speciality getSpeciality() {return speciality;}
-	public void setSpeciality(Speciality speciality) {this.speciality = speciality;}
-	
-	public Set<Teacher> getTeachers() {return teachers;}
-	public void setTeachers(Set<Teacher> teachers) {this.teachers = teachers;}
-	
-	public Set<TestAssign> getTestAssign() {return testAssign;}
-	public void setTestAssign(Set<TestAssign> testAssign) {this.testAssign = testAssign;}
 }

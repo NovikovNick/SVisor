@@ -23,7 +23,7 @@ import ru.nick.model.TestAssign;
 public class TestAssignBean {
 	
 	@Inject
-	@Named("assignDao")
+	@Named("testAssignDao")
 	private SimpleCrudDao<TestAssign> dao;
 	
 	private String title;
