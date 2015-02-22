@@ -13,7 +13,7 @@
 		<div style="width:40%;float:left;">
 			<svisor:box leftHead="#{msg.page_mqa_module_header}"  height="300" width="400">
 			
-				<h:dataTable id="module_table" value="#{mqa.module.allModules}" var="m">
+				<h:dataTable id="module_table" value="#{mqa.allModules}" var="m">
 					<h:column>
 						<f:facet name="header">#{msg.page_mqa_module_title}</f:facet>
 						<h:inputTextarea cols="28" row="4" value="#{m.title}" />
@@ -28,11 +28,11 @@
 					<h:column>
 						<f:facet name="header">#{msg.all_table_column_control}</f:facet>
 						
-						<h:commandLink action="#{mqa.module.delete(m)}" >
+						<h:commandLink action="#{mqa.delete(m)}" >
 							<span class="ico del"/>
 						</h:commandLink>
 						
-						<h:commandLink action="#{mqa.module.update(m)}">
+						<h:commandLink action="#{mqa.update(m)}">
 							<span class="ico edit"/>
 						</h:commandLink>
 						
@@ -55,13 +55,13 @@
 	
 	
 		<div style="width:60%;float:right;">
-			<svisor:box leftHead="#{msg.page_mqa_question_header}" height="#{(mqa.activeModule.tmpQ().size() * 160) + 120}" width="540">
+			<svisor:box leftHead="#{msg.page_mqa_question_header}" height="#{(mqa.moduleQuestions.size() * 160) + 120}" width="540">
 			<h:form rendered="#{mqa.active()}">	
 				<table style="width:100%;">
-				<ui:repeat var="q" value="#{mqa.activeModule.tmpQ()}">
+				<ui:repeat var="q" value="#{mqa.moduleQuestions}">
 					<tr>
-						<td rowspan="#{q.tmpA().size() + 1}">
-							<h:inputTextarea cols="31" rows="#{(q.tmpA().size() * 2) }" value="#{q.content}" />
+						<td rowspan="#{mqa.getQuestionAnswer(q).size() + 1}">
+							<h:inputTextarea cols="31" rows="#{(mqa.getQuestionAnswer(q).size() * 2) }" value="#{q.content}" />
 							
 							<br/>
 							<h:selectOneMenu value="#{q.difficult}" >
@@ -75,11 +75,11 @@
 						
 						
 						
-						<td rowspan="#{q.tmpA().size() + 1}">	
+						<td rowspan="#{mqa.getQuestionAnswer(q).size() + 1}">	
 							<h:commandLink action="#{mqa.delete(q)}">
 								<span class="ico del" />
 							</h:commandLink>
-							<h:commandLink action="#{mqa.question.update(q)}">
+							<h:commandLink action="#{mqa.update(q)}">
 								<span class="ico edit" />
 							</h:commandLink>
 							<h:commandLink action="#{mqa.addAnswer(q)}">
@@ -87,7 +87,7 @@
 							</h:commandLink>
 						</td>
 					</tr>
-						<ui:repeat var="a" value="#{q.tmpA()}">
+						<ui:repeat var="a" value="#{mqa.getQuestionAnswer(q)}">
 						<tr>
 							<td>
 								<h:inputTextarea cols="20" row="1" value="#{a.content}" />
@@ -106,7 +106,7 @@
 									<span class="ico del" />
 								</h:commandLink>
 								
-								<h:commandLink action="#{mqa.answer.update(a)}">
+								<h:commandLink action="#{mqa.update(a)}">
 									<span class="ico edit" />
 								</h:commandLink>
 							</td>

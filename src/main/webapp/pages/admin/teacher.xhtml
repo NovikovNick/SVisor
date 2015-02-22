@@ -19,13 +19,13 @@
 						<p>#{msg.page_admin_teacher_disciplines}</p>
 						<div class="list">
 							<ul>
-								<ui:repeat var="d" value="#{t.tmpD()}" varStatus="status">
+								<ui:repeat var="d" value="#{teacherBean.getDisciplineList(t)}" varStatus="status">
 									<li>
 										#{status.index + 1}.
 								
 										<span title="#{d.title}" class="list-item">#{d.title}</span>
 						
-										<h:commandLink action="#{teacherBean.delDiscipline(t, d.id)}">
+										<h:commandLink action="#{teacherBean.delDiscipline(t, d)}">
 											<span class="ico list-del"></span>
 										</h:commandLink>									
 									</li>
@@ -33,7 +33,7 @@
 								<li>
 									<h:selectOneMenu value="#{teacherBean.discToAdd}">
 										<f:selectItem itemLabel="#{msg.page_admin_teacher_add_discipline}" itemValue="#{null}" noSelectionOption="true" />
-										<f:selectItems value="#{disciplineBean.all}"
+										<f:selectItems value="#{teacherBean.getAllDisciplines(t)}"
 											var="disc"
 											itemValue="#{disc}"
 											itemLabel="#{disc.title}" />
@@ -49,9 +49,9 @@
 						<p>#{msg.page_admin_teacher_groups}</p>
 						<div class="list">
 							<ul>
-								<ui:repeat var="g" value="#{t.tmpG()}">
+								<ui:repeat var="g" value="#{teacherBean.getGroupList(t)}">
 									<li>#{g.title}
-										<h:commandLink action="#{teacherBean.delGroup(t, g.id)}">
+										<h:commandLink action="#{teacherBean.delGroup(t, g)}">
 											<span class="ico list-del"> </span>
 										</h:commandLink>									
 									</li>
@@ -59,8 +59,11 @@
 								<li>
 									<h:selectOneMenu value="#{teacherBean.groupToAdd}">
 										<f:selectItem itemLabel="#{msg.page_admin_teacher_add_group}" itemValue="#{null}" noSelectionOption="true" />
-									<f:selectItems value="#{groupBean.all}" var="group"
-										itemValue="#{group}" itemLabel="#{group.title}" />
+									<f:selectItems 
+										value="#{teacherBean.getAllGroups(t)}"
+										var="group"
+										itemValue="#{group}"
+										itemLabel="#{group.title}" />
 								</h:selectOneMenu>
 									<h:commandLink action="#{teacherBean.addGroup(t)}">
 										<span class="ico list-add"> </span>

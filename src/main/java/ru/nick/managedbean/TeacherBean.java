@@ -9,9 +9,15 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import ru.nick.bo.SimpleCrudBusinessObject;
+import ru.nick.bo.TeacherInt;
 import ru.nick.dao.SimpleCrudDao;
 import ru.nick.model.AcademicDegree;
 import ru.nick.model.AcademicTitle;
@@ -21,191 +27,79 @@ import ru.nick.model.Teacher;
 
 @Component("teacherBean")
 @Scope("request")
-public class TeacherBean {
-	
+public class TeacherBean extends AbstarctManagedBean<Teacher> {
+
+	@Inject
+	@Named("teacherBo")
+	@Getter(AccessLevel.PROTECTED)
+	private TeacherInt bo;
 	
 	private static final String TEST = "test";
 	
-	@Inject
-	@Named("teacherDao")
-	private SimpleCrudDao<Teacher> dao;
-	
+	@FormField
+	@Getter	@Setter
 	private long id;
-	
+	@FormField
+	@Getter	@Setter
 	private String fstName = TEST;
+	@FormField
+	@Getter	@Setter
 	private String sndName = TEST;
+	@FormField
+	@Getter	@Setter
 	private String surname = TEST;
-	
+	@FormField
+	@Getter	@Setter	
 	private String login = TEST;
+	@FormField
+	@Getter	@Setter
 	private String password = TEST;
-	
+	@FormField
+	@Getter	@Setter
 	private AcademicDegree degree;	
+	@FormField
+	@Getter	@Setter
 	private AcademicTitle title;
-	
+	@FormField
+	@Getter	@Setter
 	private BigInteger inn = null ;//12 цифр
+	@FormField
+	@Getter	@Setter
 	private BigInteger pensionInsurance = null ;//? цифр
 	
-	private Discipline[] disciplines;
-	private Group[] groups;
 	
-	private Discipline discToAdd;	
+	
+	@Getter	@Setter
+	private Discipline[] disciplines;
+	@Getter	@Setter
+	private Group[] groups;
+	@Getter	@Setter
+	private Discipline discToAdd;
+	@Getter	@Setter
 	private Group groupToAdd;
 	
 	
-	List<Teacher> allTeacher;//dell?
-	
-	
-	
-
-	//************* Getters/Setters ********************//
-	//*************       START     ********************//
-	public Group getGroupToAdd() {return groupToAdd;}
-	public void setGroupToAdd(Group groupToAdd) {this.groupToAdd = groupToAdd;}
-	
-	public Discipline getDiscToAdd() {return discToAdd;	}
-	public void setDiscToAdd(Discipline discToAdd) {this.discToAdd = discToAdd;}
-	
-	public long getId() {return id;}
-	public void setId(long id) {this.id = id;}
-	
-	public String getFstName() {return fstName;}
-	public void setFstName(String fstName) {this.fstName = fstName;}
-	
-	public String getSndName() {return sndName;}
-	public void setSndName(String sndName) {this.sndName = sndName;}
-	
-	public String getSurname() {return surname;}
-	public void setSurname(String surname) {this.surname = surname;}
-	
-	public String getLogin() {return login;}
-	public void setLogin(String login) {this.login = login;}
-	
-	public String getPassword() {return password;}
-	public void setPassword(String password) {this.password = password;}
-	
-	public AcademicDegree getDegree() {return degree;}
-	public void setDegree(AcademicDegree degree) {this.degree = degree;}
-	
-	public AcademicTitle getTitle() {return title;}
-	public void setTitle(AcademicTitle title) {	this.title = title;	}
-	
-	public BigInteger getInn() {return inn;}
-	public void setInn(BigInteger inn) {this.inn = inn;}
-	
-	public BigInteger getPensionInsurance() {return pensionInsurance;}
-	public void setPensionInsurance(BigInteger pensionInsurance) {this.pensionInsurance = pensionInsurance;	}
-	
-	public Discipline[] getDisciplines() {return disciplines;}
-	public void setDisciplines(Discipline[] disciplines) {	this.disciplines = disciplines;}
-	
-	public Group[] getGroups() {return groups;}
-	public void setGroups(Group[] groups) {	this.groups = groups;}
-	//*************        END      ********************//
 	
 	
 	
 	
-	
-	
-	// ************* User's CRUD methods ****************//
-	//*************       START     ********************//
-	/** Create */
-	public void add() {
-		Teacher teacher = new Teacher();
-		
-		teacher.setId(getId());
-		
-		teacher.setFstName(getFstName());
-		teacher.setSndName(getSndName());
-		teacher.setSurname(getSurname());
-		
-		teacher.setDegree(getDegree());
-		teacher.setTitle(getTitle());
-		
-		teacher.setLogin(getLogin());
-		teacher.setPassword(getPassword());
-		
-		teacher.setInn(getInn());
-		teacher.setPensionInsurance(getPensionInsurance());
-		
-		teacher.setDisciplines(new HashSet<Discipline>(Arrays.asList(getDisciplines())));
-		teacher.setGroups(new HashSet<Group>(Arrays.asList(getGroups())));
-		
-		dao.add(teacher);
-		clearForm();
-		refreshTeacher();
+	public List<Discipline> getDisciplineList(Teacher teacher) {
+		return teacher != null ? bo.getDisciplineList(teacher) : null;
+	}
+	public List<Group> getGroupList(Teacher teacher) {
+		return teacher != null ? bo.getGroupList(teacher) : null;
+	}
+	public List<Discipline> getAllDisciplines(Teacher teacher){
+		return bo.getAllDisciplines(teacher);
+	}
+	public List<Group> getAllGroups(Teacher teacher){
+		return bo.getAllGroups(teacher);
 	}
 	
-	/** Read */
-	public List<Teacher> getAll() {
-		if (allTeacher == null) {
-			refreshTeacher();
-		}
-		return allTeacher;
-	}
-	
-	/** Update */
-	public String update(Teacher teacher) {
-		dao.update(teacher);
-		refreshTeacher();
-		return null;
-	}
-	/** Update */
-	public String delete(Teacher teacher) {
-		dao.delete(teacher);
-		refreshTeacher();
-		return null;
-	}
-	//*************        END      ********************//
-	
-	private void refreshTeacher() {
-		allTeacher = dao.findAll();
-	}
-	
-	// *********** User's JSF-form methods **************//
-	// *************      START      ********************//
-	private void clearForm() {
-		
-		setId(0L);
-		
-		setFstName(TEST);
-		setSndName(TEST);
-		setSurname(TEST);
-		
-		setDegree(null);;
-		setTitle(null);
-		
-		setLogin(TEST);
-		setPassword(TEST);
-		
-		setInn(null);
-		setPensionInsurance(null);
-		
-		
-	}
-	
-	public List<Discipline> getDisciplineListCurrentTeacher(Teacher teacher) {
-		return new ArrayList<Discipline>(teacher.getDisciplines());
-	}
-	public List<Group> getGroupListCurrentTeacher(Teacher teacher) {
-		return new ArrayList<Group>(teacher.getGroups());
-	}
-	
-	public String delDiscipline(Teacher teacher, Long disciplineId) {		
-		teacher.delDiscipline(disciplineId);		
-		update(teacher);
-		return null;
-	}
 	public String addDiscipline(Teacher teacher) {
 		teacher.getDisciplines().add(getDiscToAdd());
 		update(teacher);
 		setDiscToAdd(null);
-		return null;
-	}
-	
-	public String delGroup(Teacher teacher, Long groupId) {		
-		teacher.delGroup(groupId);		
-		update(teacher);
 		return null;
 	}
 	public String addGroup(Teacher teacher) {
@@ -215,7 +109,18 @@ public class TeacherBean {
 		return null;
 	}
 	
-	// *************        END        ********************//
+	
+	public String delGroup(Teacher teacher, Group group) {		
+		teacher.getGroups().remove(group);
+		update(teacher);
+		return null;
+	}
+	public String delDiscipline(Teacher teacher, Discipline discipline) {		
+		teacher.getDisciplines().remove(discipline);	
+		update(teacher);
+		return null;
+	}
+	
 	
 	
 }

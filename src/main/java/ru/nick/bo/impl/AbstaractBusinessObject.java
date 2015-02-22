@@ -6,9 +6,19 @@ import ru.nick.bo.SimpleCrudBusinessObject;
 import ru.nick.dao.SimpleCrudDao;
 import ru.nick.model.Identifiable;
 
+/**
+ * <p>
+ * Этот класс реализует уровень бизнес логики. Если логика отсутствует и
+ * сущность примитивно взаимодействует с базой данных, то всем методы
+ * пробрасывают запрос дальше, на уровень ДАО.
+ * 
+ * @author NovikovNick
+ *
+ * @param <T>
+ */
+public abstract class AbstaractBusinessObject<T extends Identifiable>
+		implements SimpleCrudBusinessObject<T> {
 
-public abstract class AbstaractBusinessObject<T extends Identifiable> implements SimpleCrudBusinessObject<T>{
-		
 	protected abstract SimpleCrudDao<T> getDao();
 
 	@Override
@@ -18,6 +28,7 @@ public abstract class AbstaractBusinessObject<T extends Identifiable> implements
 
 	@Override
 	public List<T> findAll() {
+		
 		return getDao().findAll();
 	}
 
@@ -35,7 +46,10 @@ public abstract class AbstaractBusinessObject<T extends Identifiable> implements
 	public T update(T entity) {
 		return getDao().update(entity);
 	}
-	
-	
-	
+
+	protected java.sql.Date getCurrentDate() {
+		java.util.Date today = new java.util.Date();
+		return new java.sql.Date(today.getTime());
+	}
+
 }

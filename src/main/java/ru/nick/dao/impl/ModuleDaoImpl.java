@@ -37,11 +37,6 @@ public class ModuleDaoImpl extends AbstractCrudDao<Module>{
 	}
 
 	@Override
-	protected Class<Module> getGenericClass() {
-		return Module.class;
-	}
-
-	@Override
 	protected String[] getUpdatableField() {
 		return new String[]{ "Title"};
 	}

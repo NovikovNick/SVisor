@@ -62,32 +62,4 @@ public class Teacher implements Identifiable{
 	private @Setter @Getter BigInteger inn;//12 цифр
 	private @Setter @Getter BigInteger pensionInsurance;//? цифр
 	
-		
-	
-	
-	//*** *** *** *** *** BO START *** *** *** *** *** *** 
-	
-	public void delDiscipline(Long disciplineId) {
-		for (Discipline discipline : disciplines) {
-			if (disciplineId.equals(discipline.getId())) {
-				disciplines.remove(discipline);
-				return;
-			}
-		}
-	}
-	public void delGroup(Long groupId) {
-		for (Group group : groups) {
-			if (groupId.equals(group.getId())) {
-				groups.remove(group);
-				return;
-			}
-		}
-	}
-	public List<Discipline> tmpD(){
-		return new ArrayList<>(disciplines);
-	}
-	public List<Group> tmpG(){
-		return new ArrayList<>(groups);
-	}
-	//*** *** *** *** *** BO  END  *** *** *** *** *** *** 
 }

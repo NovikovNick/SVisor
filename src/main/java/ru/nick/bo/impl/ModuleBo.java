@@ -15,5 +15,12 @@ public class ModuleBo extends AbstaractBusinessObject<Module>{
 	@Named("moduleDao")
 	@Getter(AccessLevel.PROTECTED)
 	private SimpleCrudDao<Module> dao;
+
+	@Override
+	public void add(Module entity) {
+		entity.setDate(getCurrentDate());
+		super.add(entity);
+	}
+	
 	
 }

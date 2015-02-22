@@ -1,9 +1,5 @@
 package ru.nick.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -71,20 +67,5 @@ public class Question extends AbstractPersistable<Long> implements Identifiable 
 		EASY, MEDIUM, HARD
 	}
 
-	// BO?
-	public List<Answer> tmpA() {
-		if (answers == null) {
-			return new ArrayList<Answer>();
-		}
-		List<Answer> res = new ArrayList<Answer>(answers);
-		Collections.sort(res, new Comparator<Answer>() {
-
-			@Override
-			public int compare(Answer o1, Answer o2) {
-				return o1.getId().compareTo(o2.getId());
-			}
-		});
-		return res;
-	}
-
+	
 }
