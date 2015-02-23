@@ -1,10 +1,10 @@
 package ru.nick.managedbean;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -16,15 +16,13 @@ import lombok.Setter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import ru.nick.bo.SimpleCrudBusinessObject;
 import ru.nick.bo.TeacherInt;
-import ru.nick.dao.SimpleCrudDao;
 import ru.nick.model.AcademicDegree;
 import ru.nick.model.AcademicTitle;
 import ru.nick.model.Discipline;
 import ru.nick.model.Group;
 import ru.nick.model.Teacher;
-
+//TODO:REVIEW!!!
 @Component("teacherBean")
 @Scope("request")
 public class TeacherBean extends AbstarctManagedBean<Teacher> {
@@ -38,7 +36,7 @@ public class TeacherBean extends AbstarctManagedBean<Teacher> {
 	
 	@FormField
 	@Getter	@Setter
-	private long id;
+	private Long id;
 	@FormField
 	@Getter	@Setter
 	private String fstName = TEST;
@@ -67,21 +65,41 @@ public class TeacherBean extends AbstarctManagedBean<Teacher> {
 	@Getter	@Setter
 	private BigInteger pensionInsurance = null ;//? цифр
 	
-	
-	
+	@FormField
 	@Getter	@Setter
-	private Discipline[] disciplines;
+	private Discipline[] disciplines;	
+	@FormField
 	@Getter	@Setter
 	private Group[] groups;
-	@Getter	@Setter
+	
+	@Getter	
 	private Discipline discToAdd;
-	@Getter	@Setter
+	@Getter
 	private Group groupToAdd;
 	
-	
-	
-	
-	
+	@Override
+	public String add() {
+		Teacher teacher = new Teacher();		
+		fillFields(teacher);
+		teacher.setDisciplines(new HashSet<Discipline>(Arrays.asList(disciplines)));
+		teacher.setGroups(new HashSet<Group>(Arrays.asList(groups)));
+		getBo().add(teacher);
+		clearForm();
+		refresh();
+		return null;
+	}
+	//Установка 1 раз, а после addDiscipline(Teacher teacher) обнуление
+	public void setDiscToAdd(Discipline discToAdd) {
+		if (this.discToAdd == null) {
+			this.discToAdd = discToAdd;
+		}
+	}
+	//Установка 1 раз, а после addGroup(Teacher teacher) обнуление
+	public void setGroupToAdd(Group groupToAdd) {
+		if (this.groupToAdd == null) {
+			this.groupToAdd = groupToAdd;
+		}
+	}
 	
 	public List<Discipline> getDisciplineList(Teacher teacher) {
 		return teacher != null ? bo.getDisciplineList(teacher) : null;
@@ -95,15 +113,26 @@ public class TeacherBean extends AbstarctManagedBean<Teacher> {
 	public List<Group> getAllGroups(Teacher teacher){
 		return bo.getAllGroups(teacher);
 	}
-	
+	//BO?
 	public String addDiscipline(Teacher teacher) {
-		teacher.getDisciplines().add(getDiscToAdd());
+		Set<Discipline> set = teacher.getDisciplines();
+		if (set.isEmpty()) {
+			teacher.setDisciplines(new HashSet<Discipline>(Arrays.asList(getDiscToAdd())));
+		}else {
+			set.add(getDiscToAdd());
+		}
 		update(teacher);
 		setDiscToAdd(null);
 		return null;
 	}
+	//BO?
 	public String addGroup(Teacher teacher) {
-		teacher.getGroups().add(getGroupToAdd());
+		Set<Group> set = teacher.getGroups();
+		if (set.isEmpty()) {
+			teacher.setGroups(new HashSet<Group>(Arrays.asList(getGroupToAdd())));
+		}else{
+			set.add(getGroupToAdd());
+		}
 		update(teacher);
 		setGroupToAdd(null);
 		return null;

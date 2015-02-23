@@ -20,8 +20,8 @@ import lombok.ToString;
 	@NamedQuery(name = "Student.getByLoginPassword", 
 	query = "SELECT s from Student s WHERE s.login = ?1 AND s.password = ?2")
 })
-@EqualsAndHashCode(exclude = {"fstName", "sndName", "login", "password", "group"})
-@ToString(exclude="id")
+@EqualsAndHashCode(of = {"id"})
+@ToString(of = {"surname", "id"})
 public class Student implements Identifiable{
 
 	@Id

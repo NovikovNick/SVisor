@@ -3,6 +3,8 @@ package ru.nick.managedbean;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -10,6 +12,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import ru.nick.bo.SimpleCrudBusinessObject;
+import ru.nick.model.Discipline;
+import ru.nick.model.Group;
+import ru.nick.model.Teacher;
 import ru.nick.util.Messages;
 
 /**
@@ -43,7 +48,7 @@ import ru.nick.util.Messages;
  */
 public abstract class AbstarctManagedBean<T> {
 
-	private final String EMPTY_FORM_FIELD = "";
+	private final String EMPTY_FORM_FIELD = "тест";
 	
 	/**
 	 * Cacheble data of all existing current Entity
@@ -82,27 +87,50 @@ public abstract class AbstarctManagedBean<T> {
 		return (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 
-	/** Create */
+	/**
+	 * При переопределение этого метода необходимо вызвать методы:
+	 * <pre>@Override
+public String add() {
+	...
+	getBo().add(teacher);
+	clearForm();
+	refresh();
+	return null;
+}
+	 * @return 
+	 */
 	public String add() {
 		T entity = null;
 
 		try {
-			entity = getGenericClass().newInstance();
-			for (Field managedBeanField : getFormFields()) {
-				Field entityField = entity.getClass().getDeclaredField(managedBeanField.getName());
-				entityField.setAccessible(true);
-				managedBeanField.setAccessible(true);
-				entityField.set(entity, managedBeanField.get(this));
-			}
-		} catch (InstantiationException | IllegalAccessException
-				 | SecurityException | IllegalArgumentException | NoSuchFieldException e) {
+			entity = getGenericClass().newInstance();			
+		} catch (InstantiationException | IllegalAccessException | SecurityException | IllegalArgumentException  e) {
 			e.printStackTrace();
 		}
-
+		fillFields(entity);
 		getBo().add(entity);
 		clearForm();
 		refresh();
 		return null;
+	}
+
+	/**
+	 * @param entity
+	 * @throws NoSuchFieldException
+	 * @throws IllegalAccessException
+	 */
+	protected void fillFields(T entity){
+		try {
+		for (Field managedBeanField : getFormFields()) {
+			Field entityField;			
+			entityField = entity.getClass().getDeclaredField(managedBeanField.getName());			
+			entityField.setAccessible(true);
+			managedBeanField.setAccessible(true);
+			entityField.set(entity, managedBeanField.get(this));
+		}
+		} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/** Read */
@@ -147,12 +175,15 @@ public abstract class AbstarctManagedBean<T> {
 			field.setAccessible(true);
 			try {
 				Class<?> type = field.getType();
-				if (type == String.class) {
-					field.set(this, EMPTY_FORM_FIELD);
-				}
+				
 				if (type.isPrimitive()) {
 					field.set(this, 0);
+				}else if (type == String.class) {
+					field.set(this, EMPTY_FORM_FIELD);
+				}else{
+					field.set(this, null);
 				}
+				
 			} catch (IllegalArgumentException | IllegalAccessException e) {
 				e.printStackTrace();
 			}

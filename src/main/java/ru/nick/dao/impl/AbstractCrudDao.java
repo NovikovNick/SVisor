@@ -126,12 +126,9 @@ public abstract class AbstractCrudDao<T extends Identifiable> implements SimpleC
 	protected <E extends Identifiable> Set<E> updateChild(T type, Set<E> detacedChild, SimpleCrudDao<E> dao, String childMethod){
 		Set<E> discAttached = new HashSet<E>();
 		for (E d : detacedChild) {
-			// if (d != null) {
 			Long id = d.getId();
 			E disc = dao.getById(id);
-			discAttached.add(disc);
-			// }
-
+			discAttached.add(disc);		
 		}
 		
 		for (E discipline : discAttached) {

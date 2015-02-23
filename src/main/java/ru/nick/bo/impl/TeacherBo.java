@@ -1,7 +1,6 @@
 package ru.nick.bo.impl;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -30,14 +29,16 @@ public class TeacherBo extends AbstaractBusinessObject<Teacher> implements Teach
 	
 	@Inject
 	@Named("groupBo")
-	@Getter(AccessLevel.PROTECTED)
-	private SimpleCrudBusinessObject<Group> gDao;
+	private SimpleCrudBusinessObject<Group> gBo;
 	
 	@Inject
 	@Named("disciplineBo")
-	@Getter(AccessLevel.PROTECTED)
-	private SimpleCrudBusinessObject<Discipline> dDao;
+	private SimpleCrudBusinessObject<Discipline> dBo;
 
+	
+	
+	
+	
 	@Override
 	public List<Discipline> getDisciplineList(Teacher teacher) {
 		return asOrderList(teacher.getDisciplines());
@@ -66,22 +67,18 @@ public class TeacherBo extends AbstaractBusinessObject<Teacher> implements Teach
 
 	@Override
 	public List<Discipline> getAllDisciplines(Teacher teacher) {
-		List<Discipline> neo = new ArrayList<>();
-		List<Discipline> old = getDisciplineList(teacher);
-		for (Discipline discipline : dDao.findAll()) {
-			if (!old.contains(discipline)) {
-				neo.add(discipline);
-			}
-		}
-		return neo;
+		List<Discipline> res = dBo.findAll();
+		res.removeAll(getDisciplineList(teacher));
+		return res;
 	}
 
 	@Override
 	public List<Group> getAllGroups(Teacher teacher) {
-		List<Group> res = gDao.findAll();
+		List<Group> res = gBo.findAll();
 		res.removeAll(getGroupList(teacher));
 		return res;
+		
 	}
-	
-	
 }
+
+

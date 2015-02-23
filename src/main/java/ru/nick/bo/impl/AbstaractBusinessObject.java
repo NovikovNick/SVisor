@@ -1,5 +1,6 @@
 package ru.nick.bo.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ru.nick.bo.SimpleCrudBusinessObject;
@@ -28,8 +29,8 @@ public abstract class AbstaractBusinessObject<T extends Identifiable>
 
 	@Override
 	public List<T> findAll() {
-		
-		return getDao().findAll();
+		//return getDao().findAll();
+		return new ArrayList<T>(getDao().findAll());
 	}
 
 	@Override
