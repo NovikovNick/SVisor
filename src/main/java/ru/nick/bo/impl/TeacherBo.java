@@ -50,20 +50,7 @@ public class TeacherBo extends AbstaractBusinessObject<Teacher> implements Teach
 	}	
 	
 
-	private <T extends Identifiable> List<T> asOrderList(Set<T> set){
-		if (set == null) {
-			return new ArrayList<T>();
-		}
-		List<T> res = new ArrayList<T>(set);
-		Collections.sort(res, new Comparator<T>() {
-
-			@Override
-			public int compare(T o1, T o2) {
-				return o1.getId().compareTo(o2.getId());
-			}
-		});
-		return res;
-	}
+	
 
 	@Override
 	public List<Discipline> getAllDisciplines(Teacher teacher) {

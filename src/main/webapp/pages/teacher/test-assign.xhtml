@@ -11,7 +11,7 @@
 		<div style="width:50%;float:left;">
 			<svisor:box leftHead="#{msg.page_teacher_test_assign_header}"  height="600" width="480">
 				<h:form>
-				<ui:repeat value="#{assignBean.allTestAssigns}" var="assign">
+				<ui:repeat value="#{assignBean.all}" var="assign">
 			
 					<p>
 						<h:outputFormat value="#{msg.page_teacher_test_assign}" >
@@ -82,7 +82,7 @@
 					<label>#{msg.page_teacher_test_assign_add_author}</label>
 					<h:selectOneMenu value="#{assignBean.author}" >
 						<f:selectItems
-							value="#{teacherBean.allTeacher}"
+							value="#{teacherBean.all}"
 							var="t"
 							itemValue="#{t}"
 							itemLabel="#{t.fstName} #{t.sndName} #{t.surname}"/>
@@ -92,7 +92,7 @@
 					<label>#{msg.page_teacher_test_assign_add_test}</label>
 					<h:selectOneMenu value="#{assignBean.test}" >
 						<f:selectItems
-							value="#{testBean.allTests}"
+							value="#{testBean.all}"
 							var="t"
 							itemValue="#{t}"
 							itemLabel="#{t.title}"/>
@@ -102,7 +102,7 @@
 				<div class="selectHolder">
 					<h:selectManyCheckbox layout="pageDirection" value="#{assignBean.groups}">
 						<f:selectItems 
-							value="#{groupBean.allGroups}"
+							value="#{groupBean.all}"
 							var="group"
 							itemValue="#{group}"
 							itemLabel="#{group.title}" />

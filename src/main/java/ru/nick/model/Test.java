@@ -46,19 +46,4 @@ public class Test extends AbstractPersistable<Long>  implements Identifiable{
 	    inverseJoinColumns = @JoinColumn(name="id_question", referencedColumnName="id"))
 	private @Getter @Setter Set<Question> questions;
 	
-	
-	public List<Question> tmpQ() {
-		if (questions == null) {
-			return new ArrayList<Question>();
-		}
-		List<Question> res = new ArrayList<Question>(questions);
-		Collections.sort(res, new Comparator<Question>() {
-
-			@Override
-			public int compare(Question o1, Question o2) {
-				return o1.getId().compareTo(o2.getId());
-			}
-		});
-		return res;
-	}
 }

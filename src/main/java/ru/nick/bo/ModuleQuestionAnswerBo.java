@@ -8,6 +8,8 @@ import ru.nick.model.Question;
 
 public interface ModuleQuestionAnswerBo {
 	
+
+	
 	public void addModule();
 
 	public Module addQuestion(Module module);

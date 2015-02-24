@@ -77,6 +77,7 @@ public class TeacherBean extends AbstarctManagedBean<Teacher> {
 	@Getter
 	private Group groupToAdd;
 	
+	
 	@Override
 	public String add() {
 		Teacher teacher = new Teacher();		
@@ -113,29 +114,24 @@ public class TeacherBean extends AbstarctManagedBean<Teacher> {
 	public List<Group> getAllGroups(Teacher teacher){
 		return bo.getAllGroups(teacher);
 	}
+	
 	//BO?
 	public String addDiscipline(Teacher teacher) {
-		Set<Discipline> set = teacher.getDisciplines();
-		if (set.isEmpty()) {
-			teacher.setDisciplines(new HashSet<Discipline>(Arrays.asList(getDiscToAdd())));
-		}else {
-			set.add(getDiscToAdd());
-		}
+
+		teacher.getDisciplines().add(getDiscToAdd());
 		update(teacher);
-		setDiscToAdd(null);
+		discToAdd = null;
 		return null;
+		
 	}
 	//BO?
 	public String addGroup(Teacher teacher) {
-		Set<Group> set = teacher.getGroups();
-		if (set.isEmpty()) {
-			teacher.setGroups(new HashSet<Group>(Arrays.asList(getGroupToAdd())));
-		}else{
-			set.add(getGroupToAdd());
-		}
+		
+		teacher.getGroups().add(getGroupToAdd());
 		update(teacher);
-		setGroupToAdd(null);
+		groupToAdd = null;
 		return null;
+		
 	}
 	
 	

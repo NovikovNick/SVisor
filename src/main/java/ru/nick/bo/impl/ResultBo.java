@@ -10,14 +10,15 @@ import javax.inject.Named;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import ru.nick.bo.ResultInt;
 import ru.nick.dao.SimpleCrudDao;
 import ru.nick.model.Question;
 import ru.nick.model.Result;
 import ru.nick.model.Student;
 import ru.nick.model.Test;
 
-@Named("ResultBO")
-public class ResultBO extends AbstaractBusinessObject<Result>{
+@Named("resultBo")
+public class ResultBo extends AbstaractBusinessObject<Result> implements ResultInt{
 	
 	
 	@Inject

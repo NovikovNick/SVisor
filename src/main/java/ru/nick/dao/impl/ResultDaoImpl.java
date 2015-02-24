@@ -16,11 +16,6 @@ public class ResultDaoImpl  extends AbstractCrudDao<Result>{
 	}
 
 	@Override
-	protected Class<Result> getGenericClass() {
-		return Result.class;
-	}
-
-	@Override
 	protected String[] getUpdatableField() {
 		return new String[]{"Attempt", "Result", "Student", "Test"};
 	}

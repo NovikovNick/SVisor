@@ -1,27 +1,28 @@
 package ru.nick.managedbean;
 
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import lombok.AccessLevel;
+import lombok.Getter;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import ru.nick.bo.impl.ResultBO;
+import ru.nick.bo.ResultInt;
 import ru.nick.model.Result;
 
 @Component("resultBean")
 @Scope("request")
-public class ResultBean {
+public class ResultBean extends AbstarctManagedBean<Result> {
 
 	@Inject
-	@Named("ResultBO")
-	private ResultBO resultBo;
+	@Named("resultBo")
+	@Getter(AccessLevel.PROTECTED)
+	private ResultInt bo;
+	
+	
 
-	public List<Result> findAll() {
-		return resultBo.findAll();
-	}
 	
 	
 }

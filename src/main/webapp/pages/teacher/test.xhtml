@@ -13,7 +13,7 @@
 		<div style="width:40%;float:left;">
 		<svisor:box leftHead="#{msg.page_teacher_test_list}">
 		<h:form id="tests">
-			<h:dataTable var="t" value="#{testBean.allTests}">
+			<h:dataTable var="t" value="#{testBean.all}">
 			
 				<h:column>
 					<f:facet name="header">#{msg.page_teacher_test_column_title}</f:facet>
@@ -52,7 +52,7 @@
 		
 		<div style="width:60%;float:left;">
 		<svisor:box leftHead="#{msg.page_teacher_test_question_header}" 
-		height="#{testBean.activeTest.tmpQ().size() * 22 + 500}">
+		height="#{testBean.getTestQuestions().size() * 22 + 500}">
 		
 		<h:form id="module" rendered="#{testBean.active()}">
 			
@@ -65,7 +65,7 @@
 			<div class="list">
 				<ul>		
 				<ui:repeat 
-					value="#{testBean.activeTest.tmpQ()}"
+					value="#{testBean.getTestQuestions()}"
 					var="q" varStatus="status">
 					<li>
 						#{status.index + 1}.
