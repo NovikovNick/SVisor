@@ -1,10 +1,6 @@
 package ru.nick.bo.impl;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -12,15 +8,14 @@ import javax.inject.Named;
 import lombok.AccessLevel;
 import lombok.Getter;
 import ru.nick.bo.SimpleCrudBusinessObject;
-import ru.nick.bo.TeacherInt;
+import ru.nick.bo.TeacherBo;
 import ru.nick.dao.SimpleCrudDao;
 import ru.nick.model.Discipline;
 import ru.nick.model.Group;
-import ru.nick.model.Identifiable;
 import ru.nick.model.Teacher;
 
 @Named("teacherBo")
-public class TeacherBo extends AbstaractBusinessObject<Teacher> implements TeacherInt{
+public class TeacherBoImpl extends AbstaractBusinessObject<Teacher> implements TeacherBo{
 	
 	@Inject
 	@Named("teacherDao")

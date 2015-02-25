@@ -15,7 +15,7 @@ import lombok.Setter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import ru.nick.bo.TestInt;
+import ru.nick.bo.TestBo;
 import ru.nick.model.Module;
 import ru.nick.model.Question;
 import ru.nick.model.Test;
@@ -27,7 +27,7 @@ public class TestBean extends AbstarctManagedBean<Test> {
 	@Inject
 	@Named("testBo")
 	@Getter(AccessLevel.PROTECTED)
-	private TestInt bo;
+	private TestBo bo;
 
 	@Getter	
 	private Test activeTest;

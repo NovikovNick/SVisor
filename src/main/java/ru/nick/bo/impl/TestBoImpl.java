@@ -9,14 +9,14 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import ru.nick.bo.ModuleQuestionAnswerBo;
 import ru.nick.bo.SimpleCrudBusinessObject;
-import ru.nick.bo.TestInt;
+import ru.nick.bo.TestBo;
 import ru.nick.dao.SimpleCrudDao;
 import ru.nick.model.Module;
 import ru.nick.model.Question;
 import ru.nick.model.Test;
 
 @Named("testBo")
-public class TestBo extends AbstaractBusinessObject<Test> implements TestInt{
+public class TestBoImpl extends AbstaractBusinessObject<Test> implements TestBo{
 
 	private final static String EMPTY_TEST_TITLE = "Новый тест";
 	

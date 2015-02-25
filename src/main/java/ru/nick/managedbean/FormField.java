@@ -4,9 +4,6 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-
-import lombok.Getter;
-import lombok.Setter;
 /**
  * 
  * <p>Эта аннотация указывает на то, что поле является отображением 

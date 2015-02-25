@@ -4,7 +4,6 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -16,12 +15,13 @@ import lombok.Setter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import ru.nick.bo.TeacherInt;
+import ru.nick.bo.TeacherBo;
 import ru.nick.model.AcademicDegree;
 import ru.nick.model.AcademicTitle;
 import ru.nick.model.Discipline;
 import ru.nick.model.Group;
 import ru.nick.model.Teacher;
+
 //TODO:REVIEW!!!
 @Component("teacherBean")
 @Scope("request")
@@ -30,7 +30,7 @@ public class TeacherBean extends AbstarctManagedBean<Teacher> {
 	@Inject
 	@Named("teacherBo")
 	@Getter(AccessLevel.PROTECTED)
-	private TeacherInt bo;
+	private TeacherBo bo;
 	
 	private static final String TEST = "test";
 	

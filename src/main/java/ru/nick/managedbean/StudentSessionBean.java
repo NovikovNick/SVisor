@@ -12,7 +12,7 @@ import javax.inject.Named;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import ru.nick.bo.impl.ResultBo;
+import ru.nick.bo.impl.ResultBoImpl;
 import ru.nick.dao.EntityDao;
 import ru.nick.dao.SimpleCrudDao;
 import ru.nick.model.Answer;
@@ -34,7 +34,7 @@ public class StudentSessionBean {
 	
 	@Inject
 	@Named("ResultBO")
-	private ResultBo resultBo;
+	private ResultBoImpl resultBo;
 	
 	private Student student;
 	private TestAssign currentAssignment;

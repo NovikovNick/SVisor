@@ -19,7 +19,7 @@ import ru.nick.model.Question;
 import ru.nick.model.Question.Difficult;
 
 /**
- * Упавление сразу 3 сущностями: модулем, вопросами и ответами.
+ * Управление сразу 3 сущностями: модулем, вопросами и ответами.
  * 
  * @author NovikovNick
  *

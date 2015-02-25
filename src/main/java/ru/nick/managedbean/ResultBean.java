@@ -9,7 +9,7 @@ import lombok.Getter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import ru.nick.bo.ResultInt;
+import ru.nick.bo.ResultBo;
 import ru.nick.model.Result;
 
 @Component("resultBean")
@@ -19,7 +19,7 @@ public class ResultBean extends AbstarctManagedBean<Result> {
 	@Inject
 	@Named("resultBo")
 	@Getter(AccessLevel.PROTECTED)
-	private ResultInt bo;
+	private ResultBo bo;
 	
 	
 

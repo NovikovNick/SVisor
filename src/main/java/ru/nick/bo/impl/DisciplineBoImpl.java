@@ -9,7 +9,7 @@ import ru.nick.dao.SimpleCrudDao;
 import ru.nick.model.Discipline;
 
 @Named("disciplineBo")
-public class DisciplineBo extends AbstaractBusinessObject<Discipline>{
+public class DisciplineBoImpl extends AbstaractBusinessObject<Discipline>{
 
 	@Inject
 	@Named("disciplineDao")

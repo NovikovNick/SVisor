@@ -6,14 +6,15 @@ import javax.inject.Named;
 import lombok.AccessLevel;
 import lombok.Getter;
 import ru.nick.dao.SimpleCrudDao;
-import ru.nick.model.Student;
+import ru.nick.model.Speciality;
 
-@Named("studentBo")
-public class StudentBo extends AbstaractBusinessObject<Student>{
+
+@Named("specialityBo")
+public class SpecialityBoImpl extends AbstaractBusinessObject<Speciality>{
 	
 	@Inject
-	@Named("studentDao")
+	@Named("specialityDao")
 	@Getter(AccessLevel.PROTECTED)
-	private SimpleCrudDao<Student> dao;
+	private SimpleCrudDao<Speciality> dao;
 	
 }

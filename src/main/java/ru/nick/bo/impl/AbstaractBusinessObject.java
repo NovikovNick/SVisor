@@ -4,27 +4,40 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Set;
 
 import ru.nick.bo.SimpleCrudBusinessObject;
 import ru.nick.dao.SimpleCrudDao;
+import ru.nick.dao.impl.AbstractCrudDao;
+import ru.nick.managedbean.AbstarctManagedBean;
 import ru.nick.model.Identifiable;
 
 /**
+ * {@link AbstarctManagedBean} ==> <b>AbstaractBusinessObject</b> ==> {@link AbstractCrudDao}
+ * 
  * <p>
  * Этот класс реализует уровень бизнес логики. Если логика отсутствует и
  * сущность примитивно взаимодействует с базой данных, то всем методы
- * пробрасывают запрос дальше, на уровень ДАО.
+ * пробрасывают запрос дальше, на уровень ДАО ==> {@link AbstractCrudDao}
+ * <p><ul>
+ * Функционал работы с датой:
+ * <li>{@link #getCurrentDate()}
+ * <li>{@link #getCurrentDate(int)}
+ * </ul></p>
+ * 
+ * <p><ul>
+ * Функционал сортировки данных:
+ * <li>{@link #asOrderList(Set)}
+ * </ul></p>
  * 
  * @author NovikovNick
  *
  * @param <T>
+ * @see     SimpleCrudBusinessObject
  */
-public abstract class AbstaractBusinessObject<T extends Identifiable>
-		implements SimpleCrudBusinessObject<T> {
+public abstract class AbstaractBusinessObject<T extends Identifiable> implements SimpleCrudBusinessObject<T> {
 
 	protected abstract SimpleCrudDao<T> getDao();
 
@@ -35,7 +48,6 @@ public abstract class AbstaractBusinessObject<T extends Identifiable>
 
 	@Override
 	public List<T> findAll() {
-		//return getDao().findAll();
 		return new ArrayList<T>(getDao().findAll());
 	}
 
@@ -54,9 +66,15 @@ public abstract class AbstaractBusinessObject<T extends Identifiable>
 		return getDao().update(entity);
 	}
 	
-//	SimpleDateFormat format1 = new SimpleDateFormat("dd.MM.yyyy hh:mm");
-//	System.out.println(format1.format(calendar.getTime()));
+	
+	
+	
+	
+//=======================  Date functional  ================================
+//===============================START======================================
 	protected java.sql.Date getCurrentDate() {
+//		SimpleDateFormat format1 = new SimpleDateFormat("dd.MM.yyyy hh:mm");
+//		System.out.println(format1.format(calendar.getTime()));
 		Calendar calendar = new GregorianCalendar();
 		return new java.sql.Date(calendar.getTime().getTime());
 	}
@@ -65,7 +83,14 @@ public abstract class AbstaractBusinessObject<T extends Identifiable>
 		calendar.add(Calendar.DAY_OF_YEAR, day);
 		return new java.sql.Date(calendar.getTime().getTime());
 	}
+//================================END=======================================
 	
+	
+	
+	
+	
+//=======================  Order functional  ===============================
+//===============================START======================================
 	protected <E extends Identifiable> List<E> asOrderList(Set<E> set){
 		if (set == null) {
 			return new ArrayList<E>();
@@ -80,4 +105,5 @@ public abstract class AbstaractBusinessObject<T extends Identifiable>
 		});
 		return res;
 	}
+//================================END=======================================
 }

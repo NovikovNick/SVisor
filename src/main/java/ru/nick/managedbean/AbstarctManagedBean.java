@@ -3,8 +3,6 @@ package ru.nick.managedbean;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -12,39 +10,50 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import ru.nick.bo.SimpleCrudBusinessObject;
-import ru.nick.model.Discipline;
-import ru.nick.model.Group;
-import ru.nick.model.Teacher;
+import ru.nick.dao.SimpleCrudDao;
 import ru.nick.util.Messages;
 
 /**
  * <p>
- * Скелетная реализация JSF-bean'а.
- * <p>
- * CRUD-операции сущности T представлены методами: {@link #add()},
- * {@link #findAll()}, {@link #update(T)}, {@link #delete(T)}. 
- * Каждый из методов представляет собой pattern Template Method c 
- * переопределяемыми методами {@link #getBo()}
- * <p>
- * {@link #clearForm()} обнуляет состояние бина.
- * <p>
- * {@link #refresh()} - инициализация или обновление данных.
- * <p>
- * {@link #getGenericClass()}
- * <hr>
+ * Скелетная реализация JSF-bean'а в цепочке:
  * 
  * <p>
- * This class provides a skeletal implementation of the JSF-bean.
- * <p>
- * CRUD-operation: {@link #add()}, {@link #findAll()}, {@link #update(T)},
- * {@link #delete(T)}. Each method is a pattern Template Method with overrides
- *  a method {@link #getBo()}, {@link #getGenericClass()}.
- * <p>
- * {@link #clearForm()} - reset state of the bean.
- * <p>
- * {@link #refresh()} - init or refresh data.
+ * <b>AbstarctManagedBean</b> ==> {@link SimpleCrudBusinessObject} ==> {@link SimpleCrudDao}
+ * 
+ * <p><ul>
+ * CRUD-операции сущности T: 
+ * <li><b>C</b>reate: {@link #add()}
+ * <li><b>R</b>ead: {@link #findAll()}
+ * <li><b>U</b>pdate: {@link #update(T)}
+ * <li><b>D</b>elete: {@link #delete(T)}
+ * </ul></p>
+ * 
+ * <p><ul>
+ * Методы для переопределения:
+ * <li>{@link #getBo()}
+ * </ul></p>
+ * 
+ * <p><ul>
+ * Функционал для работы с полями ввода:
+ * <li>{@link #getGenericClass()}
+ * <li>{@link #clearForm()} 
+ * <li>{@link #refresh()} 
+ * </ul></p>
+ * 
+ * @param <T>
  * 
  * @author NovikovNick
+ * @see     AcademicDegreeBean
+ * @see     AcademicTitleBean
+ * @see     DisciplineBean
+ * @see     GroupBean
+ * @see     ModuleQuestionAnswerBean
+ * @see     ResultBean
+ * @see     SpecialityBean
+ * @see     StudentBean
+ * @see     TeacherBean
+ * @see     TestAssignBean
+ * @see     TestBean
  */
 public abstract class AbstarctManagedBean<T> {
 

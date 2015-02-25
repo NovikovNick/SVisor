@@ -9,7 +9,7 @@ import ru.nick.dao.SimpleCrudDao;
 import ru.nick.model.TestAssign;
 
 @Named("testAssignBo")
-public class TestAssignBo extends AbstaractBusinessObject<TestAssign>{
+public class TestAssignBoImpl extends AbstaractBusinessObject<TestAssign>{
 	
 	@Inject
 	@Named("testAssignDao")

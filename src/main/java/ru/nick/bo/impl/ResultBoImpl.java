@@ -10,7 +10,7 @@ import javax.inject.Named;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import ru.nick.bo.ResultInt;
+import ru.nick.bo.ResultBo;
 import ru.nick.dao.SimpleCrudDao;
 import ru.nick.model.Question;
 import ru.nick.model.Result;
@@ -18,7 +18,7 @@ import ru.nick.model.Student;
 import ru.nick.model.Test;
 
 @Named("resultBo")
-public class ResultBo extends AbstaractBusinessObject<Result> implements ResultInt{
+public class ResultBoImpl extends AbstaractBusinessObject<Result> implements ResultBo{
 	
 	
 	@Inject

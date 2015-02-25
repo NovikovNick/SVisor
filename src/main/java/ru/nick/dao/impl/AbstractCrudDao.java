@@ -14,9 +14,22 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import ru.nick.bo.impl.AbstaractBusinessObject;
 import ru.nick.dao.SimpleCrudDao;
+import ru.nick.managedbean.AbstarctManagedBean;
 import ru.nick.model.Identifiable;
 
+
+/**
+ * <p>
+ * {@link AbstarctManagedBean} ==> {@link AbstaractBusinessObject} ==> <b>AbstractCrudDao</b>
+ *  
+ * @author NovikovNick
+ *
+ * @param <T>
+ * @see     SimpleCrudDao
+ * 
+ */
 @Repository
 @Transactional
 public abstract class AbstractCrudDao<T extends Identifiable> implements SimpleCrudDao<T> {

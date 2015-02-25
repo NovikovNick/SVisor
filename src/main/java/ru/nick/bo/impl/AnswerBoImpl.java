@@ -6,14 +6,14 @@ import javax.inject.Named;
 import lombok.AccessLevel;
 import lombok.Getter;
 import ru.nick.dao.SimpleCrudDao;
-import ru.nick.model.Group;
+import ru.nick.model.Answer;
 
-@Named("groupBo")
-public class GroupBo extends AbstaractBusinessObject<Group>{
+@Named("answerBo")
+public class AnswerBoImpl extends AbstaractBusinessObject<Answer>{
 
 	@Inject
-	@Named("groupDao")
+	@Named("answerDao")
 	@Getter(AccessLevel.PROTECTED)
-	private SimpleCrudDao<Group> dao;
+	private SimpleCrudDao<Answer> dao;
 	
 }
