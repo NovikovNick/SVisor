@@ -1,8 +1,6 @@
 package ru.nick.model;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -19,7 +17,13 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
+/**
+ * Класс содержит всю информацию про преподавателя, включая -  свою ученую степень 
+ * {@link AcademicDegree} и ученое звание {@link AcademicTitle}, списки дисциплин
+ *  {@link Discipline} и групп {@link Group}
+ * @author NovikovNick
+ *
+ */
 @Entity
 @Table(name = "teacher")
 @NamedQuery(name = "Teacher.getAll", query = "SELECT t from Teacher t")

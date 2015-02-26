@@ -16,23 +16,34 @@ import lombok.Setter;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
+/**
+ * Предмет, обязательный в изучении для выбранной студентом специальности.
+ * 
+ * @author NovikovNick
+ * @see Teacher
+ * @see Module
+ */
 @Entity
 @Table(name = "discipline")
 @NamedQuery(name = "Discipline.getAll", query = "SELECT d FROM Discipline d")
-public class Discipline extends AbstractPersistable<Long> implements Identifiable{
+public class Discipline extends AbstractPersistable<Long> implements
+		Identifiable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Getter @Setter
+	@Getter
+	@Setter
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	@Getter @Setter
-	@ManyToMany(mappedBy = "disciplines")//, cascade = CascadeType.MERGE
-    private	Set<Teacher> teachers;
-	@Getter @Setter
+	@Getter
+	@Setter
+	@ManyToMany(mappedBy = "disciplines")
+	// , cascade = CascadeType.MERGE
+	private Set<Teacher> teachers;
+	@Getter
+	@Setter
 	@Column
 	private String title;
-	
-	
+
 }

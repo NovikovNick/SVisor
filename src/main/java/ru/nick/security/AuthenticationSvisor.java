@@ -12,8 +12,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import ru.nick.managedbean.Entity;
-
 @ManagedBean(name = "auth")
 @RequestScoped
 public class AuthenticationSvisor {

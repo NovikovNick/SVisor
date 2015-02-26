@@ -22,7 +22,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
-
+/**
+ * Вопрос со списком возможных вариантов ответа {@link Answer}
+ * @author NovikovNick
+ *
+ */
 @Entity
 @Table(name = "question")
 @NamedQuery(name = "Question.getByModuleId", query = "SELECT q FROM Question q "

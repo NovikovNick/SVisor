@@ -12,10 +12,24 @@ import ru.nick.bo.SimpleCrudBusinessObject;
 import ru.nick.dao.SimpleCrudDao;
 import ru.nick.dao.impl.AbstractCrudDao;
 import ru.nick.managedbean.AbstarctManagedBean;
+import ru.nick.managedbean.AcademicTitleBean;
+import ru.nick.managedbean.DisciplineBean;
+import ru.nick.managedbean.GroupBean;
+import ru.nick.managedbean.ModuleQuestionAnswerBean;
+import ru.nick.managedbean.ResultBean;
+import ru.nick.managedbean.SpecialityBean;
+import ru.nick.managedbean.StudentBean;
+import ru.nick.managedbean.TeacherBean;
+import ru.nick.managedbean.TestAssignBean;
+import ru.nick.managedbean.TestBean;
 import ru.nick.model.Identifiable;
 
 /**
- * {@link AbstarctManagedBean} ==> <b>AbstaractBusinessObject</b> ==> {@link AbstractCrudDao}
+ * <p>
+ * Скелетная реализация {@link SimpleCrudBusinessObject} в цепочке:
+ * 
+ * <p>
+ * {@link AbstarctManagedBean} ==> <b>{@link SimpleCrudBusinessObject}</b> ==> {@link AbstractCrudDao}
  * 
  * <p>
  * Этот класс реализует уровень бизнес логики. Если логика отсутствует и
@@ -36,6 +50,18 @@ import ru.nick.model.Identifiable;
  *
  * @param <T>
  * @see     SimpleCrudBusinessObject
+ * @see     AcademicDegreeBoImpl
+ * @see     AcademicTitleBoImpl
+ * @see     AnswerBoImpl
+ * @see     DisciplineBoImpl
+ * @see     GroupBoImpl
+ * @see     ModuleQuestionAnswerBoImpl
+ * @see     ResultBoImpl
+ * @see     SpecialityBoImpl
+ * @see     StudentBoImpl
+ * @see     TeacherBoImpl
+ * @see     TestAssignBoImpl
+ * @see     TestBoImpl
  */
 public abstract class AbstaractBusinessObject<T extends Identifiable> implements SimpleCrudBusinessObject<T> {
 

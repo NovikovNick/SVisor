@@ -12,7 +12,11 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
+/**
+ * Класс содержит информацию про студента, включая его группу {@link Group}
+ * @author NovikovNick
+ *
+ */
 @Entity
 @Table(name = "student")
 @NamedQueries({

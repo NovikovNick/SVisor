@@ -6,11 +6,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 /**
  * 
- * <p>Эта аннотация указывает на то, что поле является отображением 
- * поля на форме. Применяется исключительно к полю. 
- * <hr>
- * <p>This annotation indicates that the field is a mapping
- * field on the form. Applied exclusively to the field
+ * <p>
+ * Эта аннотация указывает на то, что поле присутствует на странице .xhtml на форме, и 
+ * будет неявно обработано в контексте логики данного уровня посредством {@link AbstarctManagedBean}
  * 
  * @author NovikovNick
  */

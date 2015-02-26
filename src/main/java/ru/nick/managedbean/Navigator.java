@@ -6,7 +6,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-
+/**
+ * Класс обеспечивает навигацию по приложению в зависимости от роли.
+ * @author NovikovNick
+ *
+ */
 @Component("navigator")
 @Scope("session")
 public class Navigator{// implements Serializable

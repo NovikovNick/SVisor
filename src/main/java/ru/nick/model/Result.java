@@ -13,7 +13,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
-
+/**
+ * Результат выполнения (или невыполнения) теста {@link Test}, определенным студентом{@link Student}
+ * @author NovikovNick
+ *
+ */
 @Entity
 @Table(name = "result")
 @NamedQuery(name = "Result.getAll", query = "SELECT r FROM Result r ")

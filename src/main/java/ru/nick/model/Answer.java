@@ -14,29 +14,37 @@ import lombok.Setter;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
+/**
+ * Ответ на определенный вопрос {@link Question}
+ * 
+ * @author NovikovNick
+ * @see Question
+ * @see Module
+ */
 @Entity
 @Table(name = "answer")
-@NamedQuery(name = "Answer.getByQuestionId",
-query = "SELECT a FROM Answer a "
-		+ "JOIN a.ownerQuestion q "
-		+ "WHERE q.id = :idQuestion ")
-public class Answer extends AbstractPersistable<Long> implements Identifiable{
-	
+@NamedQuery(name = "Answer.getByQuestionId", query = "SELECT a FROM Answer a "
+		+ "JOIN a.ownerQuestion q " + "WHERE q.id = :idQuestion ")
+public class Answer extends AbstractPersistable<Long> implements Identifiable {
+
 	private static final long serialVersionUID = 1L;
-	@Getter @Setter
+	@Getter
+	@Setter
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	@Getter @Setter
+	@Getter
+	@Setter
 	@JoinColumn(name = "content")
 	private String content;
-	@Getter @Setter
+	@Getter
+	@Setter
 	@ManyToOne
 	@JoinColumn(name = "id_question")
 	private Question ownerQuestion;
-	@Getter @Setter
+	@Getter
+	@Setter
 	@JoinColumn(name = "correct")
 	private boolean correct;
-	
-}
 
+}

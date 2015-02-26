@@ -18,7 +18,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
-
+/**
+ * Определенная тема со своим списоком вопросов {@link Question}
+ * @author NovikovNick
+ *
+ */
 @Entity
 @Table(name = "module")
 @NamedQuery(name = "Module.getAll", query = "SELECT m FROM Module m")

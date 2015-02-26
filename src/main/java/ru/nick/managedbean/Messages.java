@@ -1,4 +1,4 @@
-package ru.nick.util;
+package ru.nick.managedbean;
 
 import java.text.MessageFormat;
 import java.util.Locale;
@@ -10,7 +10,16 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
-
+/**
+ * 
+ * Код класса взят из книги
+ * <a href="http://www.williamspublishing.com/Books/978-5-8459-1396-8.html">
+ * Гери Д., Хорстманн К. - JavaServer Faces
+ * </a>, и используется для инкапсуляции работы с {@link FacesMessage}
+ *
+ * @author NovikovNick
+ *
+ */
 public class Messages {
 
 	private static final String RESOURCE_BUNDLE_NAME = "messages";

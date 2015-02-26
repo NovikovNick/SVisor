@@ -1,10 +1,6 @@
 package ru.nick.model;
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -24,7 +20,11 @@ import lombok.Setter;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
-
+/**
+ * Совокупность определенных вопросов {@link Question} из нескольких модулей {@link Module}
+ * @author NovikovNick
+ *
+ */
 @Entity
 @Table(name = "test")
 @NamedQuery(name = "Test.getAll", query = "SELECT t FROM Test t")

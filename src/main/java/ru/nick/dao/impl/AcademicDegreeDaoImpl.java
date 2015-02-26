@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Named;
 
 import ru.nick.model.AcademicDegree;
+import ru.nick.model.Identifiable;
 
 @Named("academicDegreeDao")
 public class AcademicDegreeDaoImpl extends AbstractCrudDao<AcademicDegree>{

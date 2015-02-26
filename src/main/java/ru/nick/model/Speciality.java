@@ -10,7 +10,11 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
+/**
+ * Специальность, на которую поступают студенты{@link Student}
+ * @author NovikovNick
+ *
+ */
 @Entity
 @Table(name = "speciality")
 @NamedQuery(name = "Speciality.getAll", query = "SELECT s FROM Speciality s")

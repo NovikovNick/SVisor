@@ -17,7 +17,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
-
+/**
+ * Студенческая группа, хранящая информацию о курсе, специальности {@link Speciality} и списке своих студентов
+ * @author NovikovNick
+ *
+ */
 @Entity
 @Table(name = "groups")
 @NamedQuery(name = "Group.getAll", query = "SELECT g FROM Group g")

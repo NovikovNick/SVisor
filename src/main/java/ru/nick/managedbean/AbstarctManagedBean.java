@@ -10,102 +10,57 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import ru.nick.bo.SimpleCrudBusinessObject;
-import ru.nick.dao.SimpleCrudDao;
-import ru.nick.util.Messages;
 
 /**
  * <p>
- * Скелетная реализация JSF-bean'а в цепочке:
+ * <b>Основной класс пакета</b>. Скелетная реализация JSF-bean'а.
  * 
- * <p>
- * <b>AbstarctManagedBean</b> ==> {@link SimpleCrudBusinessObject} ==> {@link SimpleCrudDao}
- * 
+ * <h4>CRUD-операции</h4>
+ * <p>Реализует работу с базой данных, благодаря параметрическому полиморфизму. Потомку 
+ * следует лишь переопределить {@link #getBo()}, чтобы пользоваться всеми представленными ниже методами
  * <p><ul>
- * CRUD-операции сущности T: 
- * <li><b>C</b>reate: {@link #add()}
- * <li><b>R</b>ead: {@link #findAll()}
+ * <li><b>C</b>reate: {@link #add()}, 
+ * <li><b>R</b>ead: {@link #findAll()}, {@link #getAll()}, {@link #findById(long)}, {@link #refresh()} 
  * <li><b>U</b>pdate: {@link #update(T)}
  * <li><b>D</b>elete: {@link #delete(T)}
  * </ul></p>
- * 
+
+ * <h4>Функционал для работы с полями ввода</h4>
+ * <p>
  * <p><ul>
- * Методы для переопределения:
- * <li>{@link #getBo()}
- * </ul></p>
- * 
- * <p><ul>
- * Функционал для работы с полями ввода:
  * <li>{@link #getGenericClass()}
+ * <li>{@link #fillFields()} 
  * <li>{@link #clearForm()} 
- * <li>{@link #refresh()} 
+ * <li>{@link #validInputText(FacesContext, UIComponent, Object)}
  * </ul></p>
  * 
- * @param <T>
+ * @param <T> сущность из пакета {@link ru.nick.model}
  * 
  * @author NovikovNick
- * @see     AcademicDegreeBean
- * @see     AcademicTitleBean
- * @see     DisciplineBean
- * @see     GroupBean
- * @see     ModuleQuestionAnswerBean
- * @see     ResultBean
- * @see     SpecialityBean
- * @see     StudentBean
- * @see     TeacherBean
- * @see     TestAssignBean
- * @see     TestBean
  */
 public abstract class AbstarctManagedBean<T> {
 
 	private final String EMPTY_FORM_FIELD = "тест";
 	
 	/**
-	 * Cacheble data of all existing current Entity
+	 * Кэшированный внутри список сущностей
 	 */
 	protected List<T> all;
-
-	/**
-	 * <p>
-	 * It is part of pattern "Template method" represented CRUD-operations
-	 * 
-	 * @return BO typed {@link SimpleCrudBusinessObject} generic by current Entity
-	 */
-	protected abstract SimpleCrudBusinessObject<T> getBo();
-
-	/**
-	 * <p>
-	 * Use to initial data or refresh data after change Database state operations
-	 */
-	@PostConstruct
-	protected void refresh(){//TODO:It is not correct to use exception in app logic...
-		try {
-			all = findAll();
-		} catch (UnsupportedOperationException e) {
-			
-		}
-		
-	}
-
-	/**
-	 * <p>
-	 * This is... 
-	 * @return current generic entity class
-	 */
-	@SuppressWarnings("unchecked")
-	protected Class<T> getGenericClass(){
-		return (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-	}
-
+	
+	//=======================  CRUD-operation  =================================
+	//===============================START======================================
 	/**
 	 * При переопределение этого метода необходимо вызвать методы:
-	 * <pre>@Override
-public String add() {
-	...
-	getBo().add(teacher);
-	clearForm();
-	refresh();
-	return null;
-}
+	 * <pre>
+	 * @Override
+	 * public String add() {
+	 * 	...
+	 * 	getBo().add(teacher);
+	 * 	clearForm();
+	 * 	refresh();
+	 * 	return null;
+	 * }
+	 * </pre>
 	 * @return 
 	 */
 	public String add() {
@@ -121,6 +76,77 @@ public String add() {
 		clearForm();
 		refresh();
 		return null;
+	}
+
+	/**
+	 * 
+	 * @return cache of entity {@link #all}
+	 */
+	public List<T> getAll() {
+		return all;
+	}
+	
+	/** Read */
+	public List<T> findAll() {
+		return getBo().findAll();
+	}
+	
+	/** Read */
+	public T findById(long id) {
+		return getBo().getById(id);
+	}
+
+	/**
+	 * <p>
+	 * Use to initial data or refresh data after change Database state operations
+	 */
+	@PostConstruct
+	protected void refresh(){//TODO:It is not correct to use exception in app logic...
+		try {
+			all = findAll();
+		} catch (UnsupportedOperationException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/** Update */
+	public String update(T entity) {
+		getBo().update(entity);
+		refresh();
+		return null;
+	}
+
+	/** Delete */
+	public String delete(T entity) {
+		getBo().delete(entity);
+		refresh();
+		return null;
+	}
+	/**
+	 * <p>
+	 * Обязательный к переопределению метод, позволяющий корректно пользоваться CRUD-операциями
+	 * родительского класса {@link AbstarctManagedBean} 
+	 * 
+	 * @return возвращает {@link SimpleCrudBusinessObject} параметризированный сущностью из пакета 
+	 * {@link ru.nick.model}
+	 */
+	protected abstract SimpleCrudBusinessObject<T> getBo();
+	//================================END=======================================
+	
+	
+	
+	
+	
+	//=======================  JSF field support  ==============================
+	//===============================START======================================
+	/**
+	 * <p>
+	 * This is... 
+	 * @return current generic entity class
+	 */
+	@SuppressWarnings("unchecked")
+	protected Class<T> getGenericClass(){
+		return (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 
 	/**
@@ -142,37 +168,7 @@ public String add() {
 		}
 	}
 
-	/** Read */
-	public List<T> findAll() {
-		return getBo().findAll();
-	}
 	
-	/** Read */
-	public T findById(long id) {
-		return getBo().getById(id);
-	}
-
-	/** Update */
-	public String update(T entity) {
-		getBo().update(entity);
-		refresh();
-		return null;
-	}
-
-	/** Delete */
-	public String delete(T entity) {
-		getBo().delete(entity);
-		refresh();
-		return null;
-	}
-
-	/**
-	 * 
-	 * @return cache of entity {@link #all}
-	 */
-	public List<T> getAll() {
-		return all;
-	}
 	
 	/**
 	 * Reset every field, who was marked by {@link FormField} 
@@ -227,4 +223,6 @@ public String add() {
 		}
 
 	}
+	//================================END=======================================
+	
 }

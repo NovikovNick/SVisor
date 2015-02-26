@@ -1,16 +1,18 @@
-package ru.nick.util;
+package ru.nick.managedbean;
 
 import java.util.Locale;
 
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import org.springframework.context.annotation.Scope;
-import org.springframework.web.context.WebApplicationContext;
-
+/**
+ * Смена языковой локали
+ * @author NovikovNick
+ *
+ */
 @Named
-@Scope(WebApplicationContext.SCOPE_SESSION)
+@Scope("session")
 public class LocateChange {
 
 	public String en(){

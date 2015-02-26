@@ -19,6 +19,7 @@ import ru.nick.model.Answer;
 import ru.nick.model.Question;
 import ru.nick.model.Student;
 import ru.nick.model.TestAssign;
+import ru.nick.security.Entity;
 
 @Component("student")
 @Scope("session")
