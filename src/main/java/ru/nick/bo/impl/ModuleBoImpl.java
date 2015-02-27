@@ -7,7 +7,11 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import ru.nick.dao.SimpleCrudDao;
 import ru.nick.model.Module;
-
+/**
+ * Класс-наследник {@link AbstaractBusinessObject}. Отвечает за модули
+ * @author NovikovNick
+ *
+ */
 @Named("moduleBo")
 public class ModuleBoImpl extends AbstaractBusinessObject<Module>{
 

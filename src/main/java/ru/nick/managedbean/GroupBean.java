@@ -13,7 +13,11 @@ import org.springframework.stereotype.Component;
 import ru.nick.bo.SimpleCrudBusinessObject;
 import ru.nick.model.Group;
 import ru.nick.model.Speciality;
-
+/**
+ * Класс-наследник {@link AbstarctManagedBean}. Отвечает за группы
+ * @author NovikovNick
+ *
+ */
 @Component("groupBean")
 @Scope("request")
 public class GroupBean extends AbstarctManagedBean<Group> {

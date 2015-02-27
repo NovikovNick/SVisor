@@ -7,6 +7,13 @@ import javax.inject.Named;
 import ru.nick.dao.EntityDao;
 import ru.nick.model.Student;
 
+/**
+ * Класс-наследник {@link AbstractCrudDao}. Отвечает за студента и реализует
+ * {@link EntityDao}
+ * 
+ * @author NovikovNick
+ *
+ */
 @Named("studentDao")
 public class StudentEntityDaoImpl extends AbstractCrudDao<Student> implements EntityDao<Student> {
 

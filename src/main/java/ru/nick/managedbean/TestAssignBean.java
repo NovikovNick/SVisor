@@ -19,7 +19,11 @@ import ru.nick.model.Group;
 import ru.nick.model.Teacher;
 import ru.nick.model.Test;
 import ru.nick.model.TestAssign;
-
+/**
+ * Класс-наследник {@link AbstarctManagedBean}. Отвечает за назначения на тесты
+ * @author NovikovNick
+ *
+ */
 @Component("assignBean")
 @Scope("request")
 public class TestAssignBean extends AbstarctManagedBean<TestAssign> {

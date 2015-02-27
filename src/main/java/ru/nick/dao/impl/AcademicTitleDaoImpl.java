@@ -6,10 +6,15 @@ import javax.inject.Named;
 
 import ru.nick.model.AcademicTitle;
 
+/**
+ * Класс-наследник {@link AbstractCrudDao}. Отвечает за ученое звание
+ * 
+ * @author NovikovNick
+ *
+ */
 @Named("academicTitleDao")
-public class AcademicTitleDaoImpl extends AbstractCrudDao<AcademicTitle>{
+public class AcademicTitleDaoImpl extends AbstractCrudDao<AcademicTitle> {
 
-	
 	@Override
 	public List<AcademicTitle> findAll() {
 		return query("AcademicTitle.getAll");
@@ -22,7 +27,7 @@ public class AcademicTitleDaoImpl extends AbstractCrudDao<AcademicTitle>{
 
 	@Override
 	protected String[] getUpdatableField() {
-		return new String[]{"FullTitle", "ReducTitle"};
+		return new String[] { "FullTitle", "ReducTitle" };
 	}
 
 }

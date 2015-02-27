@@ -12,7 +12,10 @@ import org.springframework.stereotype.Component;
 
 import ru.nick.bo.SimpleCrudBusinessObject;
 import ru.nick.model.AcademicDegree;
-
+/**
+ * Класс-наследник {@link AbstarctManagedBean}. Отвечает за ученую степень
+ * @author NovikovNick
+ */
 @Component("academicDegreeBean")
 @Scope("request")
 public class AcademicDegreeBean extends AbstarctManagedBean<AcademicDegree> {

@@ -14,26 +14,30 @@ import ru.nick.model.Discipline;
 import ru.nick.model.Group;
 import ru.nick.model.Teacher;
 
+/**
+ * Класс-наследник {@link AbstaractBusinessObject}. Отвечает за преподавателей и
+ * реализует {@link TeacherBo}
+ * 
+ * @author NovikovNick
+ *
+ */
 @Named("teacherBo")
-public class TeacherBoImpl extends AbstaractBusinessObject<Teacher> implements TeacherBo{
-	
+public class TeacherBoImpl extends AbstaractBusinessObject<Teacher> implements
+		TeacherBo {
+
 	@Inject
 	@Named("teacherDao")
 	@Getter(AccessLevel.PROTECTED)
 	private SimpleCrudDao<Teacher> dao;
-	
+
 	@Inject
 	@Named("groupBo")
 	private SimpleCrudBusinessObject<Group> gBo;
-	
+
 	@Inject
 	@Named("disciplineBo")
 	private SimpleCrudBusinessObject<Discipline> dBo;
 
-	
-	
-	
-	
 	@Override
 	public List<Discipline> getDisciplineList(Teacher teacher) {
 		return asOrderList(teacher.getDisciplines());
@@ -42,10 +46,7 @@ public class TeacherBoImpl extends AbstaractBusinessObject<Teacher> implements T
 	@Override
 	public List<Group> getGroupList(Teacher teacher) {
 		return asOrderList(teacher.getGroups());
-	}	
-	
-
-	
+	}
 
 	@Override
 	public List<Discipline> getAllDisciplines(Teacher teacher) {
@@ -59,8 +60,6 @@ public class TeacherBoImpl extends AbstaractBusinessObject<Teacher> implements T
 		List<Group> res = gBo.findAll();
 		res.removeAll(getGroupList(teacher));
 		return res;
-		
+
 	}
 }
-
-

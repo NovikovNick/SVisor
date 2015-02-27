@@ -9,8 +9,14 @@ import org.springframework.cache.annotation.Cacheable;
 
 import ru.nick.model.Discipline;
 
+/**
+ * Класс-наследник {@link AbstractCrudDao}. Отвечает за дисциплины
+ * 
+ * @author NovikovNick
+ *
+ */
 @Named("disciplineDao")
-public class DisciplineDaoImpl  extends AbstractCrudDao<Discipline>{
+public class DisciplineDaoImpl extends AbstractCrudDao<Discipline> {
 
 	@Override
 	protected Class<Discipline> getGenericClass() {
@@ -26,7 +32,7 @@ public class DisciplineDaoImpl  extends AbstractCrudDao<Discipline>{
 	@Override
 	@CacheEvict(value = "discipline", allEntries = true)
 	public void delete(Discipline detached) {
-		super.delete(detached);		
+		super.delete(detached);
 	}
 
 	@Override
@@ -37,6 +43,6 @@ public class DisciplineDaoImpl  extends AbstractCrudDao<Discipline>{
 
 	@Override
 	protected String[] getUpdatableField() {
-		return new String[]{"Title"};
+		return new String[] { "Title" };
 	}
 }

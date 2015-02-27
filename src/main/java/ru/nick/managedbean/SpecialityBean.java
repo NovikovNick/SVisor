@@ -12,7 +12,11 @@ import org.springframework.stereotype.Component;
 
 import ru.nick.bo.SimpleCrudBusinessObject;
 import ru.nick.model.Speciality;
-
+/**
+ * Класс-наследник {@link AbstarctManagedBean}. Отвечает за специальности
+ * @author NovikovNick
+ *
+ */
 @Component("specialityBean")
 @Scope("request")
 public class SpecialityBean extends AbstarctManagedBean<Speciality> {

@@ -11,7 +11,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-
+/**
+ * Класс отвечает за авторизацию
+ * @author NovikovNick
+ *
+ */
 @ManagedBean(name = "auth")
 @RequestScoped
 public class AuthenticationSvisor {

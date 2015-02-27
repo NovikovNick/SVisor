@@ -8,7 +8,11 @@ import lombok.Getter;
 import ru.nick.dao.SimpleCrudDao;
 import ru.nick.model.Speciality;
 
-
+/**
+ * Класс-наследник {@link AbstaractBusinessObject}. Отвечает за специальности
+ * @author NovikovNick
+ *
+ */
 @Named("specialityBo")
 public class SpecialityBoImpl extends AbstaractBusinessObject<Speciality>{
 	

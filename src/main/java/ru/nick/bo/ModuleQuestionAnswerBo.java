@@ -5,7 +5,11 @@ import java.util.List;
 import ru.nick.model.Answer;
 import ru.nick.model.Module;
 import ru.nick.model.Question;
-
+/**
+ * Интерфейс бизнес слоя для модулей, вопросов и ответов
+ * @author NovikovNick
+ *
+ */
 public interface ModuleQuestionAnswerBo {
 	
 

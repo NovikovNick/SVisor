@@ -13,7 +13,11 @@ import ru.nick.dao.SimpleCrudDao;
 import ru.nick.model.Discipline;
 import ru.nick.model.Group;
 import ru.nick.model.Teacher;
-
+/**
+ * Класс-наследник {@link AbstractCrudDao}. Отвечает за преподавателя и реализует {@link EntityDao}
+ * @author NovikovNick
+ *
+ */
 @Named("teacherDao")
 public class TeacherDaoImpl  extends AbstractCrudDao<Teacher> implements EntityDao<Teacher>{
 

@@ -1,19 +1,17 @@
 package ru.nick.managedbean.converter;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
 import ru.nick.model.Discipline;
 
+/**
+ * Конвертер дисциплины
+ * 
+ * @author NovikovNick
+ *
+ */
 @FacesConverter(forClass = Discipline.class)
-public class DisciplineConverter extends AbstractEntityByIdConverter {
+public class DisciplineConverter extends
+		AbstractEntityByIdConverter<Discipline> {
 
-	@Override
-	public Object getAsObject(FacesContext context, UIComponent component, String value) {
-		Discipline discipline = new Discipline();
-		discipline.setId(new Long(value));
-		return discipline;
-	}
 }

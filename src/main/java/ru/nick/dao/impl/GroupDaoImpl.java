@@ -6,10 +6,15 @@ import javax.inject.Named;
 
 import ru.nick.model.Group;
 
+/**
+ * Класс-наследник {@link AbstractCrudDao}. Отвечает за группы
+ * 
+ * @author NovikovNick
+ *
+ */
 @Named("groupDao")
-public class GroupDaoImpl extends AbstractCrudDao<Group>{
+public class GroupDaoImpl extends AbstractCrudDao<Group> {
 
-	
 	@Override
 	public List<Group> findAll() {
 		return query("Group.getAll");
@@ -19,10 +24,10 @@ public class GroupDaoImpl extends AbstractCrudDao<Group>{
 	protected Class<Group> getGenericClass() {
 		return Group.class;
 	}
-	
+
 	@Override
 	protected String[] getUpdatableField() {
-		return new String[]{ "Course", "Speciality", "Title"};
+		return new String[] { "Course", "Speciality", "Title" };
 	}
 
 }

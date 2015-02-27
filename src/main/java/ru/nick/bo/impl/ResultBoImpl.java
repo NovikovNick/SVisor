@@ -16,7 +16,12 @@ import ru.nick.model.Question;
 import ru.nick.model.Result;
 import ru.nick.model.Student;
 import ru.nick.model.Test;
-
+/**
+ * Класс-наследник {@link AbstaractBusinessObject}. Отвечает за результаты проxождения
+ * теста. Реализует функцинал {@link ResultBo}
+ * @author NovikovNick
+ *
+ */
 @Named("resultBo")
 public class ResultBoImpl extends AbstaractBusinessObject<Result> implements ResultBo{
 	

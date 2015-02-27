@@ -22,7 +22,11 @@ import ru.nick.model.Discipline;
 import ru.nick.model.Group;
 import ru.nick.model.Teacher;
 
-//TODO:REVIEW!!!
+/**
+ * Класс-наследник {@link AbstarctManagedBean}. Отвечает за преподавателей
+ * @author NovikovNick
+ *
+ */
 @Component("teacherBean")
 @Scope("request")
 public class TeacherBean extends AbstarctManagedBean<Teacher> {

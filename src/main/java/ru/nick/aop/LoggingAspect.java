@@ -2,16 +2,18 @@ package ru.nick.aop;
 
 import java.util.Formatter;
 
-import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.hibernate.search.bridge.String2FieldBridgeAdaptor;
-
+/**
+ * Класс отвечает за логирование всего приложения
+ * @author NovikovNick
+ *
+ */
 @Aspect
 public class LoggingAspect {
 
-	private Logger LOG = Logger.getLogger(getClass());
+	//private Logger LOG = Logger.getLogger(getClass());
 	
 	private int counter = 0;
 	private StringBuilder last = new StringBuilder();

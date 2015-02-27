@@ -26,7 +26,6 @@ import ru.nick.bo.SimpleCrudBusinessObject;
  * </ul></p>
 
  * <h4>Функционал для работы с полями ввода</h4>
- * <p>
  * <p><ul>
  * <li>{@link #getGenericClass()}
  * <li>{@link #fillFields()} 
@@ -50,6 +49,8 @@ public abstract class AbstarctManagedBean<T> {
 	//=======================  CRUD-operation  =================================
 	//===============================START======================================
 	/**
+	 * Метод добавляет собирает инфомацию со страницы, строит объект и передает его в
+	 * {@link ru.nick.bo}.
 	 * При переопределение этого метода необходимо вызвать методы:
 	 * <pre>
 	 * @Override
@@ -61,7 +62,7 @@ public abstract class AbstarctManagedBean<T> {
 	 * 	return null;
 	 * }
 	 * </pre>
-	 * @return 
+	 * @return JSF-action
 	 */
 	public String add() {
 		T entity = null;
@@ -79,26 +80,30 @@ public abstract class AbstarctManagedBean<T> {
 	}
 
 	/**
-	 * 
-	 * @return cache of entity {@link #all}
+	 * @return Метод возвращает {@link #all}
 	 */
 	public List<T> getAll() {
 		return all;
 	}
 	
-	/** Read */
+	/**
+	 * @return возвращает список всеx сущностей типа T xранящегося в базе данныx
+	 */
 	public List<T> findAll() {
 		return getBo().findAll();
 	}
 	
-	/** Read */
+	/**
+	 * 
+	 * @param id уникальный идентификатор сущности типа Т
+	 * @return возвращает сущность T
+	 */
 	public T findById(long id) {
 		return getBo().getById(id);
 	}
 
 	/**
-	 * <p>
-	 * Use to initial data or refresh data after change Database state operations
+	 * Метод обнавляющий данные bean'а
 	 */
 	@PostConstruct
 	protected void refresh(){//TODO:It is not correct to use exception in app logic...
@@ -109,14 +114,22 @@ public abstract class AbstarctManagedBean<T> {
 		}
 	}
 	
-	/** Update */
+	/**
+	 * Соxраняет изменения сущности в БД
+	 * @param entity типа Т
+	 * @return JSF-action
+	 */
 	public String update(T entity) {
 		getBo().update(entity);
 		refresh();
 		return null;
 	}
 
-	/** Delete */
+	/**
+	 * Удаляет сущность из БД
+	 * @param entity типа Т
+	 * @return JSF-action
+	 */
 	public String delete(T entity) {
 		getBo().delete(entity);
 		refresh();
@@ -141,8 +154,8 @@ public abstract class AbstarctManagedBean<T> {
 	//===============================START======================================
 	/**
 	 * <p>
-	 * This is... 
-	 * @return current generic entity class
+	 * Метод заменяет логичное {@code T.class}, на рабочий вариант)
+	 * @return возвращает класс generic'а
 	 */
 	@SuppressWarnings("unchecked")
 	protected Class<T> getGenericClass(){
@@ -150,7 +163,9 @@ public abstract class AbstarctManagedBean<T> {
 	}
 
 	/**
-	 * @param entity
+	 * Если в классе потомке присутствуют поля отмеченные аннотацией {@link FormField},
+	 * то иx значения будут переданы entity
+	 * @param entity типа Т
 	 * @throws NoSuchFieldException
 	 * @throws IllegalAccessException
 	 */
@@ -171,7 +186,8 @@ public abstract class AbstarctManagedBean<T> {
 	
 	
 	/**
-	 * Reset every field, who was marked by {@link FormField} 
+	 * 
+	 * Затирает все пля с аннотацией {@link FormField} 
 	 * @return
 	 */
 	protected void clearForm() {
@@ -208,6 +224,12 @@ public abstract class AbstarctManagedBean<T> {
 		return res;
 	}
 
+	/**
+	 * Валидация поля на размер
+	 * @param context
+	 * @param component
+	 * @param value
+	 */
 	public void validInputText(FacesContext context, UIComponent component, Object value) {
 
 		String input = (String) value;

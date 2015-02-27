@@ -5,11 +5,16 @@ import java.util.List;
 import javax.inject.Named;
 
 import ru.nick.model.AcademicDegree;
-import ru.nick.model.Identifiable;
 
+/**
+ * Класс-наследник {@link AbstractCrudDao}. Отвечает за ученую степень
+ * 
+ * @author NovikovNick
+ *
+ */
 @Named("academicDegreeDao")
-public class AcademicDegreeDaoImpl extends AbstractCrudDao<AcademicDegree>{
-	
+public class AcademicDegreeDaoImpl extends AbstractCrudDao<AcademicDegree> {
+
 	@Override
 	public List<AcademicDegree> findAll() {
 		return query("AcademicDegree.getAll");
@@ -17,6 +22,6 @@ public class AcademicDegreeDaoImpl extends AbstractCrudDao<AcademicDegree>{
 
 	@Override
 	protected String[] getUpdatableField() {
-		return new String[]{"FullDegree", "ReducDegree"};
+		return new String[] { "FullDegree", "ReducDegree" };
 	}
 }

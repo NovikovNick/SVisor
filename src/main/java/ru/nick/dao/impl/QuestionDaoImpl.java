@@ -6,8 +6,14 @@ import javax.inject.Named;
 
 import ru.nick.model.Question;
 
+/**
+ * Класс-наследник {@link AbstractCrudDao}. Отвечает за вопросы
+ * 
+ * @author NovikovNick
+ *
+ */
 @Named("questionDao")
-public class QuestionDaoImpl  extends AbstractCrudDao<Question>{
+public class QuestionDaoImpl extends AbstractCrudDao<Question> {
 
 	@Override
 	public List<Question> findAll() {
@@ -21,7 +27,7 @@ public class QuestionDaoImpl  extends AbstractCrudDao<Question>{
 
 	@Override
 	protected String[] getUpdatableField() {
-		return new String[]{"Content", "Difficult", "OwnerModule"};
+		return new String[] { "Content", "Difficult", "OwnerModule" };
 	}
 
 }

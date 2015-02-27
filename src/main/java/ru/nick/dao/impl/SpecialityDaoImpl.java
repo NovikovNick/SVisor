@@ -6,9 +6,15 @@ import javax.inject.Named;
 
 import ru.nick.model.Speciality;
 
+/**
+ * Класс-наследник {@link AbstractCrudDao}. Отвечает за специальностиЩ
+ * 
+ * @author NovikovNick
+ *
+ */
 @Named("specialityDao")
-public class SpecialityDaoImpl extends AbstractCrudDao<Speciality>{
-	
+public class SpecialityDaoImpl extends AbstractCrudDao<Speciality> {
+
 	@Override
 	public List<Speciality> findAll() {
 		return query("Speciality.getAll");
@@ -21,7 +27,7 @@ public class SpecialityDaoImpl extends AbstractCrudDao<Speciality>{
 
 	@Override
 	protected String[] getUpdatableField() {
-		return new String[]{"Title"};
+		return new String[] { "Title" };
 	}
 
 }

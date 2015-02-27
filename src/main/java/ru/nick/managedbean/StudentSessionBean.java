@@ -21,6 +21,12 @@ import ru.nick.model.Student;
 import ru.nick.model.TestAssign;
 import ru.nick.security.Entity;
 
+/**
+ * Сессионный bean поддержки действий студента
+ * 
+ * @author NovikovNick
+ *
+ */
 @Component("student")
 @Scope("session")
 public class StudentSessionBean {

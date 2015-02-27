@@ -8,7 +8,11 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 
 import ru.nick.model.Module;
-
+/**
+ * Класс-наследник {@link AbstractCrudDao}. Отвечает за модули
+ * @author NovikovNick
+ *
+ */
 @Named("moduleDao")
 public class ModuleDaoImpl extends AbstractCrudDao<Module>{
 

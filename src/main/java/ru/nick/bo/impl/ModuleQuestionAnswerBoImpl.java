@@ -18,7 +18,11 @@ import ru.nick.model.Identifiable;
 import ru.nick.model.Module;
 import ru.nick.model.Question;
 import ru.nick.model.Question.Difficult;
-
+/**
+ * Класс интегрирует три класса бизнес логики для модуля, вопроса и ответа
+ * @author NovikovNick
+ *
+ */
 @Named("mqaBo")
 public class ModuleQuestionAnswerBoImpl implements ModuleQuestionAnswerBo{
 

@@ -6,7 +6,11 @@ import javax.faces.context.FacesContext;
 
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.config.Scope;
-
+/**
+ * Класс-адаптер между JSF-scope и Spring-scope
+ * @author NovikovNick
+ *
+ */
 public class ViewScope implements Scope {
 
 	@Override

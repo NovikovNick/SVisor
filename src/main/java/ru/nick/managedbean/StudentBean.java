@@ -13,7 +13,11 @@ import org.springframework.stereotype.Component;
 import ru.nick.bo.SimpleCrudBusinessObject;
 import ru.nick.model.Group;
 import ru.nick.model.Student;
-
+/**
+ * Класс-наследник {@link AbstarctManagedBean}. Отвечает за студентов 
+ * @author NovikovNick
+ *
+ */
 @Component("studentBean")
 @Scope("request")
 public class StudentBean extends AbstarctManagedBean<Student> {
@@ -44,7 +48,9 @@ public class StudentBean extends AbstarctManagedBean<Student> {
 	@FormField
 	@Getter	@Setter
 	private Group group;
-	
+	/**
+	 * Регистрирует пользователя после добавления
+	 */
 	@Override
 	public String add() {
 		super.add();

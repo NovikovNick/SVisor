@@ -14,7 +14,12 @@ import ru.nick.dao.SimpleCrudDao;
 import ru.nick.model.Module;
 import ru.nick.model.Question;
 import ru.nick.model.Test;
-
+/**
+ * Класс-наследник {@link AbstaractBusinessObject}. Отвечает за тесты и реализует 
+ * {@link TestBo}
+ * @author NovikovNick
+ *
+ */
 @Named("testBo")
 public class TestBoImpl extends AbstaractBusinessObject<Test> implements TestBo{
 

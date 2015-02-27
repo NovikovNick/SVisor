@@ -19,7 +19,11 @@ import ru.nick.bo.TestBo;
 import ru.nick.model.Module;
 import ru.nick.model.Question;
 import ru.nick.model.Test;
-
+/**
+ * Класс-наследник {@link AbstarctManagedBean}. Отвечает за тесты
+ * @author NovikovNick
+ *
+ */
 @Component("testBean")
 @Scope("view")
 public class TestBean extends AbstarctManagedBean<Test> {
