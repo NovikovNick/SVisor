@@ -5,7 +5,7 @@
 	xmlns:svisor="http://svisor.com/facelets">
 
 	<div id="top">
-	<h:form>
+	<h:form prependId="false">
 		<div class="shell">
 			<h1 class="logo">#{msg.application_name}</h1>
 			<span class="right">
@@ -20,13 +20,13 @@
 						<h:graphicImage style="width:30px;" library="default" name="images/flag_rus.jpg" />
 					</h:commandLink>
 					|
-					<h:commandLink value="logout" action="#{auth.logout}" />
+					<h:commandLink id="logout" value="logout" action="#{auth.logout}" />
 				
 			</span>
 		</div>
 		</h:form>
 		<div class="navigation">
-		<h:form rendered="#{navigator.admin}">
+		<h:form prependId="false" rendered="#{navigator.admin}">
 			<ul>
 				<svisor:navigation-item title="Начальная" action="main" />
 				<svisor:navigation-item title="#{msg.page_admin_discipline_title}" action="discipline" />
@@ -38,7 +38,7 @@
 				
 			</ul>
 		</h:form>
-		<h:form rendered="#{navigator.teacher}">
+		<h:form prependId="false" rendered="#{navigator.teacher}">
 			<ul>
 				<svisor:navigation-item title="#{msg.page_mqa_title}" action="module" />
 				<svisor:navigation-item title="#{msg.page_teacher_test_title}" action="test" />
@@ -47,7 +47,7 @@
 				
 			</ul>
 		</h:form>
-		<h:form rendered="#{navigator.student}">
+		<h:form prependId="false" rendered="#{navigator.student}">
 			<ul>
 				<svisor:navigation-item title="#{msg.page_student_test_title}" action="student_test" />
 			</ul>

@@ -13,6 +13,7 @@
 	<properties>
 		<jdk>1.7</jdk>
 		<junit>4.0</junit>
+		<selenium>2.45.0</selenium>
 
 		<slf4j>1.7.1</slf4j>
 		<log4j>1.2.14</log4j>
@@ -50,7 +51,17 @@
 			<version>${junit}</version>
 			<scope>test</scope>
 		</dependency>
-
+		<dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-server</artifactId>
+            <version>${selenium}</version>
+        </dependency>
+		
 
 		<!-- LOGGING -->
 		<dependency>

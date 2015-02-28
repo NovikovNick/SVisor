@@ -101,8 +101,8 @@ select:focus{border: 0;box-shadow:inset 0 0 20px 1px #666;	outline: 0;}
 .right	{float:right;}
 /* COMPONET SHELL STYLE END */
 
-.rightTemplate	{float:right;width:45%;}
-.leftTemplate	{float:left;width:55%;}
+.rightTemplate	{float:right;width:41%;padding-right: 1%;}
+.leftTemplate	{float:left;width:58%;}
 
 /* COMPONET BOX STYLE START */
 .box{clear:both;height:335px; width:98%;background:#ddd; border:solid 1px #ddd; border-radius: 6px;margin:8px auto;color:black;

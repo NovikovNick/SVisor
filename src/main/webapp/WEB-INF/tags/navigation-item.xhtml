@@ -4,6 +4,7 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 	<li>
 		<h:commandLink
+			id="#{action}"
 			class="#{navigator.currentPage == action ? 'active' : ''}"
 			value="#{title}"
 			action="#{navigator.navigateTo(action)}" />

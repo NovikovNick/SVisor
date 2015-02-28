@@ -1,4 +1,4 @@
-<ui:composition template="/WEB-INF/templates/mainLayout.xhtml"
+<ui:composition template="/WEB-INF/templates/twosidepage.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -7,10 +7,10 @@
 
 	<ui:define name="title">#{msg.page_admin_academictitle_title}</ui:define>
 
-	<ui:define name="body">
-	<h:form>
-		<svisor:box leftHead="#{msg.page_admin_academictitle_header}"  height="300" width="800">
-			
+	<ui:define name="left">
+		<h:form prependId="false" id="table">
+			<svisor:box leftHead="#{msg.page_admin_academictitle_header}" height="300" width="560">
+
 				<h:dataTable id="academicTitle_table" value="#{academicTitleBean.all}" var="title">
 
 					<h:column>
@@ -20,18 +20,17 @@
 
 					<h:column>
 						<f:facet name="header">#{msg.page_admin_academictitle_table_column_full}</f:facet>
-						<h:inputTextarea cols="50" row="1" value="#{title.fullTitle}" />
+						<h:inputTextarea cols="20" row="" value="#{title.fullTitle}" />
 					</h:column>
-					
+
 					<h:column>
 						<f:facet name="header">#{msg.page_admin_academictitle_table_column_reduc}</f:facet>
 						<h:inputTextarea cols="6" row="1" value="#{title.reducTitle}" />
 					</h:column>
 
-
 					<h:column>
 						<f:facet name="header">#{msg.all_table_column_control}</f:facet>
-						<h:commandLink action="#{academicTitleBean.delete(title)}" >
+						<h:commandLink action="#{academicTitleBean.delete(title)}">
 							<span class="ico del">#{msg.all_table_column_delete}</span>
 						</h:commandLink>
 						<h:commandLink action="#{academicTitleBean.update(title)}">
@@ -40,29 +39,31 @@
 					</h:column>
 
 				</h:dataTable>
-				</svisor:box>
-				
-				<svisor:box leftHead="#{msg.page_admin_academictitle_add_header}" height="200" width="400">
+			</svisor:box>
+		</h:form>
+	</ui:define>
+	<ui:define name="right">
+		<h:form prependId="false" id="form">
+			<svisor:box leftHead="#{msg.page_admin_academictitle_add_header}" height="200" width="400">
 
 				<p>
-					<label >#{msg.page_admin_academictitle_add_full}</label>
+					<label>#{msg.page_admin_academictitle_add_full}</label>
 					<h:inputText id="fullTitle" value="#{academicTitleBean.fullTitle}" />
 					<h:message for="fullTitle" id="fullTitleError" />
 				</p>
-				
+
 				<p>
-					<label >#{msg.page_admin_academictitle_add_reduce}</label>
+					<label>#{msg.page_admin_academictitle_add_reduce}</label>
 					<h:inputText id="reducTitle" value="#{academicTitleBean.reducTitle}" />
 					<h:message for="reducTitle" id="reducTitleError" />
 				</p>
-				
+
 				<p>
 					<h:commandButton value="#{msg.page_admin_academictitle_add_submit}" action="#{academicTitleBean.add()}" />
 				</p>
+				
 			</svisor:box>
-			</h:form>
-		
-
+		</h:form>
 	</ui:define>
 
 </ui:composition>
