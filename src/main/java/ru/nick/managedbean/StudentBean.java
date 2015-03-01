@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import ru.nick.bo.SimpleCrudBusinessObject;
 import ru.nick.model.Group;
 import ru.nick.model.Student;
+
 /**
  * Класс-наследник {@link AbstarctManagedBean}. Отвечает за студентов 
  * @author NovikovNick

@@ -8,8 +8,8 @@
 	<ui:define name="title">#{msg.page_admin_speciality_title}</ui:define>
 
 	<ui:define name="left">
-		<h:form>
-			<svisor:box leftHead="#{msg.page_admin_speciality_header}"  height="300" width="560">
+		<h:form prependId="false">
+			<svisor:box id="table" leftHead="#{msg.page_admin_speciality_header}"  height="300" width="560">
 			
 				<h:dataTable id="academicDegree_table" value="#{specialityBean.all}" var="spec">
 					
@@ -39,8 +39,8 @@
 		</h:form>
 	</ui:define>
 	<ui:define name="right">
-		<h:form>				
-			<svisor:box leftHead="#{msg.page_admin_speciality_add_header}" height="200" width="400">
+		<h:form prependId="false">				
+			<svisor:box id="form" leftHead="#{msg.page_admin_speciality_add_header}" height="200" width="400">
 
 				<p>
 					<label >#{msg.page_admin_speciality_add_id}</label>
@@ -55,7 +55,7 @@
 				</p>
 				
 				<p>
-					<h:commandButton value="#{msg.page_admin_speciality_add_submit}" action="#{specialityBean.add()}" />
+					<h:commandButton id="submit" value="#{msg.page_admin_speciality_add_submit}" action="#{specialityBean.add()}" />
 				</p>
 			</svisor:box>
 		</h:form>

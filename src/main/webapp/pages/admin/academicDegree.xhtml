@@ -8,10 +8,9 @@
 	<ui:define name="title">#{msg.page_admin_academicdegree_title}</ui:define>
 
 	<ui:define name="left">
-		<h:form prependId="false" id="table">
-			<svisor:box leftHead="#{msg.page_admin_academicdegree_header}"  height="300" width="560">
-			
-				<h:dataTable  value="#{academicDegreeBean.all}" var="degree">
+		<h:form prependId="false">
+			<svisor:box id="table" leftHead="#{msg.page_admin_academicdegree_header}"  height="300" width="560">
+				<h:dataTable id="academicDegree"  value="#{academicDegreeBean.all}" var="degree">
 
 					<h:column>
 						<f:facet name="header">#{msg.page_admin_academicdegree_table_column_id}</f:facet>
@@ -20,12 +19,12 @@
 
 					<h:column>
 						<f:facet name="header">#{msg.page_admin_academicdegree_table_column_full}</f:facet>
-						<h:inputTextarea cols="50" row="1" value="#{degree.fullDegree}" />
+						<h:inputTextarea cols="30" rows="2" value="#{degree.fullDegree}" />
 					</h:column>
 					
 					<h:column>
 						<f:facet name="header">#{msg.page_admin_academicdegree_table_column_reduc}</f:facet>
-						<h:inputTextarea cols="6" row="1" value="#{degree.reducDegree}" />
+						<h:inputTextarea cols="10" rows="2" value="#{degree.reducDegree}" />
 					</h:column>
 
 
@@ -40,12 +39,12 @@
 					</h:column>
 
 				</h:dataTable>
-				</svisor:box>
+			</svisor:box>
 		</h:form>
 	</ui:define>
 	<ui:define name="right">
-		<h:form prependId="false" id="form">		
-			<svisor:box leftHead="#{msg.page_admin_academicdegree_add_header}" height="200" width="400">
+		<h:form prependId="false">		
+			<svisor:box id="form" leftHead="#{msg.page_admin_academicdegree_add_header}" height="200" width="400">
 
 				<p>
 					<label >#{msg.page_admin_academicdegree_add_full}</label>
@@ -60,7 +59,7 @@
 				</p>
 				
 				<p>
-					<h:commandButton value="#{msg.page_admin_academicdegree_add_submit}" action="#{academicDegreeBean.add()}" />
+					<h:commandButton id="submit" value="#{msg.page_admin_academicdegree_add_submit}" action="#{academicDegreeBean.add()}" />
 				</p>
 			</svisor:box>
 		</h:form>
