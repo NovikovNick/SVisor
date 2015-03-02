@@ -11,7 +11,7 @@
 		<h:form prependId="false">
 			<svisor:box id="table" leftHead="#{msg.page_admin_discipline_header}"  height="300" width="560">
 			
-				<h:dataTable id="disciplineBean" value="#{disciplineBean.all}" var="discipline">
+				<h:dataTable id="discipline" value="#{disciplineBean.all}" var="discipline">
 
 					<h:column>
 						<f:facet name="header">#{msg.page_admin_discipline_table_column_id}</f:facet>
@@ -52,10 +52,7 @@
 					<label style="float:none;">#{msg.page_admin_discipline_add_title}</label>
 				</p>
 				<p>
-				
-					<h:inputTextarea cols="51" rows="8" id="title" value="#{disciplineBean.title}" validator="#{disciplineBean.validInputText}">
-						<f:ajax event="keyup" render="titleError" />
-					</h:inputTextarea>
+					<h:inputTextarea id="title" cols="51" rows="8" value="#{disciplineBean.title}"/>
 					<h:message for="title" id="titleError" />
 				</p>
 				<p>

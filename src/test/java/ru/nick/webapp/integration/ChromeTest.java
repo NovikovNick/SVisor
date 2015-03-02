@@ -1,8 +1,11 @@
-package ru.nick.webapp.selenium;
+package ru.nick.webapp.integration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 
 import junit.framework.Assert;
@@ -36,7 +39,10 @@ public class ChromeTest extends Assert{
 		service.start();
 
 		ChromeOptions option = new ChromeOptions();
-		option.addArguments("--window-size=1000,540");
+		//option.addArguments("--window-size=1000,540");
+		option.addArguments("--enable-kiosk-mode");
+		option.addArguments("--no-experiments");
+		
 		driver = new ChromeDriver(service, option);
 	}
 
@@ -44,14 +50,48 @@ public class ChromeTest extends Assert{
 	@Test
 	public void adminPages() throws InterruptedException {
 		Assert.assertEquals(ADMIN_MAIN, authorization("admin", "admin"));
-
-		String[] links = new String[] { "main", "speciality",
-				"teacher", "group"};
-
-		crud("degree", "table:academicDegree", "fullDegree", "reducDegree");
-		crud("title", "table:academicTitle", "fullTitle", "reducTitle");
-		//crud("discipline", "table:disciplineBean", "title");//alert от ajax
 		
+		toNavigateLink("discipline");
+		inputText("title", "Discipline");
+		proofInsert("table:discipline");
+		
+		toNavigateLink("degree");
+		inputText("fullDegree", "fullDegree");
+		inputText("reducDegree", "reducDegree");
+		proofInsert("table:academicDegree");
+		
+		toNavigateLink("title");
+		inputText("fullTitle", "fullTitle");
+		inputText("reducTitle", "reducTitle");
+		proofInsert("table:academicTitle");
+		
+		toNavigateLink("speciality");
+		inputText("idSpec", "22022012");
+		inputText("titleSpec", "специальность");
+		proofInsert("table:speciality");
+		
+		toNavigateLink("teacher");
+		inputText("idTeacher", "1130030028");
+		inputText("fstNameTeacher", "Иван");
+		inputText("sndNameTeacher", "Иванович");
+		inputText("surnameTeacher", "Иванов");
+		inputText("loginTeacher", "qwerty");
+		inputText("passwordTeacher", "1234");
+		inputText("innTeacher", "86848642168");
+		inputText("pensionInsuranceTeacher", "124143622");
+		selectOne("select_degree", 1);
+		selectOne("select_title", 1);
+		selectMany("select_discipline", 2, 4, 8, 13, 16, 21, 28);
+		selectMany("select_group", 1);	
+		teacherProof();
+		
+		toNavigateLink("group");
+		inputText("titleGroup", "ЖПЦ-15");
+		inputText("courseGroup", "1");
+		selectOne("spec", 1);
+		proofInsert("table:group");
+		
+		toNavigateLink("main");
 		
 		Assert.assertTrue(logout());
 	}
@@ -59,22 +99,49 @@ public class ChromeTest extends Assert{
 	/**
 	 * 
 	 */
-	private void crud(String page, String table, String...field) {
-		WebElement link = driver.findElement(By.id(page));
-		link.click();
-		String test = "Test string";
-		for (int i = 0; i < field.length; i++) {
-			driver.findElement(By.id("form:"+field[i])).sendKeys(test);//!
-		}
+	private void teacherProof() {
 		driver.findElement(By.id("form:submit")).click();
+		//TODO:refactoring html, аnd check
+		List<WebElement> del = driver.findElements(By.cssSelector(".ico del"));
+		del.get(del.size()-1).click();
+	}
+
+	private void selectMany(String string, int... count) {
+		WebElement select = driver.findElement(By.id("form:"+string));
+		select.click();
+		for (int i = 0; i < count.length; i++) {
+			select.findElements(By.cssSelector("input[type=checkbox]")).get(count[i]).click();
+		}
+		
+	}
+
+	/**
+	 * 
+	 */
+	private void crud(String page, String table, Map<String, String> param) {
+		toNavigateLink(page);		
+		for (Entry<String, String> entry : param.entrySet()) {
+			inputText(entry.getKey(), entry.getValue());
+		}
+		proofInsert(table);
+	}
+
+	/**
+	 * @param table
+	 */
+	private void proofInsert(String table) {
+		teacherProof();
 		
 		List<WebElement> d = driver.findElements(By.id(table).tagName("tr"));
 		WebElement tr = d.get(d.size()-1);
 		List<WebElement> txt = d.get(d.size()-1).findElements(By.tagName("textarea"));
 		
+		List<String> list = new ArrayList<String>();
 		for (int i = 0; i < txt.size(); i++) {
+			String string = txt.get(i).getText();
+			list.add(string);
 			txt.get(i).clear();
-			txt.get(i).sendKeys(test+i);
+			txt.get(i).sendKeys(string+i);
 			
 		}
 		tr.findElement(By.className("edit")).click();
@@ -85,11 +152,42 @@ public class ChromeTest extends Assert{
 		List<WebElement> txt2 = d2.get(d2.size()-1).findElements(By.tagName("textarea"));
 		
 		for (int i = 0; i < txt2.size(); i++) {
-			assertEquals(test+i, txt2.get(i).getText());
+			assertEquals(list.get(i)+i, txt2.get(i).getText());
 		}
 		tr2.findElement(By.className("del")).click();
 	}
 
+	/**
+	 * @param page
+	 */
+	private void toNavigateLink(String page) {
+		WebElement link = driver.findElement(By.id(page));
+		link.click();
+	}
+
+	
+	private void inputText(String key, String value) {
+		WebElement el = driver.findElement(By.id("form:"+key));
+		el.clear();
+		el.sendKeys(value);
+	}
+
+	public void selectOne(String idPrefix, int count) {
+		WebElement select = driver.findElement(By.id("form:"+idPrefix));
+		select.click();
+		select.findElements(By.tagName("option")).get(count).click();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@Ignore
 	@Test
 	public void teacherPages() {
@@ -132,10 +230,8 @@ public class ChromeTest extends Assert{
 	 */
 	private String authorization(String login, String password) {
 		driver.get("http://127.0.0.1:8080/SVisor/pages/");
-		WebElement j_username = driver.findElement(By
-				.name("j_idt11:j_username"));
-		WebElement j_password = driver.findElement(By
-				.name("j_idt11:j_password"));
+		WebElement j_username = driver.findElement(By.name("j_idt11:j_username"));
+		WebElement j_password = driver.findElement(By.name("j_idt11:j_password"));
 		WebElement submit = driver.findElement(By.name("j_idt11:j_idt18"));
 		j_username.sendKeys(login);
 		j_password.sendKeys(password);
@@ -165,4 +261,6 @@ public class ChromeTest extends Assert{
 		driver.quit();
 		service.stop();
 	}
+	
+
 }

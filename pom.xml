@@ -64,11 +64,13 @@
 			<version>${selenium}</version>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.mortbay.jetty</groupId>
-			<artifactId>jsp-2.1</artifactId>
-			<version>6.0.0</version>
+			<artifactId>jetty-util</artifactId>
+			<version>7.0.0.pre5</version>
 		</dependency>
+
 
 		<!-- LOGGING -->
 		<dependency>
@@ -265,6 +267,76 @@
 				</configuration>
 			</plugin>
 
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.11</version>
+				<configuration>
+					<excludes>
+						<!-- Exclude integration tests within (unit) test phase. -->
+						<exclude>**/integration/*.java</exclude>
+					</excludes>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>2.11</version>
+				<configuration>
+					<includes>
+						<include>**/integration/*.java</include>
+					</includes>
+					<encoding>UTF-8</encoding>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+
+			<plugin><!-- JETTY -->
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>8.1.9.v20130131</version>
+				<configuration>
+					<stopKey>STOP</stopKey>
+					<stopPort>9999</stopPort>
+<!-- 					<stopWait>10</stopWait> -->
+					<scanIntervalSeconds>5</scanIntervalSeconds>
+					<webAppConfig>
+						<contextPath>/SVisor</contextPath>
+					</webAppConfig>
+				</configuration>
+				<executions>
+
+					<execution>
+						<id>start-jetty</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<daemon>true</daemon>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>stop-jetty</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>stop</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 </project>

@@ -8,8 +8,8 @@
 	<ui:define name="title">#{msg.page_admin_teacher_title}</ui:define>
 
 	<ui:define name="left">
-		<h:form>
-			<svisor:box leftHead="#{msg.page_admin_teacher_header}" height="1200"
+		<h:form prependId="false">
+			<svisor:box id="table" leftHead="#{msg.page_admin_teacher_header}" height="1200"
 				width="560">
 				<ui:repeat var="t" value="#{teacherBean.all}">
 
@@ -30,15 +30,18 @@
 									</h:commandLink>
 								</li>
 							</ui:repeat>
-							<li><h:selectOneMenu value="#{teacherBean.discToAdd}">
+							<li>
+								<h:selectOneMenu value="#{teacherBean.discToAdd}">
 									<f:selectItem
 										itemLabel="#{msg.page_admin_teacher_add_discipline}"
 										itemValue="#{null}" noSelectionOption="true" />
 									<f:selectItems value="#{teacherBean.getAllDisciplines(t)}"
 										var="disc" itemValue="#{disc}" itemLabel="#{disc.title}" />
-								</h:selectOneMenu> <h:commandLink action="#{teacherBean.addDiscipline(t)}">
+								</h:selectOneMenu> 
+								<h:commandLink action="#{teacherBean.addDiscipline(t)}">
 									<span class="ico list-add"> </span>
-								</h:commandLink></li>
+								</h:commandLink>
+							</li>
 						</ul>
 					</div>
 
@@ -53,14 +56,17 @@
 									</h:commandLink>
 								</li>
 							</ui:repeat>
-							<li><h:selectOneMenu value="#{teacherBean.groupToAdd}">
+							<li>
+								<h:selectOneMenu value="#{teacherBean.groupToAdd}">
 									<f:selectItem itemLabel="#{msg.page_admin_teacher_add_group}"
 										itemValue="#{null}" noSelectionOption="true" />
 									<f:selectItems value="#{teacherBean.getAllGroups(t)}"
 										var="group" itemValue="#{group}" itemLabel="#{group.title}" />
-								</h:selectOneMenu> <h:commandLink action="#{teacherBean.addGroup(t)}">
+								</h:selectOneMenu>
+								<h:commandLink action="#{teacherBean.addGroup(t)}">
 									<span class="ico list-add"> </span>
-								</h:commandLink></li>
+								</h:commandLink>
+							</li>
 						</ul>
 					</div>
 
@@ -79,10 +85,9 @@
 			</svisor:box>
 		</h:form>
 	</ui:define>
-
 	<ui:define name="right">
-		<h:form>
-			<svisor:box leftHead="#{msg.page_admin_teacher_add_header}"
+		<h:form prependId="false">
+			<svisor:box id="form" leftHead="#{msg.page_admin_teacher_add_header}"
 				height="1200" width="400">
 
 				<p>
@@ -130,14 +135,14 @@
 				</p>
 				<p>
 					<label>#{msg.page_admin_teacher_add_degree}</label>
-					<h:selectOneMenu value="#{teacherBean.degree}">
+					<h:selectOneMenu id="select_degree" value="#{teacherBean.degree}">
 						<f:selectItems value="#{academicDegreeBean.all}" var="degree"
 							itemValue="#{degree}" itemLabel="#{degree.reducDegree}" />
 					</h:selectOneMenu>
 				</p>
 				<p>
 					<label>#{msg.page_admin_teacher_add_title}</label>
-					<h:selectOneMenu value="#{teacherBean.title}">
+					<h:selectOneMenu id="select_title" value="#{teacherBean.title}">
 						<f:selectItems value="#{academicTitleBean.all}" var="title"
 							itemValue="#{title}" itemLabel="#{title.reducTitle}" />
 					</h:selectOneMenu>
@@ -145,8 +150,7 @@
 
 				<p>#{msg.page_admin_teacher_add_disciplines}</p>
 				<div class="selectHolder">
-
-					<h:selectManyCheckbox layout="pageDirection"
+					<h:selectManyCheckbox id="select_discipline" layout="pageDirection"
 						value="#{teacherBean.disciplines}">
 						<f:selectItems value="#{disciplineBean.all}" var="disc"
 							itemValue="#{disc}" itemLabel="#{disc.title}" />
@@ -155,15 +159,16 @@
 
 				<p>#{msg.page_admin_teacher_add_groups}</p>
 				<div class="selectHolder">
-
-					<h:selectManyCheckbox layout="pageDirection"
+					<h:selectManyCheckbox 
+					 	id="select_group"
+						layout="pageDirection"
 						value="#{teacherBean.groups}">
 						<f:selectItems value="#{groupBean.all}" var="group"
 							itemValue="#{group}" itemLabel="#{group.title}" />
 					</h:selectManyCheckbox>
 				</div>
 				<p>
-					<h:commandButton value="#{msg.page_admin_teacher_add_submit}"
+					<h:commandButton id="submit" value="#{msg.page_admin_teacher_add_submit}"
 						action="#{teacherBean.add()}" />
 				</p>
 			</svisor:box>

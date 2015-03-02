@@ -10,8 +10,7 @@
 	<ui:define name="left">
 		<h:form prependId="false">
 			<svisor:box id="table" leftHead="#{msg.page_admin_speciality_header}"  height="300" width="560">
-			
-				<h:dataTable id="academicDegree_table" value="#{specialityBean.all}" var="spec">
+				<h:dataTable id="speciality" value="#{specialityBean.all}" var="spec">
 					
 					<h:column>
 						<f:facet name="header">#{msg.page_admin_speciality_table_column_id}</f:facet>
@@ -35,7 +34,7 @@
 					</h:column>
 
 				</h:dataTable>
-				</svisor:box>
+			</svisor:box>
 		</h:form>
 	</ui:define>
 	<ui:define name="right">
