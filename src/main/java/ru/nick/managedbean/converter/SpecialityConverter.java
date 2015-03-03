@@ -11,7 +11,6 @@ import ru.nick.model.Speciality;
  *
  */
 @FacesConverter(forClass = Speciality.class)
-public class SpecialityConverter extends
-		AbstractEntityByIdConverter<Speciality> {
+public class SpecialityConverter extends AbstractEntityByIdConverter<Speciality> {
 
 }

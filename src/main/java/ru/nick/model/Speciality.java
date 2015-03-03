@@ -10,8 +10,10 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
 /**
  * Специальность, на которую поступают студенты{@link Student}
+ * 
  * @author NovikovNick
  *
  */
@@ -19,15 +21,16 @@ import lombok.ToString;
 @Table(name = "speciality")
 @NamedQuery(name = "Speciality.getAll", query = "SELECT s FROM Speciality s")
 @EqualsAndHashCode(exclude = "title")
-@ToString(exclude="id")
-public class Speciality implements Identifiable{
+@ToString(exclude = "id")
+public class Speciality implements Identifiable {
 
-
-	@Id
-	@Getter @Setter
-	private Long id;	
-	@Column
-	@Getter @Setter
-	private String title;
+    @Id
+    @Getter
+    @Setter
+    private Long id;
+    @Column
+    @Getter
+    @Setter
+    private String title;
 
 }

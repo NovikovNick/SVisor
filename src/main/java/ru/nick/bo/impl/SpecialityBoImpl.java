@@ -10,15 +10,16 @@ import ru.nick.model.Speciality;
 
 /**
  * Класс-наследник {@link AbstaractBusinessObject}. Отвечает за специальности
+ * 
  * @author NovikovNick
  *
  */
 @Named("specialityBo")
-public class SpecialityBoImpl extends AbstaractBusinessObject<Speciality>{
-	
-	@Inject
-	@Named("specialityDao")
-	@Getter(AccessLevel.PROTECTED)
-	private SimpleCrudDao<Speciality> dao;
-	
+public class SpecialityBoImpl extends AbstaractBusinessObject<Speciality> {
+
+    @Inject
+    @Named("specialityDao")
+    @Getter(AccessLevel.PROTECTED)
+    private SimpleCrudDao<Speciality> dao;
+
 }

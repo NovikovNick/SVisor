@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 
 import junit.framework.Assert;
@@ -102,7 +100,7 @@ public class ChromeTest extends Assert{
 	private void teacherProof() {
 		driver.findElement(By.id("form:submit")).click();
 		//TODO:refactoring html, аnd check
-		List<WebElement> del = driver.findElements(By.cssSelector(".ico del"));
+		List<WebElement> del = driver.findElements(By.className("del"));
 		del.get(del.size()-1).click();
 	}
 
@@ -113,17 +111,6 @@ public class ChromeTest extends Assert{
 			select.findElements(By.cssSelector("input[type=checkbox]")).get(count[i]).click();
 		}
 		
-	}
-
-	/**
-	 * 
-	 */
-	private void crud(String page, String table, Map<String, String> param) {
-		toNavigateLink(page);		
-		for (Entry<String, String> entry : param.entrySet()) {
-			inputText(entry.getKey(), entry.getValue());
-		}
-		proofInsert(table);
 	}
 
 	/**

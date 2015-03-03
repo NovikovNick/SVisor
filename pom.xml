@@ -267,6 +267,26 @@
 				</configuration>
 			</plugin>
 
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>2.14</version>
+
+				<configuration>
+<!-- 					<configLocation>src/test/resources/checkstyle.xml</configLocation> -->
+					<configLocation>config/sun_checks.xml</configLocation>
+					<consoleOutput>true</consoleOutput>
+					<linkXRef>false</linkXRef>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -309,7 +329,7 @@
 				<configuration>
 					<stopKey>STOP</stopKey>
 					<stopPort>9999</stopPort>
-<!-- 					<stopWait>10</stopWait> -->
+					<!-- <stopWait>10</stopWait> -->
 					<scanIntervalSeconds>5</scanIntervalSeconds>
 					<webAppConfig>
 						<contextPath>/SVisor</contextPath>

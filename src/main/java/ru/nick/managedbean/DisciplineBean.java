@@ -12,8 +12,10 @@ import org.springframework.stereotype.Component;
 
 import ru.nick.bo.SimpleCrudBusinessObject;
 import ru.nick.model.Discipline;
+
 /**
  * Класс-наследник {@link AbstarctManagedBean}. Отвечает за дисциплины
+ * 
  * @author NovikovNick
  *
  */
@@ -21,13 +23,14 @@ import ru.nick.model.Discipline;
 @Scope("request")
 public class DisciplineBean extends AbstarctManagedBean<Discipline> {
 
-	@Inject
-	@Named("disciplineBo")
-	@Getter(AccessLevel.PROTECTED)
-	private SimpleCrudBusinessObject<Discipline> bo;
-	
-	@FormField
-	@Getter	@Setter
-	private String title;
-	
+    @Inject
+    @Named("disciplineBo")
+    @Getter(AccessLevel.PROTECTED)
+    private SimpleCrudBusinessObject<Discipline> bo;
+
+    @FormField
+    @Getter
+    @Setter
+    private String title;
+
 }

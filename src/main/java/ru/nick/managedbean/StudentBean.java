@@ -15,7 +15,8 @@ import ru.nick.model.Group;
 import ru.nick.model.Student;
 
 /**
- * Класс-наследник {@link AbstarctManagedBean}. Отвечает за студентов 
+ * Класс-наследник {@link AbstarctManagedBean}. Отвечает за студентов
+ * 
  * @author NovikovNick
  *
  */
@@ -23,38 +24,46 @@ import ru.nick.model.Student;
 @Scope("request")
 public class StudentBean extends AbstarctManagedBean<Student> {
 
-	@Inject
-	@Named("studentBo")
-	@Getter(AccessLevel.PROTECTED)
-	private SimpleCrudBusinessObject<Student> bo;
-	
-	@FormField
-	@Getter	@Setter
-	private Long id;
-	@FormField
-	@Getter	@Setter
-	private String fstName;
-	@FormField
-	@Getter	@Setter
-	private String sndName;
-	@FormField
-	@Getter	@Setter
-	private String surname;
-	@FormField
-	@Getter	@Setter	
-	private String login;
-	@FormField
-	@Getter	@Setter
-	private String password;
-	@FormField
-	@Getter	@Setter
-	private Group group;
-	/**
-	 * Регистрирует пользователя после добавления
-	 */
-	@Override
-	public String add() {
-		super.add();
-		return "logout";
-	}
+    @Inject
+    @Named("studentBo")
+    @Getter(AccessLevel.PROTECTED)
+    private SimpleCrudBusinessObject<Student> bo;
+
+    @FormField
+    @Getter
+    @Setter
+    private Long id;
+    @FormField
+    @Getter
+    @Setter
+    private String fstName;
+    @FormField
+    @Getter
+    @Setter
+    private String sndName;
+    @FormField
+    @Getter
+    @Setter
+    private String surname;
+    @FormField
+    @Getter
+    @Setter
+    private String login;
+    @FormField
+    @Getter
+    @Setter
+    private String password;
+    @FormField
+    @Getter
+    @Setter
+    private Group group;
+
+    /**
+     * Регистрирует пользователя после добавления
+     */
+    @Override
+    public String add() {
+        super.add();
+        return "logout";
+    }
 }

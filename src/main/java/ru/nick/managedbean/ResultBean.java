@@ -11,8 +11,11 @@ import org.springframework.stereotype.Component;
 
 import ru.nick.bo.ResultBo;
 import ru.nick.model.Result;
+
 /**
- * Класс-наследник {@link AbstarctManagedBean}. Отвечает за результаты тестирования
+ * Класс-наследник {@link AbstarctManagedBean}. Отвечает за результаты
+ * тестирования
+ * 
  * @author NovikovNick
  *
  */
@@ -20,13 +23,9 @@ import ru.nick.model.Result;
 @Scope("request")
 public class ResultBean extends AbstarctManagedBean<Result> {
 
-	@Inject
-	@Named("resultBo")
-	@Getter(AccessLevel.PROTECTED)
-	private ResultBo bo;
-	
-	
+    @Inject
+    @Named("resultBo")
+    @Getter(AccessLevel.PROTECTED)
+    private ResultBo bo;
 
-	
-	
 }

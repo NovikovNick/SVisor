@@ -17,36 +17,45 @@ import lombok.Getter;
 import lombok.Setter;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
+
 /**
- * Студенческая группа, хранящая информацию о курсе, специальности {@link Speciality} и списке своих студентов
+ * Студенческая группа, хранящая информацию о курсе, специальности
+ * {@link Speciality} и списке своих студентов
+ * 
  * @author NovikovNick
  *
  */
 @Entity
 @Table(name = "groups")
 @NamedQuery(name = "Group.getAll", query = "SELECT g FROM Group g")
-public class Group extends AbstractPersistable<Long> implements Identifiable{
+public class Group extends AbstractPersistable<Long> implements Identifiable {
 
-	private static final long serialVersionUID = 1L;
-	@Getter @Setter
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
-	@Getter @Setter
-	@Column
-	private String title;
-	@Getter @Setter
-	@Column
-	private int course;
-	@Getter @Setter
-	@ManyToOne
-	@JoinColumn(name = "id_speciality")
-	private Speciality speciality;
-	@Getter @Setter
-	@ManyToMany(mappedBy = "groups")
-    private	Set<Teacher> teachers;
-	@Getter @Setter
-	@ManyToMany(mappedBy = "groups")
-    private	Set<TestAssign> testAssign;
-	
+    private static final long serialVersionUID = 1L;
+    @Getter
+    @Setter
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @Getter
+    @Setter
+    @Column
+    private String title;
+    @Getter
+    @Setter
+    @Column
+    private int course;
+    @Getter
+    @Setter
+    @ManyToOne
+    @JoinColumn(name = "id_speciality")
+    private Speciality speciality;
+    @Getter
+    @Setter
+    @ManyToMany(mappedBy = "groups")
+    private Set<Teacher> teachers;
+    @Getter
+    @Setter
+    @ManyToMany(mappedBy = "groups")
+    private Set<TestAssign> testAssign;
+
 }

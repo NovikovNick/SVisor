@@ -11,8 +11,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
+
 /**
  * Класс отвечает за авторизацию
+ * 
  * @author NovikovNick
  *
  */
@@ -20,65 +22,66 @@ import org.springframework.security.core.context.SecurityContextHolder;
 @RequestScoped
 public class AuthenticationSvisor {
 
-	
-	@ManagedProperty(value = "#{authenticationManager}")
-	private AuthenticationManager authenticationManager = null;
+    @ManagedProperty(value = "#{authenticationManager}")
+    private AuthenticationManager authenticationManager = null;
 
-	private String username = null;
-	private String password = null;
+    private String username = null;
+    private String password = null;
 
-	public String getUsername() {
-		return username;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public AuthenticationManager getAuthenticationManager() {
-		return authenticationManager;
-	}
+    public AuthenticationManager getAuthenticationManager() {
+        return authenticationManager;
+    }
 
-	public void setAuthenticationManager(
-			AuthenticationManager authenticationManager) {
-		this.authenticationManager = authenticationManager;
-	}
+    public void setAuthenticationManager(AuthenticationManager authenticationManager) {
+        this.authenticationManager = authenticationManager;
+    }
 
-	public String login() {
+    public String login() {
 
-		try {
+        try {
 
-			UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(getUsername(), getPassword());
-			Authentication authenticate = authenticationManager.authenticate(token);
-			SecurityContextHolder.getContext().setAuthentication(authenticate);
-			
-			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("entity", new Entity(getUsername(), getPassword()));
-			
-			return "login";
-			
-		} catch (AuthenticationException authenticationException) {
-			FacesMessage facesMessage = new FacesMessage("Login Failed: please check your username/password and try again.");
-			FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-			
-		}
-		return null;
-	}
+            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
+                    getUsername(), getPassword());
+            Authentication authenticate = authenticationManager.authenticate(token);
+            SecurityContextHolder.getContext().setAuthentication(authenticate);
 
-	public String logout() {
-		SecurityContextHolder.getContext().setAuthentication(null);
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().clear();
-		return "logout";
-	}
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
+                    .put("entity", new Entity(getUsername(), getPassword()));
 
-	public String cancel() {
-		return null;
-	}
+            return "login";
+
+        } catch (AuthenticationException authenticationException) {
+            FacesMessage facesMessage = new FacesMessage(
+                    "Login Failed: please check your username/password and try again.");
+            FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+
+        }
+        return null;
+    }
+
+    public String logout() {
+        SecurityContextHolder.getContext().setAuthentication(null);
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().clear();
+        return "logout";
+    }
+
+    public String cancel() {
+        return null;
+    }
 }

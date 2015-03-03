@@ -5,22 +5,23 @@ import java.util.List;
 import ru.nick.model.Module;
 import ru.nick.model.Question;
 import ru.nick.model.Test;
+
 /**
  * Интерфейс бизнес слоя для тестов
+ * 
  * @author NovikovNick
  *
  */
-public interface TestBo extends SimpleCrudBusinessObject<Test>{
+public interface TestBo extends SimpleCrudBusinessObject<Test> {
 
-	List<Module> getAllModules();
+    List<Module> getAllModules();
 
-	void addTest();
+    void addTest();
 
-	List<Question> getModuleQuestions(Module module, Test activeTest);
+    List<Question> getModuleQuestions(Module module, Test activeTest);
 
-	List<Question> getTestQuestions(Test activeTest);
+    List<Question> getTestQuestions(Test activeTest);
 
-	Module refreshModule(Module newValue);
+    Module refreshModule(Module newValue);
 
-	
 }

@@ -18,30 +18,36 @@ import lombok.Getter;
 import lombok.Setter;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
+
 /**
  * Определенная тема со своим списоком вопросов {@link Question}
+ * 
  * @author NovikovNick
  *
  */
 @Entity
 @Table(name = "module")
 @NamedQuery(name = "Module.getAll", query = "SELECT m FROM Module m")
-public class Module extends AbstractPersistable<Long> implements Identifiable{
+public class Module extends AbstractPersistable<Long> implements Identifiable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Getter @Setter
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
-	@Getter @Setter
-	@Column
-	private String title;
-	@Getter @Setter
-	@Column(name = "_date")
-	private Date date;
-	@Getter @Setter
-	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "ownerModule", fetch=FetchType.EAGER)
-	Set<Question> questions;
-	
+    @Getter
+    @Setter
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @Getter
+    @Setter
+    @Column
+    private String title;
+    @Getter
+    @Setter
+    @Column(name = "_date")
+    private Date date;
+    @Getter
+    @Setter
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "ownerModule", fetch = FetchType.EAGER)
+    Set<Question> questions;
+
 }

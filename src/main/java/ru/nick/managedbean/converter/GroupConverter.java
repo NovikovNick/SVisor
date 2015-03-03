@@ -3,8 +3,10 @@ package ru.nick.managedbean.converter;
 import javax.faces.convert.FacesConverter;
 
 import ru.nick.model.Group;
+
 /**
  * Конвертер групп
+ * 
  * @author NovikovNick
  *
  */

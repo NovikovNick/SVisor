@@ -21,29 +21,29 @@ import lombok.Setter;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 /**
- * Совокупность определенных вопросов {@link Question} из нескольких модулей {@link Module}
+ * Совокупность определенных вопросов {@link Question} из нескольких модулей
+ * {@link Module}
+ * 
  * @author NovikovNick
  *
  */
 @Entity
 @Table(name = "test")
 @NamedQuery(name = "Test.getAll", query = "SELECT t FROM Test t")
-public class Test extends AbstractPersistable<Long>  implements Identifiable{
+public class Test extends AbstractPersistable<Long> implements Identifiable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private @Getter @Setter Long id;
-	@Column
-	private @Getter @Setter String title;
-	@Column(name = "_date")
-	private @Getter @Setter Date date;
-	
-	@ManyToMany(fetch=FetchType.EAGER)
-	@JoinTable(name="test_question",
-		joinColumns = @JoinColumn(name="id_test", referencedColumnName="id"),
-	    inverseJoinColumns = @JoinColumn(name="id_question", referencedColumnName="id"))
-	private @Getter @Setter Set<Question> questions;
-	
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private @Getter @Setter Long id;
+    @Column
+    private @Getter @Setter String title;
+    @Column(name = "_date")
+    private @Getter @Setter Date date;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "test_question", joinColumns = @JoinColumn(name = "id_test", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_question", referencedColumnName = "id"))
+    private @Getter @Setter Set<Question> questions;
+
 }

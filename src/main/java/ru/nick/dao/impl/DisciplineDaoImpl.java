@@ -18,31 +18,31 @@ import ru.nick.model.Discipline;
 @Named("disciplineDao")
 public class DisciplineDaoImpl extends AbstractCrudDao<Discipline> {
 
-	@Override
-	protected Class<Discipline> getGenericClass() {
-		return Discipline.class;
-	}
+    @Override
+    protected Class<Discipline> getGenericClass() {
+        return Discipline.class;
+    }
 
-	@Override
-	@Cacheable("discipline")
-	public List<Discipline> findAll() {
-		return query("Discipline.getAll");
-	}
+    @Override
+    @Cacheable("discipline")
+    public List<Discipline> findAll() {
+        return query("Discipline.getAll");
+    }
 
-	@Override
-	@CacheEvict(value = "discipline", allEntries = true)
-	public void delete(Discipline detached) {
-		super.delete(detached);
-	}
+    @Override
+    @CacheEvict(value = "discipline", allEntries = true)
+    public void delete(Discipline detached) {
+        super.delete(detached);
+    }
 
-	@Override
-	@CacheEvict(value = "discipline", allEntries = true)
-	public void add(Discipline discipline) {
-		super.add(discipline);
-	}
+    @Override
+    @CacheEvict(value = "discipline", allEntries = true)
+    public void add(Discipline discipline) {
+        super.add(discipline);
+    }
 
-	@Override
-	protected String[] getUpdatableField() {
-		return new String[] { "Title" };
-	}
+    @Override
+    protected String[] getUpdatableField() {
+        return new String[] { "Title" };
+    }
 }

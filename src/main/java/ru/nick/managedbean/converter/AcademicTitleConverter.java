@@ -11,7 +11,6 @@ import ru.nick.model.AcademicTitle;
  *
  */
 @FacesConverter(forClass = AcademicTitle.class)
-public class AcademicTitleConverter extends
-		AbstractEntityByIdConverter<AcademicTitle> {
+public class AcademicTitleConverter extends AbstractEntityByIdConverter<AcademicTitle> {
 
 }

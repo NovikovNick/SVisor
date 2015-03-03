@@ -12,8 +12,10 @@ import org.springframework.stereotype.Component;
 
 import ru.nick.bo.SimpleCrudBusinessObject;
 import ru.nick.model.AcademicTitle;
+
 /**
  * Класс-наследник {@link AbstarctManagedBean}. Отвечает за ученое звание
+ * 
  * @author NovikovNick
  *
  */
@@ -21,18 +23,19 @@ import ru.nick.model.AcademicTitle;
 @Scope("request")
 public class AcademicTitleBean extends AbstarctManagedBean<AcademicTitle> {
 
-	@Inject
-	@Named("academicTitleBo")
-	@Getter(AccessLevel.PROTECTED)
-	private SimpleCrudBusinessObject<AcademicTitle> bo;
-	
-	@FormField
-	@Getter	@Setter
-	private String fullTitle;
-	
-	@FormField
-	@Getter	@Setter
-	private String reducTitle;
-	
-	
+    @Inject
+    @Named("academicTitleBo")
+    @Getter(AccessLevel.PROTECTED)
+    private SimpleCrudBusinessObject<AcademicTitle> bo;
+
+    @FormField
+    @Getter
+    @Setter
+    private String fullTitle;
+
+    @FormField
+    @Getter
+    @Setter
+    private String reducTitle;
+
 }

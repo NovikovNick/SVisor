@@ -18,35 +18,34 @@ import ru.nick.model.Test;
 @Named("testDao")
 public class TestDaoImpl extends AbstractCrudDao<Test> {
 
-	@Inject
-	@Named("questionDao")
-	private SimpleCrudDao<Question> qDao;
+    @Inject
+    @Named("questionDao")
+    private SimpleCrudDao<Question> qDao;
 
-	@Override
-	public List<Test> findAll() {
-		return query("Test.getAll");
-	}
+    @Override
+    public List<Test> findAll() {
+        return query("Test.getAll");
+    }
 
-	@Override
-	public Test update(Test entity) {
-		Test test = getById(entity);
+    @Override
+    public Test update(Test entity) {
+        Test test = getById(entity);
 
-		fieldUpdateInCicle(test, entity, "Title", "Date");
+        fieldUpdateInCicle(test, entity, "Title", "Date");
 
-		test.setQuestions(updateChild(test, entity.getQuestions(), qDao,
-				"getTests"));
+        test.setQuestions(updateChild(test, entity.getQuestions(), qDao, "getTests"));
 
-		return merge(test);
-	}
+        return merge(test);
+    }
 
-	@Override
-	protected Class<Test> getGenericClass() {
-		return Test.class;
-	}
+    @Override
+    protected Class<Test> getGenericClass() {
+        return Test.class;
+    }
 
-	@Override
-	protected String[] getUpdatableField() {
-		throw new UnsupportedOperationException();
-	}
+    @Override
+    protected String[] getUpdatableField() {
+        throw new UnsupportedOperationException();
+    }
 
 }

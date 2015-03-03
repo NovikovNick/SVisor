@@ -13,8 +13,10 @@ import org.springframework.stereotype.Component;
 import ru.nick.bo.SimpleCrudBusinessObject;
 import ru.nick.model.Group;
 import ru.nick.model.Speciality;
+
 /**
  * Класс-наследник {@link AbstarctManagedBean}. Отвечает за группы
+ * 
  * @author NovikovNick
  *
  */
@@ -22,21 +24,24 @@ import ru.nick.model.Speciality;
 @Scope("request")
 public class GroupBean extends AbstarctManagedBean<Group> {
 
-	@Inject
-	@Named("groupBo")
-	@Getter(AccessLevel.PROTECTED)
-	private SimpleCrudBusinessObject<Group> bo;
-	
-	@FormField
-	@Getter	@Setter
-	private String title;
-	
-	@FormField
-	@Getter	@Setter
-	private int course;
-	
-	@FormField
-	@Getter	@Setter
-	private Speciality speciality;
-	
+    @Inject
+    @Named("groupBo")
+    @Getter(AccessLevel.PROTECTED)
+    private SimpleCrudBusinessObject<Group> bo;
+
+    @FormField
+    @Getter
+    @Setter
+    private String title;
+
+    @FormField
+    @Getter
+    @Setter
+    private int course;
+
+    @FormField
+    @Getter
+    @Setter
+    private Speciality speciality;
+
 }

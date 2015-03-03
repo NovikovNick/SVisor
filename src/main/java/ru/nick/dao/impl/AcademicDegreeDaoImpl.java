@@ -15,13 +15,13 @@ import ru.nick.model.AcademicDegree;
 @Named("academicDegreeDao")
 public class AcademicDegreeDaoImpl extends AbstractCrudDao<AcademicDegree> {
 
-	@Override
-	public List<AcademicDegree> findAll() {
-		return query("AcademicDegree.getAll");
-	}
+    @Override
+    public List<AcademicDegree> findAll() {
+        return query("AcademicDegree.getAll");
+    }
 
-	@Override
-	protected String[] getUpdatableField() {
-		return new String[] { "FullDegree", "ReducDegree" };
-	}
+    @Override
+    protected String[] getUpdatableField() {
+        return new String[] { "FullDegree", "ReducDegree" };
+    }
 }

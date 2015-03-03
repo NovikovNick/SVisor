@@ -13,28 +13,31 @@ import lombok.Getter;
 import lombok.Setter;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
+
 /**
- * Результат выполнения (или невыполнения) теста {@link Test}, определенным студентом{@link Student}
+ * Результат выполнения (или невыполнения) теста {@link Test}, определенным
+ * студентом{@link Student}
+ * 
  * @author NovikovNick
  *
  */
 @Entity
 @Table(name = "result")
 @NamedQuery(name = "Result.getAll", query = "SELECT r FROM Result r ")
-public class Result  extends AbstractPersistable<Long>  implements Identifiable{
+public class Result extends AbstractPersistable<Long> implements Identifiable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private @Getter @Setter Long id;
-	private @Getter @Setter int attempt;
-	private @Getter @Setter int result;
-	@ManyToOne
-	@JoinColumn(name = "id_student")
-	private @Getter @Setter Student student;
-	@ManyToOne
-	@JoinColumn(name = "id_test")
-	private @Getter @Setter Test test;
-	
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private @Getter @Setter Long id;
+    private @Getter @Setter int attempt;
+    private @Getter @Setter int result;
+    @ManyToOne
+    @JoinColumn(name = "id_student")
+    private @Getter @Setter Student student;
+    @ManyToOne
+    @JoinColumn(name = "id_test")
+    private @Getter @Setter Test test;
+
 }

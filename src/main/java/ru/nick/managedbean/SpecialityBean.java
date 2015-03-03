@@ -12,8 +12,10 @@ import org.springframework.stereotype.Component;
 
 import ru.nick.bo.SimpleCrudBusinessObject;
 import ru.nick.model.Speciality;
+
 /**
  * Класс-наследник {@link AbstarctManagedBean}. Отвечает за специальности
+ * 
  * @author NovikovNick
  *
  */
@@ -21,16 +23,18 @@ import ru.nick.model.Speciality;
 @Scope("request")
 public class SpecialityBean extends AbstarctManagedBean<Speciality> {
 
-	@Inject
-	@Named("specialityBo")
-	@Getter(AccessLevel.PROTECTED)
-	private SimpleCrudBusinessObject<Speciality> bo;
-	
-	@FormField
-	@Getter	@Setter
-	private Long id;
-	
-	@FormField
-	@Getter	@Setter
-	private String title;
+    @Inject
+    @Named("specialityBo")
+    @Getter(AccessLevel.PROTECTED)
+    private SimpleCrudBusinessObject<Speciality> bo;
+
+    @FormField
+    @Getter
+    @Setter
+    private Long id;
+
+    @FormField
+    @Getter
+    @Setter
+    private String title;
 }

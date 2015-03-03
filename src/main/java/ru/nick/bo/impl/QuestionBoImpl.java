@@ -16,9 +16,9 @@ import ru.nick.model.Question;
 @Named("questionBo")
 public class QuestionBoImpl extends AbstaractBusinessObject<Question> {
 
-	@Inject
-	@Named("questionDao")
-	@Getter(AccessLevel.PROTECTED)
-	private SimpleCrudDao<Question> dao;
+    @Inject
+    @Named("questionDao")
+    @Getter(AccessLevel.PROTECTED)
+    private SimpleCrudDao<Question> dao;
 
 }

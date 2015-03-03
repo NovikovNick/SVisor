@@ -1,7 +1,7 @@
 package ru.nick.model;
 
 /**
- * Отображает способность сущности быть идентифицированной и реализует методы 
+ * Отображает способность сущности быть идентифицированной и реализует методы
  * {@link #getId()} и {@link #setId(Long)}
  * 
  * @author NovikovNick
@@ -9,16 +9,18 @@ package ru.nick.model;
  */
 public interface Identifiable {
 
-	/**
-	 * 
-	 * @return Возвращает уникальный идентификатор сущности
-	 */
-	public Long getId();
-	
-	/**
-	 * Устанавливает id
-	 * @param id уникальный идентификатор сущности
-	 */
-	public void setId(Long id);
+    /**
+     * 
+     * @return Возвращает уникальный идентификатор сущности
+     */
+    public Long getId();
+
+    /**
+     * Устанавливает id
+     * 
+     * @param id
+     *            уникальный идентификатор сущности
+     */
+    public void setId(Long id);
 
 }

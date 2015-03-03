@@ -19,8 +19,10 @@ import ru.nick.bo.TestBo;
 import ru.nick.model.Module;
 import ru.nick.model.Question;
 import ru.nick.model.Test;
+
 /**
  * Класс-наследник {@link AbstarctManagedBean}. Отвечает за тесты
+ * 
  * @author NovikovNick
  *
  */
@@ -28,74 +30,74 @@ import ru.nick.model.Test;
 @Scope("view")
 public class TestBean extends AbstarctManagedBean<Test> {
 
-	@Inject
-	@Named("testBo")
-	@Getter(AccessLevel.PROTECTED)
-	private TestBo bo;
+    @Inject
+    @Named("testBo")
+    @Getter(AccessLevel.PROTECTED)
+    private TestBo bo;
 
-	@Getter	
-	private Test activeTest;
+    @Getter
+    private Test activeTest;
 
-	@Getter	@Setter
-	private Module module;
-	
-	@FormField
-	@Getter	@Setter
-	private Question[] questions;
-	
-	
-	@PostConstruct
-	private void init(){
-		module = bo.getAllModules().get(0);
-	}
+    @Getter
+    @Setter
+    private Module module;
 
-	public void setActiveTest(Test activeTest) {
-		this.activeTest = bo.update(activeTest);
-	}
-	
-	
-	public void addTest() {
-		bo.addTest();
-	}
-	public boolean active(){
-		return activeTest != null;
-	}
-	
-	public  List<Module> getAllModules() {
-		return bo.getAllModules();
-	}
-	
-	public  List<Question> getModuleQuestions() {
-		
-		return bo.getModuleQuestions(bo.refreshModule(module), activeTest);
-		
-	}
-	
-	public List<Question> getTestQuestions() {
-		if (active()) {
-			return bo.getTestQuestions(activeTest);
-		}
-		return null;
-	}
-	
-	
-	public void change(ValueChangeEvent e){
-		module = (Module) e.getNewValue();
-	}
-	
-	public String addQuestion() {
+    @FormField
+    @Getter
+    @Setter
+    private Question[] questions;
 
-		activeTest.getQuestions().addAll(Arrays.asList(questions));
-		setActiveTest(bo.update(activeTest));
-		
-		return null;
-	}
-	
-	public String deleteQuestion(Question question){
-		
-		activeTest.getQuestions().remove(question);
-		setActiveTest(bo.update(activeTest));
-		
-		return null;
-	}	
+    @PostConstruct
+    private void init() {
+        module = bo.getAllModules().get(0);
+    }
+
+    public void setActiveTest(Test activeTest) {
+        this.activeTest = bo.update(activeTest);
+    }
+
+    public void addTest() {
+        bo.addTest();
+    }
+
+    public boolean active() {
+        return activeTest != null;
+    }
+
+    public List<Module> getAllModules() {
+        return bo.getAllModules();
+    }
+
+    public List<Question> getModuleQuestions() {
+
+        return bo.getModuleQuestions(bo.refreshModule(module), activeTest);
+
+    }
+
+    public List<Question> getTestQuestions() {
+        if (active()) {
+            return bo.getTestQuestions(activeTest);
+        }
+        return null;
+    }
+
+    public void change(ValueChangeEvent e) {
+        module = (Module) e.getNewValue();
+    }
+
+    public String addQuestion() {
+
+        activeTest.getQuestions().addAll(Arrays.asList(questions));
+        setActiveTest(bo.update(activeTest));
+
+        return null;
+    }
+
+    public String deleteQuestion(Question question) {
+
+        activeTest.getQuestions().remove(question);
+        setActiveTest(bo.update(activeTest));
+
+        return null;
+    }
 }

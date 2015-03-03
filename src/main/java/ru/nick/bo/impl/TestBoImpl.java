@@ -14,66 +14,67 @@ import ru.nick.dao.SimpleCrudDao;
 import ru.nick.model.Module;
 import ru.nick.model.Question;
 import ru.nick.model.Test;
+
 /**
- * Класс-наследник {@link AbstaractBusinessObject}. Отвечает за тесты и реализует 
- * {@link TestBo}
+ * Класс-наследник {@link AbstaractBusinessObject}. Отвечает за тесты и
+ * реализует {@link TestBo}
+ * 
  * @author NovikovNick
  *
  */
 @Named("testBo")
-public class TestBoImpl extends AbstaractBusinessObject<Test> implements TestBo{
+public class TestBoImpl extends AbstaractBusinessObject<Test> implements TestBo {
 
-	private final static String EMPTY_TEST_TITLE = "Новый тест";
-	
-	@Inject
-	@Named("testDao")
-	@Getter(AccessLevel.PROTECTED)
-	private SimpleCrudDao<Test> dao;
+    private final static String EMPTY_TEST_TITLE = "Новый тест";
 
-	@Inject
-	@Named("mqaBo")
-	@Getter(AccessLevel.PROTECTED)
-	private ModuleQuestionAnswerBo  mqa;
-	
-	@Inject
-	@Named("moduleBo")
-	@Getter(AccessLevel.PROTECTED)
-	private SimpleCrudBusinessObject<Module> m;
-	
-	@Override
-	public void add(Test entity) {
-		entity.setDate(getCurrentDate());
-		super.add(entity);
-	}
+    @Inject
+    @Named("testDao")
+    @Getter(AccessLevel.PROTECTED)
+    private SimpleCrudDao<Test> dao;
 
-	@Override
-	public List<Module> getAllModules() {
-		return mqa.getAllModules();
-	}
+    @Inject
+    @Named("mqaBo")
+    @Getter(AccessLevel.PROTECTED)
+    private ModuleQuestionAnswerBo mqa;
 
-	@Override
-	public void addTest() {
-		Test test  = new Test();
-		test.setTitle(EMPTY_TEST_TITLE);
-		add(test);		
-	}
+    @Inject
+    @Named("moduleBo")
+    @Getter(AccessLevel.PROTECTED)
+    private SimpleCrudBusinessObject<Module> m;
 
-	@Override
-	public List<Question> getModuleQuestions(Module module, Test activeTest) {
-		List<Question> res = mqa.getModuleQuestions(module);
-		res.removeAll(activeTest.getQuestions());
-		return res;
-	}
+    @Override
+    public void add(Test entity) {
+        entity.setDate(getCurrentDate());
+        super.add(entity);
+    }
 
-	@Override
-	public List<Question> getTestQuestions(Test activeTest) {
-		return asOrderList(activeTest.getQuestions());
-	}
+    @Override
+    public List<Module> getAllModules() {
+        return mqa.getAllModules();
+    }
 
-	@Override
-	public Module refreshModule(Module newValue) {
-		return m.getById(newValue.getId());
-	}
-	
-	
+    @Override
+    public void addTest() {
+        Test test = new Test();
+        test.setTitle(EMPTY_TEST_TITLE);
+        add(test);
+    }
+
+    @Override
+    public List<Question> getModuleQuestions(Module module, Test activeTest) {
+        List<Question> res = mqa.getModuleQuestions(module);
+        res.removeAll(activeTest.getQuestions());
+        return res;
+    }
+
+    @Override
+    public List<Question> getTestQuestions(Test activeTest) {
+        return asOrderList(activeTest.getQuestions());
+    }
+
+    @Override
+    public Module refreshModule(Module newValue) {
+        return m.getById(newValue.getId());
+    }
+
 }

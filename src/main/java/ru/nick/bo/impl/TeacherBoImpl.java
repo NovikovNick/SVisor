@@ -22,44 +22,43 @@ import ru.nick.model.Teacher;
  *
  */
 @Named("teacherBo")
-public class TeacherBoImpl extends AbstaractBusinessObject<Teacher> implements
-		TeacherBo {
+public class TeacherBoImpl extends AbstaractBusinessObject<Teacher> implements TeacherBo {
 
-	@Inject
-	@Named("teacherDao")
-	@Getter(AccessLevel.PROTECTED)
-	private SimpleCrudDao<Teacher> dao;
+    @Inject
+    @Named("teacherDao")
+    @Getter(AccessLevel.PROTECTED)
+    private SimpleCrudDao<Teacher> dao;
 
-	@Inject
-	@Named("groupBo")
-	private SimpleCrudBusinessObject<Group> gBo;
+    @Inject
+    @Named("groupBo")
+    private SimpleCrudBusinessObject<Group> gBo;
 
-	@Inject
-	@Named("disciplineBo")
-	private SimpleCrudBusinessObject<Discipline> dBo;
+    @Inject
+    @Named("disciplineBo")
+    private SimpleCrudBusinessObject<Discipline> dBo;
 
-	@Override
-	public List<Discipline> getDisciplineList(Teacher teacher) {
-		return asOrderList(teacher.getDisciplines());
-	}
+    @Override
+    public List<Discipline> getDisciplineList(Teacher teacher) {
+        return asOrderList(teacher.getDisciplines());
+    }
 
-	@Override
-	public List<Group> getGroupList(Teacher teacher) {
-		return asOrderList(teacher.getGroups());
-	}
+    @Override
+    public List<Group> getGroupList(Teacher teacher) {
+        return asOrderList(teacher.getGroups());
+    }
 
-	@Override
-	public List<Discipline> getAllDisciplines(Teacher teacher) {
-		List<Discipline> res = dBo.findAll();
-		res.removeAll(getDisciplineList(teacher));
-		return res;
-	}
+    @Override
+    public List<Discipline> getAllDisciplines(Teacher teacher) {
+        List<Discipline> res = dBo.findAll();
+        res.removeAll(getDisciplineList(teacher));
+        return res;
+    }
 
-	@Override
-	public List<Group> getAllGroups(Teacher teacher) {
-		List<Group> res = gBo.findAll();
-		res.removeAll(getGroupList(teacher));
-		return res;
+    @Override
+    public List<Group> getAllGroups(Teacher teacher) {
+        List<Group> res = gBo.findAll();
+        res.removeAll(getGroupList(teacher));
+        return res;
 
-	}
+    }
 }

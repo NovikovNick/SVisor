@@ -15,19 +15,19 @@ import ru.nick.model.Speciality;
 @Named("specialityDao")
 public class SpecialityDaoImpl extends AbstractCrudDao<Speciality> {
 
-	@Override
-	public List<Speciality> findAll() {
-		return query("Speciality.getAll");
-	}
+    @Override
+    public List<Speciality> findAll() {
+        return query("Speciality.getAll");
+    }
 
-	@Override
-	protected Class<Speciality> getGenericClass() {
-		return Speciality.class;
-	}
+    @Override
+    protected Class<Speciality> getGenericClass() {
+        return Speciality.class;
+    }
 
-	@Override
-	protected String[] getUpdatableField() {
-		return new String[] { "Title" };
-	}
+    @Override
+    protected String[] getUpdatableField() {
+        return new String[] { "Title" };
+    }
 
 }
