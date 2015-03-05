@@ -273,10 +273,10 @@
 				<version>2.14</version>
 
 				<configuration>
-<!-- 					<configLocation>src/test/resources/checkstyle.xml</configLocation> -->
-					<configLocation>config/sun_checks.xml</configLocation>
+					<configLocation>src/test/resources/checkstyle.xml</configLocation>
 					<consoleOutput>true</consoleOutput>
 					<linkXRef>false</linkXRef>
+					<includeResources>false</includeResources>
 				</configuration>
 				<executions>
 					<execution>

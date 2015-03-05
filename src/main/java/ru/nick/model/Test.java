@@ -43,7 +43,9 @@ public class Test extends AbstractPersistable<Long> implements Identifiable {
     private @Getter @Setter Date date;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "test_question", joinColumns = @JoinColumn(name = "id_test", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_question", referencedColumnName = "id"))
+    @JoinTable(name = "test_question", 
+        joinColumns = @JoinColumn(name = "id_test", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "id_question", referencedColumnName = "id"))
     private @Getter @Setter Set<Question> questions;
 
 }

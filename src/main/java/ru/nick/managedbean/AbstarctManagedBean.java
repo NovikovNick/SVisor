@@ -47,7 +47,7 @@ import ru.nick.bo.SimpleCrudBusinessObject;
  */
 public abstract class AbstarctManagedBean<T> {
 
-    private final String EMPTY_FORM_FIELD = "тест";
+    private static final String EMPTY_FORM_FIELD = "тест";
 
     /**
      * Кэшированный внутри список сущностей
@@ -64,11 +64,11 @@ public abstract class AbstarctManagedBean<T> {
      * <pre>
      * @Override
      * public String add() {
-     * 	...
-     * 	getBo().add(teacher);
-     * 	clearForm();
-     * 	refresh();
-     * 	return null;
+     *     ...
+     *     getBo().add(teacher);
+     *     clearForm();
+     *     refresh();
+     *     return null;
      * }
      * </pre>
      * 
@@ -254,7 +254,7 @@ public abstract class AbstarctManagedBean<T> {
 
         String input = (String) value;
 
-        if (input == "") {
+        if (input.equals("")) {
             Messages.throwsValidateException("validation_empty", null);
         }
         if (input.length() < 2) {

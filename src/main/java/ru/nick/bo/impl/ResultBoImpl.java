@@ -34,10 +34,10 @@ public class ResultBoImpl extends AbstaractBusinessObject<Result> implements Res
 
     private @Getter @Setter Student student;
     private @Getter @Setter int currentAttempt;
-    private @Getter @Setter Map<Question, Boolean> result;
+    private @Setter Map<Question, Boolean> result;
     private @Getter @Setter Test test;
 
-    private final double MAX_RES = 100;
+    private final static double MAX_RES = 100;
 
     @PostConstruct
     private void init() {
@@ -48,7 +48,7 @@ public class ResultBoImpl extends AbstaractBusinessObject<Result> implements Res
         Result result = new Result();
         result.setAttempt(getCurrentAttempt());
         result.setStudent(getStudent());
-        result.setResult(calculate(getResult()));
+       // result.setResult(calculate(getResult()));
         result.setTest(getTest());
         dao.add(result);
     }
@@ -61,6 +61,12 @@ public class ResultBoImpl extends AbstaractBusinessObject<Result> implements Res
                 res++;
         }
         return (int) (res == 0 ? 0 : res / (max / MAX_RES));
+    }
+
+    @Override
+    public Map<String, Boolean> getResult() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

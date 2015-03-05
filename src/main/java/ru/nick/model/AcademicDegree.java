@@ -14,9 +14,7 @@ import lombok.Setter;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 /**
- * Сущность системы, представляющая собой ученую степень (<a href=
- * "https://ru.wikipedia.org/wiki/%D0%A3%D1%87%D1%91%D0%BD%D0%B0%D1%8F_%D1%81%D1%82%D0%B5%D0%BF%D0%B5%D0%BD%D1%8C"
- * > wikipedia </a>).
+ * Сущность системы, представляющая собой ученую степень 
  * 
  * @author NovikovNick
  * @see Identifiable

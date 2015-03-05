@@ -50,11 +50,15 @@ public class Teacher implements Identifiable {
     private @Setter @Getter AcademicTitle title;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "teacher_discipline", joinColumns = @JoinColumn(name = "id_teacher", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_discipline", referencedColumnName = "id"))
+    @JoinTable(name = "teacher_discipline", 
+        joinColumns = @JoinColumn(name = "id_teacher", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "id_discipline", referencedColumnName = "id"))
     private @Setter @Getter Set<Discipline> disciplines;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "teacher_groups", joinColumns = @JoinColumn(name = "id_teacher", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_group", referencedColumnName = "id"))
+    @JoinTable(name = "teacher_groups", 
+        joinColumns = @JoinColumn(name = "id_teacher", referencedColumnName = "id"), 
+        inverseJoinColumns = @JoinColumn(name = "id_group", referencedColumnName = "id"))
     private @Setter @Getter Set<Group> groups;
 
     private @Setter @Getter BigInteger inn;// 12 цифр

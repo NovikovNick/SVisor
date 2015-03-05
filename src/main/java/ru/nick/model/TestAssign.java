@@ -56,10 +56,12 @@ public class TestAssign extends AbstractPersistable<Long> implements Identifiabl
     private @Getter @Setter Test test;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "testassign_groups", joinColumns = @JoinColumn(name = "id_testassign", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_group", referencedColumnName = "id"))
+    @JoinTable(name = "testassign_groups", 
+        joinColumns = @JoinColumn(name = "id_testassign", referencedColumnName = "id"), 
+        inverseJoinColumns = @JoinColumn(name = "id_group", referencedColumnName = "id"))
     private @Getter @Setter Set<Group> groups;
 
-    // BO?
+    // TODO:BO?
     public List<Group> tmpG() {
         return new ArrayList<>(groups);
     }

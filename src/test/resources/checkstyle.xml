@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+    "-//Puppy Crawl//DTD Check Configuration 1.2//EN"
+    "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
+
+<module name="Checker">
+    <module name="FileLength"/>
+    <module name="FileTabCharacter"/>
+
+    <module name="TreeWalker">
+        <property name="cacheFile" value="${checkstyle.cache.file}"/>
+        
+        <module name="MemberName">
+ 			<property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
+		</module>
+		
+        <module name="PackageName"/>
+        <module name="AvoidStarImport"/>
+        <module name="IllegalImport"/> <!-- defaults to sun.* packages -->
+        <module name="RedundantImport"/>
+        <module name="UnusedImports"/>
+        <module name="LineLength">
+            <property name="max" value="100"/>
+        </module>
+        <module name="RedundantThrows"/>
+        <module name="StringLiteralEquality"/>
+        <module name="CovariantEquals"/>
+        <module name="NoFinalizer"/>
+        <module name="PackageDeclaration"/>
+        <module name="UpperEll"/>
+    </module>
+</module>

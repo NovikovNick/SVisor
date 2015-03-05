@@ -22,8 +22,10 @@ import lombok.ToString;
 @Entity
 @Table(name = "student")
 @NamedQueries({
-        @NamedQuery(name = "Student.getAll", query = "SELECT s from Student s"),
-        @NamedQuery(name = "Student.getByLoginPassword", query = "SELECT s from Student s WHERE s.login = ?1 AND s.password = ?2") })
+        @NamedQuery(name = "Student.getAll", 
+            query = "SELECT s from Student s"),
+        @NamedQuery(name = "Student.getByLoginPassword", 
+            query = "SELECT s from Student s WHERE s.login = ?1 AND s.password = ?2") })
 @EqualsAndHashCode(of = { "id" })
 @ToString(of = { "surname", "id" })
 public class Student implements Identifiable {
