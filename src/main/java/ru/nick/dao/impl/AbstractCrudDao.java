@@ -31,6 +31,8 @@ import ru.nick.model.Identifiable;
 @Transactional
 public abstract class AbstractCrudDao<T extends Identifiable> implements SimpleCrudDao<T> {
 
+    
+    
     @PersistenceContext
     private EntityManager em;
 

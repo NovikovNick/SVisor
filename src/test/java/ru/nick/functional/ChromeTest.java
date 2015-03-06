@@ -1,4 +1,4 @@
-package ru.nick.webapp.integration;
+package ru.nick.functional;
 
 import java.io.File;
 import java.io.IOException;
@@ -79,7 +79,7 @@ public class ChromeTest extends Assert{
 		inputText("pensionInsuranceTeacher", "124143622");
 		selectOne("select_degree", 1);
 		selectOne("select_title", 1);
-		selectMany("select_discipline", 2, 4, 8, 13, 16, 21, 28);
+		selectMany("select_discipline", 2, 4, 10, 8, 6, 7, 1, 3);
 		selectMany("select_group", 1);	
 		teacherProof();
 		

@@ -1,10 +1,8 @@
 package ru.nick.managedbean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -20,7 +18,6 @@ import ru.nick.dao.EntityDao;
 import ru.nick.model.Answer;
 import ru.nick.model.Student;
 import ru.nick.model.TestAssign;
-import ru.nick.security.Entity;
 
 /**
  * Сессионный bean поддержки действий студента
