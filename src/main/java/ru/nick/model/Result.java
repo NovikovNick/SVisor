@@ -39,5 +39,14 @@ public class Result extends AbstractPersistable<Long> implements Identifiable {
     @ManyToOne
     @JoinColumn(name = "id_test")
     private @Getter @Setter Test test;
+    @Override
+    
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Result: ").append(test.getTitle()+"| " + student.getId() + ":" + result);
+        return builder.toString();
+    }
+    
+    
 
 }

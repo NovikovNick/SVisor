@@ -9,7 +9,7 @@ import lombok.Getter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import ru.nick.bo.ResultBo;
+import ru.nick.bo.testing.ResultParser;
 import ru.nick.model.Result;
 
 /**
@@ -26,6 +26,6 @@ public class ResultBean extends AbstarctManagedBean<Result> {
     @Inject
     @Named("resultBo")
     @Getter(AccessLevel.PROTECTED)
-    private ResultBo bo;
+    private ResultParser bo;
 
 }

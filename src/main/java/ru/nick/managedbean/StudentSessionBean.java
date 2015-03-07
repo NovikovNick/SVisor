@@ -13,7 +13,7 @@ import lombok.Setter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import ru.nick.bo.impl.TestProvider;
+import ru.nick.bo.testing.TestProvider;
 import ru.nick.dao.EntityDao;
 import ru.nick.model.Answer;
 import ru.nick.model.Student;

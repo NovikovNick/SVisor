@@ -21,10 +21,13 @@
     http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
 
-    <context:component-scan base-package="ru.nick" />
-	<!-- <jpa:repositories base-package="ru.nick.dao" /> TODO CrudRepositories! -->
-	<aop:aspectj-autoproxy />
-	<bean class="ru.nick.aop.LoggingAspect" />
+    
+    <context:component-scan base-package="ru.nick.dao" />
+    <context:component-scan base-package="ru.nick.bo" />
+    <context:component-scan base-package="ru.nick.managedbean" />
+    
+<!-- 	<aop:aspectj-autoproxy /> -->
+<!-- 	<bean class="ru.nick.aop.LoggingAspect" /> -->
 
 
 	<bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
