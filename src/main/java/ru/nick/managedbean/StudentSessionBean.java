@@ -1,7 +1,5 @@
 package ru.nick.managedbean;
 
-import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -15,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 import ru.nick.bo.testing.TestProvider;
 import ru.nick.dao.EntityDao;
-import ru.nick.model.Answer;
+import ru.nick.model.Question;
 import ru.nick.model.Student;
 import ru.nick.model.TestAssign;
 
@@ -31,39 +29,43 @@ public class StudentSessionBean extends AbstarctEntityBean<Student> {
 
     @Inject
     @Named("studentDao")
-    public @Getter(AccessLevel.PROTECTED) EntityDao<Student> dao;
-    
+    @Getter(AccessLevel.PROTECTED)
+    public EntityDao<Student> dao;
+
     @Inject
     @Named("testProvider")
     private @Getter @Setter TestProvider test;
 
+    
+    private @Getter @Setter boolean activeAssign;
+    
     @PostConstruct
     private void init() {
         test.setStudent(getEntity());
     }
-    
-    
-    // *********** Getter/setter methods ****************//
-    // ************* START ********************//
-    public List<TestAssign> getAssignes() {
-        return test.getAssignes();
-    }
-    // ************* END ********************//
 
+    
+    
     public String start(TestAssign assign) {
+        test.start(assign);
+        activeAssign = true;
         return null;
     }
 
+    public String getQuestion(int cursor) {
+        test.getQuestion(cursor);
+        return null;
+    }
+    
+    public Question getQuestion() {
+        return test.getQuestion();
+    }
+    
     public String done() {
+        test.done();
+        activeAssign = false;
         return null;
     }
 
-    public boolean isActiveAssign() {
-        return false;
-    }
-
-    public void next(Answer answer) {
-
-    }
 
 }

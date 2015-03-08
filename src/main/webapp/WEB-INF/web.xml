@@ -7,7 +7,7 @@
 
 	id="WebApp_ID" version="3.0">
 
-	<display-name>JSF-SPRING-JSP</display-name>
+	<display-name>SVisor</display-name>
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
@@ -34,8 +34,6 @@
 	<filter-mapping>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
-		<!-- <dispatcher>FORWARD</dispatcher> -->
-		<!-- <dispatcher>REQUEST</dispatcher> -->
 	</filter-mapping>
 
 

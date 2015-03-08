@@ -10,27 +10,31 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import ru.nick.bo.SimpleCrudBusinessObject;
-import ru.nick.bo.testing.ResultParser.Strategy;
+import ru.nick.dao.SimpleCrudDao;
 import ru.nick.model.Answer;
 import ru.nick.model.Question;
+import ru.nick.model.Result;
 import ru.nick.model.Student;
 import ru.nick.model.TestAssign;
 
 @Named("testProvider")
 public class TestProvider {
 
-    private @Getter @Setter Student student;
+    private @Setter Student student;
 
     @Inject
     @Named("testAssignBo")
-    public SimpleCrudBusinessObject<TestAssign> assignBo;
-
+    @Getter(AccessLevel.PROTECTED)
+    private SimpleCrudBusinessObject<TestAssign> assignBo;
+    
     @Inject
-    @Named("resultBo")
-    private ResultParser parser;
+    @Named("resultDao")
+    @Getter(AccessLevel.PROTECTED)
+    private SimpleCrudDao<Result> resultDao;
 
     private TestAssign assignment;
 
@@ -47,9 +51,9 @@ public class TestProvider {
     }
 
     // ************ Testing ******************
-    private List<Question> questions;
+    private @Getter List<Question> questions;
     private Answer[] answers;
-
+    
     private int cursor = 0;
 
     public void start(TestAssign assignment) {
@@ -112,10 +116,7 @@ public class TestProvider {
         for (int i = 0; i < questions.size(); i++) {
             result.put(questions.get(i), answers[i]);
         }
-        parser.setStrategy(Strategy.SIMPLE);
-        parser.setResult(result);
-        parser.setAssignment(assignment);
-        parser.setStudent(getStudent());
-        parser.done();
+        
+        resultDao.add(new ResultBuilder(student, 0, result, assignment).buildResult());
     }
 }

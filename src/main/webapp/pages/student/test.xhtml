@@ -10,23 +10,39 @@
 	<ui:define name="body">
 
 		<h:form rendered="#{!student.isActiveAssign()}">
-			<svisor:box leftHead="#{msg.page_teacher_test_assign_header}" height="400" width="400">
-				<ui:repeat value="#{student.test.assignes}" var="assign" varStatus="status">
+			<svisor:box leftHead="#{msg.page_teacher_test_assign_header}"
+				height="400" width="400">
+				<ui:repeat value="#{student.test.assignes}" var="assign"
+					varStatus="status">
+					<p>#{assign.test.title}</p>
 					<p>
-						#{assign.test.title}
+						<h:commandButton value="#{msg.page_student_test_start}"
+							action="#{student.start(assign)}" />
 					</p>
-					<p>
-						<h:commandButton value="#{msg.page_student_test_start}" action="#{student.start(assign)}"/>
-					</p>
-					<hr/>	
+					<hr />
 				</ui:repeat>
-				
 			</svisor:box>
 		</h:form>
 
 		<h:form rendered="#{student.isActiveAssign()}">
-			<svisor:box leftHead="..." height="400" width="800">
-			</svisor:box>
+			<div style="float:left;width:28%;">
+				<svisor:box leftHead="left" height="400" width="220">
+					<ul>
+						<ui:repeat value="#{student.test.questions}" var="question"
+							varStatus="status">
+							<li><h:commandLink title="#{question.content}"
+									value="#{status.index}"
+									action="#{student.getQuestion(status.index)}" /></li>
+						</ui:repeat>
+					</ul>
+				</svisor:box>
+			</div>
+				
+			<div style="float:right;width:71%;padding-right: 1%;">
+				<svisor:box leftHead="rigth" height="400" width="680">
+					#{student.getQuestion().content}
+				</svisor:box>
+			</div>
 		</h:form>
 	</ui:define>
 </ui:composition>

@@ -116,6 +116,11 @@
 			<to-view-id>/pages/student/test.xhtml</to-view-id>
 	        <redirect/>
 	    </navigation-case>
+	     <navigation-case>
+	        <from-outcome>student_boot</from-outcome>
+			<to-view-id>/pages/student/boot.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
 	</navigation-rule>
 
 	<application>

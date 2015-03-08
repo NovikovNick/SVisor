@@ -9,7 +9,8 @@ import lombok.Getter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import ru.nick.bo.testing.ResultParser;
+import ru.nick.bo.SimpleCrudBusinessObject;
+import ru.nick.bo.testing.ResultBuilder;
 import ru.nick.model.Result;
 
 /**
@@ -23,9 +24,14 @@ import ru.nick.model.Result;
 @Scope("request")
 public class ResultBean extends AbstarctManagedBean<Result> {
 
-    @Inject
-    @Named("resultBo")
-    @Getter(AccessLevel.PROTECTED)
-    private ResultParser bo;
+    @Override
+    protected SimpleCrudBusinessObject<Result> getBo() {
+       throw new UnsupportedOperationException();
+    }
+
+//    @Inject
+//    @Named("resultParser")
+//    @Getter(AccessLevel.PROTECTED)
+//    private ResultParser bo;
 
 }
