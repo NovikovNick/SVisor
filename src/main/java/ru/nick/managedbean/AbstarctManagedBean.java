@@ -2,12 +2,16 @@ package ru.nick.managedbean;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+
+import org.primefaces.event.SelectEvent;
 
 import ru.nick.bo.SimpleCrudBusinessObject;
 
@@ -265,6 +269,13 @@ public abstract class AbstarctManagedBean<T> {
         }
 
     }
+
     // ================================END=======================================
 
+    public void onEvent(SelectEvent event) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Date Selected",
+                format.format(event.getObject())));
+    }
 }

@@ -23,7 +23,10 @@
 		<param-name>facelets.LIBRARIES</param-name>
 		<param-value>/WEB-INF/svisor.taglib.xml</param-value>
 	</context-param>
-
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>ui-darkness</param-value>
+	</context-param>
 
 
 	<!-- Spring Security -->
@@ -45,7 +48,7 @@
 	<listener>
 		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
 	</listener>
-	<listener><!-- Because Jetty exploded with curses -->
+	<listener><!-- to avoid Jetty warnings -->
 		<listener-class>com.sun.faces.config.ConfigureListener</listener-class>
 	</listener>
 
@@ -72,9 +75,37 @@
 
 	<!-- Servlet? -->
 
+
+
+	<!-- BOOTSTRAP: web fonts -->
+	<mime-mapping>
+		<extension>eot</extension>
+		<mime-type>application/vnd.ms-fontobject</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>otf</extension>
+		<mime-type>font/opentype</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>ttf</extension>
+		<mime-type>application/x-font-ttf</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>woff</extension>
+		<mime-type>application/x-font-woff</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>svg</extension>
+		<mime-type>image/svg+xml</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>ico</extension>
+		<mime-type>image/x-icon</mime-type>
+	</mime-mapping>
+	
+
 	<!-- WELCOME-FILE -->
 	<welcome-file-list>
 		<welcome-file>/pages/welcome.xhtml</welcome-file>
 	</welcome-file-list>
-
 </web-app>

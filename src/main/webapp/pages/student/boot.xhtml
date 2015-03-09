@@ -3,11 +3,39 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:svisor="http://java.sun.com/jsf/composite/svisor">
+	xmlns:svisor="http://java.sun.com/jsf/composite/svisor"
+	xmlns:p="http://primefaces.org/ui">
 
-	<ui:define name="title">Boostrap Exampl</ui:define>
+	<ui:define name="title">Boostrap Example</ui:define>
 
 	<ui:define name="content">
-		Student main... 
+		<h1 class="page-header ">
+			<i class="fa fa-tachometer"></i> Dashboard
+		</h1>
+		<h:form>
+
+			<p:growl id="growl" showDetail="true" sticky="true" />
+
+			<p:panel id="panel" header="Growl" toggleable="true" closable="true"
+				toggleSpeed="500" closeSpeed="500" widgetVar="panel">
+				<p:calendar required="true" id="button"
+					value="#{assignBean.date_start}" showOn="button">
+					<p:ajax event="dateSelect" listener="#{assignBean.onEvent}"
+						update="growl" />
+				</p:calendar>
+
+				<p:commandButton value="Save" />
+			</p:panel>
+			<p:draggable for="panel" handle=".ui-panel-titlebar" />
+			
+			
+			<p:feedReader value="http://www.spmi.ru/rssnews/rss" var="feed" >
+				<h:outputText value="#{feed.title}"
+					style="font-weight: bold;display:block" />
+				<h:outputText value="#{feed.description.value}" escape="false" />
+				<p:separator />
+			</p:feedReader>
+			
+		</h:form>
 	</ui:define>
 </ui:composition>
