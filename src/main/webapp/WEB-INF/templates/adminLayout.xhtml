@@ -16,18 +16,40 @@
 
 	<f:facet name="middle">
 		<h:outputStylesheet name="bootstrap/css/bootstrap.css" />
-		<h:outputStylesheet library="default" name="css/dashboard.css" />
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" />
+		<h:outputStylesheet library="default" name="css/svisor.css" />
+		<script
+			src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" />
 		<h:outputScript name="bootstrap/js/bootstrap.js" />
 	</f:facet>
 
 	<f:facet name="last">
-		<h:outputStylesheet library="default"  name="css/font-awesome.css" />
-		<link type="text/css" rel="stylesheet" href="/project/faces/javax.faces.resource/theme.css?ln=primefaces-ui-darkness" />
+		<h:outputStylesheet library="default" name="css/font-awesome.css" />
+		<link type="text/css" rel="stylesheet"
+			href="/project/faces/javax.faces.resource/theme.css?ln=primefaces-ui-darkness" />
 	</f:facet>
+
 </h:head>
 <h:body>
-	<ui:include src="/WEB-INF/includes/bs_header.xhtml" />
-	<ui:include src="/WEB-INF/includes/bs_content.xhtml" />
+	<ui:insert name="header">
+		<ui:include src="/WEB-INF/includes/admin/header.xhtml" />
+	</ui:insert>
+
+
+	<div id="wrap" class="container">
+		<ui:insert name="body">BODY PLACEHOLDER...</ui:insert>
+
+	</div>
+
+	<div id="footer">
+		<div class="container">
+			<p class="muted credit">
+				<p class="pull-left">#{msg.application_org}</p>
+				<p class="pull-right">#{msg.application_author}</p>
+			</p>
+		</div>
+	</div>
+
+
+
 </h:body>
 </html>

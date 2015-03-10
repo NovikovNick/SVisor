@@ -10,6 +10,7 @@ import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
@@ -23,21 +24,17 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Entity
 @Table(name = "academicDegree")
 @NamedQuery(name = "AcademicDegree.getAll", query = "SELECT ad FROM AcademicDegree ad")
+@ToString(of = { "reducDegree" })
 public class AcademicDegree extends AbstractPersistable<Long> implements Identifiable {
 
     private static final long serialVersionUID = 1L;
-    @Getter
-    @Setter
+   
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    @Getter
-    @Setter
+    private @Getter @Setter Long id;
     @Column
-    private String fullDegree;
-    @Getter
-    @Setter
+    private @Getter @Setter String fullDegree;
     @Column
-    private String reducDegree;
+    private @Getter @Setter String reducDegree;
 
 }

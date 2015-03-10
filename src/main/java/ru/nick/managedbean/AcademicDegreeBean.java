@@ -5,7 +5,6 @@ import javax.inject.Named;
 
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.Setter;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -26,15 +25,5 @@ public class AcademicDegreeBean extends AbstarctManagedBean<AcademicDegree> {
     @Named("academicDegreeBo")
     @Getter(AccessLevel.PROTECTED)
     private SimpleCrudBusinessObject<AcademicDegree> bo;
-
-    @FormField
-    @Getter
-    @Setter
-    private String fullDegree;
-
-    @FormField
-    @Getter
-    @Setter
-    private String reducDegree;
 
 }

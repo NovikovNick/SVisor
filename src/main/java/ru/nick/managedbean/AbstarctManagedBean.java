@@ -2,14 +2,24 @@ package ru.nick.managedbean;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
+import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
+
+import lombok.Getter;
+import lombok.Setter;
 
 import org.primefaces.event.SelectEvent;
 
@@ -52,78 +62,35 @@ import ru.nick.bo.SimpleCrudBusinessObject;
 public abstract class AbstarctManagedBean<T> {
 
     private static final String EMPTY_FORM_FIELD = "тест";
+    private @Getter @Setter T entity;
+    protected @Getter List<T> all;
 
-    /**
-     * Кэшированный внутри список сущностей
-     */
-    protected List<T> all;
-
-    // ======================= CRUD-operation =================================
-    // ===============================START======================================
-    /**
-     * Метод добавляет собирает инфомацию со страницы, строит объект и передает
-     * его в {@link ru.nick.bo}. При переопределение этого метода необходимо
-     * вызвать методы:
-     * 
-     * <pre>
-     * @Override
-     * public String add() {
-     *     ...
-     *     getBo().add(teacher);
-     *     clearForm();
-     *     refresh();
-     *     return null;
-     * }
-     * </pre>
-     * 
-     * @return JSF-action
-     */
+   
     public String add() {
-        T entity = null;
 
+        getBo().add(entity);
+        Messages.info("entity_add", null);
+        refresh();        
+        return null;
+    }
+
+    public List<T> findAll() {
+        return getBo().findAll();
+    }
+
+    public T findById(long id) {
+        return getBo().getById(id);
+    }
+
+    @PostConstruct
+    protected void refresh() {// TODO:It is not correct to use exception in app
+                              // logic...
         try {
             entity = getGenericClass().newInstance();
         } catch (InstantiationException | IllegalAccessException | SecurityException
                 | IllegalArgumentException e) {
             e.printStackTrace();
         }
-        fillFields(entity);
-        getBo().add(entity);
-        clearForm();
-        refresh();
-        return null;
-    }
-
-    /**
-     * @return Метод возвращает {@link #all}
-     */
-    public List<T> getAll() {
-        return all;
-    }
-
-    /**
-     * @return возвращает список всеx сущностей типа T xранящегося в базе данныx
-     */
-    public List<T> findAll() {
-        return getBo().findAll();
-    }
-
-    /**
-     * 
-     * @param id
-     *            уникальный идентификатор сущности типа Т
-     * @return возвращает сущность T
-     */
-    public T findById(long id) {
-        return getBo().getById(id);
-    }
-
-    /**
-     * Метод обнавляющий данные bean'а
-     */
-    @PostConstruct
-    protected void refresh() {// TODO:It is not correct to use exception in app
-                              // logic...
         try {
             all = findAll();
         } catch (UnsupportedOperationException e) {
@@ -272,10 +239,93 @@ public abstract class AbstarctManagedBean<T> {
 
     // ================================END=======================================
 
-    public void onEvent(SelectEvent event) {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Date Selected",
-                format.format(event.getObject())));
+    
+    private static class Messages {
+
+        private static final String RESOURCE_BUNDLE_NAME = "messages";
+
+        public static FacesMessage getMessage(String bundleName, String resourceId, Object[] params) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            Application app = context.getApplication();
+            String appBundle = app.getMessageBundle();
+            Locale locale = getLocale(context);
+            ClassLoader loader = getClassLoader();
+            String summary = getString(appBundle, bundleName, resourceId, locale, loader, params);
+            if (summary == null) {
+                summary = "???" + resourceId + "???";
+            }
+            String detail = getString(appBundle, bundleName, resourceId + "_detail", locale, loader,
+                    params);
+
+            return new FacesMessage(summary, detail);
+        }
+
+        private static String getString(String bundle1, String bundle2, String resourceId,
+                Locale locale, ClassLoader loader, Object[] params) {
+
+            String resource = null;
+            ResourceBundle bundle;
+
+            if (bundle1 != null) {
+                bundle = ResourceBundle.getBundle(bundle1, locale, loader);
+                if (bundle != null) {
+                    try {
+                        resource = bundle.getString(resourceId);
+                    } catch (MissingResourceException e) {
+                        /* NOP */
+                    }
+                }
+            }
+            if (resource == null) {
+                bundle = ResourceBundle.getBundle(bundle2, locale, loader);
+                if (bundle != null) {
+                    try {
+                        resource = bundle.getString(resourceId);
+                    } catch (MissingResourceException e) {
+                        /* NOP */
+                    }
+                }
+            }
+
+            if (resource == null)
+                return null; // mismatch
+            if (params == null)
+                return resource;
+
+            return new MessageFormat(resource, locale).format(params);
+        }
+
+        private static ClassLoader getClassLoader() {
+
+            ClassLoader loader = Thread.currentThread().getContextClassLoader();
+            if (loader == null)
+                loader = ClassLoader.getSystemClassLoader();
+            return loader;
+        }
+
+        private static Locale getLocale(FacesContext context) {
+
+            Locale locale = null;
+            UIViewRoot viewRoot = context.getViewRoot();
+            if (viewRoot != null) {
+                locale = viewRoot.getLocale();
+            }
+            if (locale == null) {
+                locale = Locale.getDefault();
+            }
+            return locale;
+        }
+
+        public static void throwsValidateException(String resourceId, Object[] params) {
+            FacesMessage msg = getMessage(RESOURCE_BUNDLE_NAME, resourceId, params);
+            msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+            throw new ValidatorException(msg);
+        }
+        public static void info(String resourceId, Object[] params) {
+            FacesMessage msg = getMessage(RESOURCE_BUNDLE_NAME, resourceId, params);
+            msg.setSeverity(FacesMessage.SEVERITY_INFO);
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        
     }
 }

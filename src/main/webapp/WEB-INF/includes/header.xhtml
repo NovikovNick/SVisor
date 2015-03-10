@@ -2,58 +2,75 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:svisor="http://svisor.com/facelets">
+	xmlns:svisor="http://svisor.com/facelets"
+	xmlns:p="http://primefaces.org/ui">
 
-	<div id="top">
-	<h:form prependId="false">
-		<div class="shell">
-			<h1 class="logo">#{msg.application_name}</h1>
-			<span class="right">
-				
-					Profile
-					|
-					<h:commandLink action="#{locateChange.en}">
-						<h:graphicImage style="width:30px;" library="default" name="images/flag_en.jpg" />
-					</h:commandLink>
-					|
-					<h:commandLink action="#{locateChange.rus}">
-						<h:graphicImage style="width:30px;" library="default" name="images/flag_rus.jpg" />
-					</h:commandLink>
-					|
-					<h:commandLink id="logout" value="logout" action="#{auth.logout}" />
-				
-			</span>
-		</div>
-		</h:form>
-		<div class="navigation">
+
+
+<div class="navbar navbar-default" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">#{msg.application_name}</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          
 		<h:form prependId="false" rendered="#{navigator.admin}">
-			<ul>
-				<svisor:navigation-item title="Начальная" action="main" />
-				<svisor:navigation-item title="#{msg.page_admin_discipline_title}" action="discipline" />
-				<svisor:navigation-item title="#{msg.page_admin_academicdegree_title}" action="degree" />
-				<svisor:navigation-item title="#{msg.page_admin_academictitle_title}" action="title" />
-				<svisor:navigation-item title="#{msg.page_admin_speciality_title}" action="speciality" />
-				<svisor:navigation-item title="#{msg.page_admin_teacher_title}" action="teacher" />
-				<svisor:navigation-item title="#{msg.page_admin_group_title}" action="group" />
-				
+            <ul class="nav navbar-nav">
+				<li class="active"><h:commandLink value="#{msg.page_admin_discipline_title}" action="discipline"  /></li>
+				<li><h:commandLink value="#{msg.page_admin_academicdegree_title}" action="degree" /></li>
+				<li><h:commandLink value="#{msg.page_admin_academictitle_title}"  action="title"  /></li>
+<!-- 				<li><h:commandLink value="#{msg.page_admin_speciality_title}" action="speciality" /></li> -->
+<!-- 				<li><h:commandLink value="#{msg.page_admin_teacher_title}" action="teacher"  /></li> -->
+<!-- 				<li><h:commandLink value="#{msg.page_admin_group_title}" action="group" /></li> -->
 			</ul>
 		</h:form>
 		<h:form prependId="false" rendered="#{navigator.teacher}">
-			<ul>
-				<svisor:navigation-item title="#{msg.page_mqa_title}" action="module" />
-				<svisor:navigation-item title="#{msg.page_teacher_test_title}" action="test" />
-				<svisor:navigation-item title="#{msg.page_teacher_test_assign_title}" action="testassign" />
-				<svisor:navigation-item title="#{msg.page_teacher_result_title}" action="result" />
-				
+			<ul class="nav navbar-nav">
+				<li class="active"><h:commandLink value="#{msg.page_mqa_title}" action="module" /></li>
+				<li class="active"><h:commandLink value="#{msg.page_teacher_test_title}" action="test"/></li>
+				<li class="active"><h:commandLink value="#{msg.page_teacher_test_assign_title}" action="testassign"  /></li>
+				<li class="active"><h:commandLink title="#{msg.page_teacher_result_title}" action="result" /></li>
 			</ul>
 		</h:form>
 		<h:form prependId="false" rendered="#{navigator.student}">
-			<ul>
-				<svisor:navigation-item title="#{msg.page_student_test_title}" action="student_test" />
-				<svisor:navigation-item title="boot" action="student_boot" />
+			<ul class="nav navbar-nav">
+				<li class="active"><h:commandLink value="#{msg.page_student_test_title}" action="student_test"  /></li>
+				<li class="active"><h:commandLink title="boot" action="student_boot" /></li>
 			</ul>
 		</h:form>
-		</div>
-		
-	</div>
+           
+            <h:form>
+             <ul>
+	            <li class="dropdown">
+	              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Lang<b class="caret"></b></a>
+	              <ul class="dropdown-menu">
+	                <li>
+	               		<h:commandLink action="#{locateChange.rus}">
+							<h:graphicImage style="width:30px;" library="default" name="images/flag_rus.jpg" />
+						</h:commandLink>
+					</li>
+	                <li>
+	                	<h:commandLink action="#{locateChange.en}">
+							<h:graphicImage style="width:30px;" library="default" name="images/flag_en.jpg" />
+						</h:commandLink>
+	                </li>
+	              </ul>
+	            </li>
+            
+	            <li>
+	            	<h:commandLink immediate="true"  value="Logout" action="#{auth.logout}" icon="ui-icon-extlink" />
+			    </li>
+			   </ul>
+            </h:form>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+	
+
 </ui:composition>

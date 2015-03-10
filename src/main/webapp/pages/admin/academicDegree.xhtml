@@ -1,67 +1,85 @@
-<ui:composition template="/WEB-INF/templates/twosidepage.xhtml"
+<ui:composition template="/WEB-INF/templates/adminLayout.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:svisor="http://java.sun.com/jsf/composite/svisor">
+	xmlns:svisor="http://java.sun.com/jsf/composite/svisor"
+	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="title">#{msg.page_admin_academicdegree_title}</ui:define>
 
-	<ui:define name="left">
-		<h:form prependId="false">
-			<svisor:box id="table" leftHead="#{msg.page_admin_academicdegree_header}"  height="300" width="560">
-				<h:dataTable id="academicDegree"  value="#{academicDegreeBean.all}" var="degree">
+	<ui:define name="body">
+		<h:form id="form"><p:growl id="msgs" life="2000"/>
+		
+		<div class="conteiner-fluid">
+			<div class="row">
+			
+			<div class="col-md-8" >
+			<p:panel header="#{msg.page_admin_academicdegree_header}" id="books">
+			
+				<p:dataTable  value="#{academicDegreeBean.all}" var="degree" id="booksTable">
 
-					<h:column>
-						<f:facet name="header">#{msg.page_admin_academicdegree_table_column_id}</f:facet>
-						#{degree.id}
-					</h:column>
+					<p:column
+						headerText="#{msg.page_admin_academicdegree_table_column_id}">
+						<h:outputText value="#{degree.id}" />
+					</p:column>
 
-					<h:column>
-						<f:facet name="header">#{msg.page_admin_academicdegree_table_column_full}</f:facet>
-						<h:inputTextarea cols="30" rows="2" value="#{degree.fullDegree}" />
-					</h:column>
+					<p:column headerText="#{msg.page_admin_academicdegree_table_column_full}">
+						<p:inplace editor="true">
+							<p:inputText value="#{degree.fullDegree}" />
+						</p:inplace>
+					</p:column>
+
+					<p:column headerText="#{msg.page_admin_academicdegree_table_column_reduc}">
+						<p:inplace editor="true">
+							<p:inputText value="#{degree.reducDegree}" />
+						</p:inplace>
+					</p:column>
+
+					<p:column headerText="#{msg.all_table_column_control}">
+						<p:commandLink value="#{msg.all_table_column_delete}"
+							action="#{academicDegreeBean.delete(degree)}"
+							update=":form:books" process=":form:books">
+							<p:collector value="#{book}"
+								removeFrom="#{academicDegreeBean.all}" unique="true" />
+						</p:commandLink>
+					</p:column>
+
+				</p:dataTable>
+			</p:panel>
+			</div>
+			<div class="col-md-4">
+			<p:panel styleClass="form-horizontal" header="#{msg.page_admin_academicdegree_add_header}">
+				
 					
-					<h:column>
-						<f:facet name="header">#{msg.page_admin_academicdegree_table_column_reduc}</f:facet>
-						<h:inputTextarea cols="10" rows="2" value="#{degree.reducDegree}" />
-					</h:column>
+					
+					<div class="form-inline">
+						<h:outputLabel styleClass="col-md-2 control-label" value="#{msg.page_admin_academicdegree_add_full}" for="fullDegree" />
+						<div class="col-md-10">
+							<p:inputText id="fullDegree" value="#{academicDegreeBean.entity.fullDegree}" required="true" />
+						</div>
+					</div>
+					<div class="form-inline">
+						<h:outputLabel styleClass="col-md-2 control-label" value="#{msg.page_admin_academicdegree_add_reduce}" for="reducDegree"/>
+						<div class="col-md-10">
+						<p:inputText id="reducDegree" value="#{academicDegreeBean.entity.reducDegree}" required="true" />
+						</div>
+					</div>
 
-
-					<h:column>
-						<f:facet name="header">#{msg.all_table_column_control}</f:facet>
-						<h:commandLink action="#{academicDegreeBean.delete(degree)}" >
-							<span class="ico del">#{msg.all_table_column_delete}</span>
-						</h:commandLink>
-						<h:commandLink action="#{academicDegreeBean.update(degree)}">
-							<span class="ico edit">#{msg.all_table_column_update}</span>
-						</h:commandLink>
-					</h:column>
-
-				</h:dataTable>
-			</svisor:box>
-		</h:form>
-	</ui:define>
-	<ui:define name="right">
-		<h:form prependId="false">		
-			<svisor:box id="form" leftHead="#{msg.page_admin_academicdegree_add_header}" height="200" width="400">
-
-				<p>
-					<label >#{msg.page_admin_academicdegree_add_full}</label>
-					<h:inputText id="fullDegree" value="#{academicDegreeBean.fullDegree}" />
-					<h:message for="fullDegree" id="fullDegreeError" />
-				</p>
-				
-				<p>
-					<label >#{msg.page_admin_academicdegree_add_reduce}</label>
-					<h:inputText id="reducDegree" value="#{academicDegreeBean.reducDegree}" />
-					<h:message for="reducDegree" id="reducDegreeError" />
-				</p>
-				
-				<p>
-					<h:commandButton id="submit" value="#{msg.page_admin_academicdegree_add_submit}" action="#{academicDegreeBean.add()}" />
-				</p>
-			</svisor:box>
+					<div class="form-inline">
+					<p:commandButton id="btn_reset" value="Reset" type="reset" />
+					<p:commandButton id="btn_add"
+						value="#{msg.page_admin_academicdegree_add_submit}"
+						update="books msgs @parent" action="#{academicDegreeBean.add}">
+						<p:collector value="#{academicDegreeBean.entity}"
+							addTo="#{academicDegreeBean.all}" unique="true" />
+					</p:commandButton>
+					</div>
+			</p:panel>
+			</div>
+			
+			</div>
+		</div>
 		</h:form>
 	</ui:define>
 
