@@ -1,0 +1,19 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:svisor="http://svisor.com/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+	<h:form>
+	<ul class="nav nav-sidebar">
+		<li class="active"><h:commandLink value="#{msg.page_admin_discipline_title}" action="discipline" /></li>
+		<li><h:commandLink value="#{msg.page_admin_academicdegree_title}" action="degree" /></li>
+		<li><h:commandLink value="#{msg.page_admin_academictitle_title}" action="title" /></li>
+		<li><h:commandLink value="#{msg.page_admin_speciality_title}" action="speciality" /></li>
+		<li><h:commandLink value="#{msg.page_admin_teacher_title}" action="teacher" /></li>
+		<li><h:commandLink value="#{msg.page_admin_group_title}" action="group" /></li>
+	</ul>
+	</h:form>
+</ui:composition>
+</html>

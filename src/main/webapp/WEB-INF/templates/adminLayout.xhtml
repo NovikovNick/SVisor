@@ -30,26 +30,7 @@
 
 </h:head>
 <h:body>
-	<ui:insert name="header">
-		<ui:include src="/WEB-INF/includes/admin/header.xhtml" />
-	</ui:insert>
-
-
-	<div id="wrap" class="container">
-		<ui:insert name="body">BODY PLACEHOLDER...</ui:insert>
-
-	</div>
-
-	<div id="footer">
-		<div class="container">
-			<p class="muted credit">
-				<p class="pull-left">#{msg.application_org}</p>
-				<p class="pull-right">#{msg.application_author}</p>
-			</p>
-		</div>
-	</div>
-
-
-
+	<ui:include src="/WEB-INF/includes/admin/header.xhtml" />
+	<ui:include src="/WEB-INF/includes/admin/content.xhtml" />
 </h:body>
 </html>

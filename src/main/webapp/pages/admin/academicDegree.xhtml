@@ -8,29 +8,29 @@
 
 	<ui:define name="title">#{msg.page_admin_academicdegree_title}</ui:define>
 
-	<ui:define name="body">
-		<h:form id="form"><p:growl id="msgs" life="2000"/>
-		
-		<div class="conteiner-fluid">
-			<div class="row">
-			
-			<div class="col-md-8" >
+	<ui:define name="content">
+		<h:form id="form" >
+		<div class="row">
+			<p:growl id="msgs" life="2000" />
+			<div class="col-md-6">
 			<p:panel header="#{msg.page_admin_academicdegree_header}" id="books">
-			
-				<p:dataTable  value="#{academicDegreeBean.all}" var="degree" id="booksTable">
+				<p:dataTable value="#{academicDegreeBean.all}" var="degree"
+					id="booksTable">
 
 					<p:column
 						headerText="#{msg.page_admin_academicdegree_table_column_id}">
 						<h:outputText value="#{degree.id}" />
 					</p:column>
 
-					<p:column headerText="#{msg.page_admin_academicdegree_table_column_full}">
+					<p:column
+						headerText="#{msg.page_admin_academicdegree_table_column_full}">
 						<p:inplace editor="true">
 							<p:inputText value="#{degree.fullDegree}" />
 						</p:inplace>
 					</p:column>
 
-					<p:column headerText="#{msg.page_admin_academicdegree_table_column_reduc}">
+					<p:column
+						headerText="#{msg.page_admin_academicdegree_table_column_reduc}">
 						<p:inplace editor="true">
 							<p:inputText value="#{degree.reducDegree}" />
 						</p:inplace>
@@ -48,25 +48,30 @@
 				</p:dataTable>
 			</p:panel>
 			</div>
-			<div class="col-md-4">
-			<p:panel styleClass="form-horizontal" header="#{msg.page_admin_academicdegree_add_header}">
-				
-					
-					
-					<div class="form-inline">
-						<h:outputLabel styleClass="col-md-2 control-label" value="#{msg.page_admin_academicdegree_add_full}" for="fullDegree" />
-						<div class="col-md-10">
-							<p:inputText id="fullDegree" value="#{academicDegreeBean.entity.fullDegree}" required="true" />
-						</div>
-					</div>
-					<div class="form-inline">
-						<h:outputLabel styleClass="col-md-2 control-label" value="#{msg.page_admin_academicdegree_add_reduce}" for="reducDegree"/>
-						<div class="col-md-10">
-						<p:inputText id="reducDegree" value="#{academicDegreeBean.entity.reducDegree}" required="true" />
-						</div>
-					</div>
+			<div class="col-md-6">
+			<p:panel header="#{msg.page_admin_academicdegree_add_header}">
 
-					<div class="form-inline">
+
+
+				<div class="form-inline">
+					<h:outputLabel styleClass="col-md-2 control-label"
+						value="#{msg.page_admin_academicdegree_add_full}" for="fullDegree" />
+					<div class="col-md-10">
+						<p:inputText id="fullDegree"
+							value="#{academicDegreeBean.entity.fullDegree}" required="true" />
+					</div>
+				</div>
+				<div class="form-inline">
+					<h:outputLabel styleClass="col-md-2 control-label"
+						value="#{msg.page_admin_academicdegree_add_reduce}"
+						for="reducDegree" />
+					<div class="col-md-10">
+						<p:inputText id="reducDegree"
+							value="#{academicDegreeBean.entity.reducDegree}" required="true" />
+					</div>
+				</div>
+
+				<div class="form-inline">
 					<p:commandButton id="btn_reset" value="Reset" type="reset" />
 					<p:commandButton id="btn_add"
 						value="#{msg.page_admin_academicdegree_add_submit}"
@@ -74,13 +79,13 @@
 						<p:collector value="#{academicDegreeBean.entity}"
 							addTo="#{academicDegreeBean.all}" unique="true" />
 					</p:commandButton>
-					</div>
+				</div>
 			</p:panel>
-			</div>
-			
 			</div>
 		</div>
 		</h:form>
 	</ui:define>
+
+
 
 </ui:composition>
